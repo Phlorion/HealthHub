@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -12,7 +13,7 @@
         app:layout_constraintBottom_toTopOf="@id/admin_signup_linear_layout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="paren"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/outside" />
 
     <LinearLayout
@@ -160,14 +161,39 @@
             android:orientation="horizontal"
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
-            android:layout_marginTop="32dp">
+            android:layout_marginTop="32dp"
+            android:gravity="center_vertical">
 
             <CheckBox
                 android:id="@+id/admin_signup_cb1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="CheckBox" />
+                android:background="@drawable/entry_text"
+                />
+
+            <TextView
+                android:id="@+id/admin_signup_tv6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="I've read and agree with the Terms and\nConditions and the Privacy Policy."
+                android:textColor="@color/light_grey"
+                android:fontFamily="@font/inter_medium"
+                android:layout_marginStart="4dp"
+                />
+
         </LinearLayout>
+
+        <Button
+            android:id="@+id/admin_signup_btn1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Sign Up"
+            android:fontFamily="@font/inter_semibold"
+            android:background="@drawable/round_btn"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="12dp"/>
     </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
