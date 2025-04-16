@@ -12,10 +12,19 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.healthhub.DAO.User;
+import com.example.healthhub.DAO.UserDAO;
+import com.example.healthhub.Utils.Utils;
+
 public class EnterAdminUserActivity extends AppCompatActivity {
 
     Button adminBtn;
     Button userBtn;
+
+    public EnterAdminUserActivity() {
+        User testUser = new User("George", "georgeavrabos@gmail.com", "george111");
+        Utils.userDAO.addUser(testUser);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
