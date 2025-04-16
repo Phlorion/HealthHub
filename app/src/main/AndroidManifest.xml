@@ -13,10 +13,13 @@
         android:theme="@style/Theme.HealthHub"
         tools:targetApi="31">
         <activity
-            android:name=".EnterAdminUserActivity"
+            android:name=".AdminSignUp"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".AdminLogIn"
+            android:exported="false" />
+        <activity
+            android:name=".EnterAdminUserActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

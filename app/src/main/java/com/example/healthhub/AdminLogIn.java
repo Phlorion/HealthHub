@@ -12,24 +12,23 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class EnterAdminUserActivity extends AppCompatActivity {
+public class AdminLogIn extends AppCompatActivity {
 
-    Button adminBtn;
-    Button userBtn;
+    Button loginBtn;
+    TextView registerTV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_enter_admin_user);
+        setContentView(R.layout.activity_admin_login);
 
+        loginBtn = findViewById(R.id.admin_login_btn1);
+        registerTV = findViewById(R.id.admin_login_tv4);
 
-        adminBtn = findViewById(R.id.enter_admin_user_btn1);
-        userBtn = findViewById(R.id.enter_admin_user_btn2);
-
-        adminBtn.setOnClickListener(new View.OnClickListener() {
+        registerTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(EnterAdminUserActivity.this, AdminLogIn.class);
+                Intent intent = new Intent(AdminLogIn.this, AdminSignUp.class);
                 startActivity(intent);
             }
         });
