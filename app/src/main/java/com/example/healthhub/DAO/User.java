@@ -6,6 +6,8 @@ import androidx.annotation.Nullable;
 import java.util.Objects;
 
 public class User {
+    static int _ID = 1;
+    int id;
     String name;
     String email;
     String password;
@@ -14,6 +16,8 @@ public class User {
         this.name = name;
         this.email = email;
         this.password = password;
+        this.id = _ID;
+        _ID++;
     }
 
     @Override

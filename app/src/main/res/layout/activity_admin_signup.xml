@@ -36,7 +36,7 @@
             android:textSize="22sp"
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
-            android:layout_marginTop="18dp"
+            android:layout_marginTop="16dp"
             />
 
         <TextView
@@ -45,7 +45,7 @@
             android:layout_height="wrap_content"
             android:text="Create an account to get started"
             android:textColor="@color/light_grey"
-            android:textSize="18sp"
+            android:textSize="14sp"
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
             android:layout_marginTop="4dp"
@@ -60,8 +60,8 @@
             android:textColor="@color/black"
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
-            android:layout_marginTop="32dp"
-            android:textSize="18sp"
+            android:layout_marginTop="20dp"
+            android:textSize="14sp"
             />
 
         <EditText
@@ -69,12 +69,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
+            android:textSize="14sp"
             android:inputType="text"
             android:hint="name example"
             android:textColorHint="@color/light_grey"
             android:textColor="@color/black"
             android:background="@drawable/entry_text"
-            android:padding="16dp"
+            android:padding="12dp"
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
             android:layout_marginTop="4dp"
@@ -89,8 +90,8 @@
             android:textColor="@color/black"
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
-            android:layout_marginTop="24dp"
-            android:textSize="18sp"
+            android:layout_marginTop="14dp"
+            android:textSize="14sp"
             />
 
         <EditText
@@ -98,12 +99,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
+            android:textSize="14sp"
             android:inputType="textEmailAddress"
             android:hint="name@example.com"
             android:textColorHint="@color/light_grey"
             android:textColor="@color/black"
             android:background="@drawable/entry_text"
-            android:padding="16dp"
+            android:padding="12dp"
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
             android:layout_marginTop="4dp"
@@ -118,8 +120,8 @@
             android:textColor="@color/black"
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
-            android:layout_marginTop="24dp"
-            android:textSize="18sp"
+            android:layout_marginTop="14dp"
+            android:textSize="14sp"
             />
 
         <EditText
@@ -127,12 +129,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
+            android:textSize="14sp"
             android:inputType="textPassword"
             android:hint="Create a password"
             android:textColorHint="@color/light_grey"
             android:textColor="@color/black"
             android:background="@drawable/entry_text"
-            android:padding="16dp"
+            android:padding="12dp"
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
             android:layout_marginTop="4dp"
@@ -143,15 +146,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
+            android:textSize="14sp"
             android:inputType="textPassword"
             android:hint="Confirm password"
             android:textColorHint="@color/light_grey"
             android:textColor="@color/black"
             android:background="@drawable/entry_text"
-            android:padding="16dp"
+            android:padding="12dp"
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="8dp"
             />
 
         <LinearLayout
@@ -161,14 +165,14 @@
             android:orientation="horizontal"
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="24dp"
             android:gravity="center_vertical">
 
             <CheckBox
                 android:id="@+id/admin_signup_cb1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/entry_text"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:buttonTint="@color/light_grey"
                 />
 
             <TextView
@@ -178,7 +182,8 @@
                 android:text="I've read and agree with the Terms and\nConditions and the Privacy Policy."
                 android:textColor="@color/light_grey"
                 android:fontFamily="@font/inter_medium"
-                android:layout_marginStart="4dp"
+                android:textSize="12sp"
+                android:layout_marginStart="12dp"
                 />
 
         </LinearLayout>
@@ -192,8 +197,9 @@
             android:background="@drawable/round_btn"
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
-            android:layout_marginTop="32dp"
-            android:layout_marginBottom="24dp"/>
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="24dp"
+            android:textSize="14sp"/>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

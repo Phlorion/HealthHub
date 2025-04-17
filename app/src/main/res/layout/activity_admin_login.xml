@@ -34,7 +34,7 @@
             android:fontFamily="@font/inter_bold"
             android:text="Welcome"
             android:textColor="@color/black"
-            android:textSize="26sp" />
+            android:textSize="24sp" />
 
         <EditText
             android:id="@+id/admin_login_et1"
@@ -45,10 +45,11 @@
             android:layout_marginEnd="24dp"
             android:background="@drawable/entry_text"
             android:ems="10"
+            android:textSize="14sp"
             android:fontFamily="@font/inter_medium"
             android:hint="Email Address"
             android:inputType="textEmailAddress"
-            android:padding="16dp"
+            android:padding="12dp"
             android:textColor="@color/black"
             android:textColorHint="@color/light_grey" />
 
@@ -61,10 +62,11 @@
             android:layout_marginEnd="24dp"
             android:background="@drawable/entry_text"
             android:ems="10"
+            android:textSize="14sp"
             android:fontFamily="@font/inter_medium"
             android:hint="Password"
             android:inputType="textPassword"
-            android:padding="16dp"
+            android:padding="12dp"
             android:textColor="@color/black"
             android:textColorHint="@color/light_grey" />
 
@@ -73,11 +75,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="26dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="12dp"
             android:fontFamily="@font/inter_semibold"
             android:text="Forgot Password?"
             android:textColor="@color/green"
-            android:textSize="16sp" />
+            android:textSize="12sp" />
 
         <Button
             android:id="@+id/admin_login_btn1"
@@ -90,7 +92,7 @@
             android:fontFamily="@font/inter_semibold"
             android:padding="16dp"
             android:text="Login"
-            android:textSize="16sp" />
+            android:textSize="14sp" />
 
         <LinearLayout
             android:id="@+id/admin_login_linear_layout2"
@@ -109,7 +111,7 @@
                 android:fontFamily="@font/inter_medium"
                 android:text="Not a member?"
                 android:textColor="@color/light_grey"
-                android:textSize="16sp" />
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/admin_login_tv4"
@@ -118,7 +120,7 @@
                 android:fontFamily="@font/inter_semibold"
                 android:text="Register now"
                 android:textColor="@color/green"
-                android:textSize="16sp" />
+                android:textSize="14sp" />
         </LinearLayout>
 
     </LinearLayout>

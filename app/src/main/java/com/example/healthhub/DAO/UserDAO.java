@@ -18,9 +18,9 @@ public class UserDAO {
         return users.remove(user);
     }
 
-    public boolean findUser(User user) {
+    public boolean findUserByID(int id) {
         for (User u : users) {
-            if (user.equals(u)) {
+            if (id == u.id) {
                 return true;
             }
         }
