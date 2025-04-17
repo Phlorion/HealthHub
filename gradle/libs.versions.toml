@@ -1,5 +1,6 @@
 [versions]
 agp = "8.9.1"
+mapsSecret = "2.0.1"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
@@ -21,6 +22,7 @@ constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayo
 play-services-maps = { group = "com.google.android.gms", name = "play-services-maps", version.ref = "playServicesMaps" }
 shawn-lin-number-picker = { group = "io.github.ShawnLin013", name = "number-picker", version.ref = "shawnLinNumberPicker" }
 
+
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
-
+maps-secret = { id = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin", version.ref = "mapsSecret" }

@@ -16,4 +16,5 @@
     <string name="set_medication_add_edit_time_label">Time</string>
 
     <string name="set_medication_add_edit_save_button">Save</string>
+    <string name="title_activity_maps_test">MapsActivityTest</string>
 </resources>

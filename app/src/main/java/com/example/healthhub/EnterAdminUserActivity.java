@@ -56,5 +56,13 @@ public class EnterAdminUserActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        userBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(EnterAdminUserActivity.this, AdminSetHome.class);
+                startActivity(intent);
+            }
+        });
     }
 }
