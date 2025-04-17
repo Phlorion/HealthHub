@@ -1,0 +1,5 @@
+<inset xmlns:android="http://schemas.android.com/apk/res/android"
+    android:drawable="@drawable/friday_checkbox"
+    android:insetLeft="4.5dp"  android:insetTop="5.5dp"
+    android:insetRight="4.5dp"
+    android:insetBottom="5.5dp" />

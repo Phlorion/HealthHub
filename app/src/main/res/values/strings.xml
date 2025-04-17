@@ -1,3 +1,19 @@
 <resources>
     <string name="app_name">HealthHub</string>
+    <string name="set_medication_add_edit_name_label">Name:</string>
+    <string name="set_medication_add_edit_name_label_hint">Medication Name</string>
+    <string name="set_medication_add_edit_quantity_label">Quantity:</string>
+    <string name="set_medication_add_edit_quantity_label_hint">Medication quantity</string>
+    <string name="set_medication_add_edit_duration_label">Duration</string>
+    <string name="set_medication_add_edit_from_label">From:</string>
+    <string name="set_medication_add_edit_to_label">To:</string>
+    <string name="set_medication_add_edit_date_label_hint">DD/MM/YYYY</string>
+    <string name="set_medication_add_edit_until_deletion_label">Until Deletion</string>
+    <string name="set_medication_add_edit_day_label">Day</string>
+    <string name="set_medication_add_edit_every_label">Every</string>
+    <string name="set_medication_add_edit_days_label">day(s)</string>
+    <string name="set_medication_add_edit_custom_label">Custom</string>
+    <string name="set_medication_add_edit_time_label">Time</string>
+
+    <string name="set_medication_add_edit_save_button">Save</string>
 </resources>

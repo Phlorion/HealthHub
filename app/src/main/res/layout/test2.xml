@@ -1,0 +1,386 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/saveButton">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:id="@+id/backButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="?attr/actionModeCloseDrawable" />
+
+                <TextView
+                    android:id="@+id/titleText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Edit/Add"
+                    android:textSize="20sp"
+                    android:textColor="#000000"
+                    android:layout_marginStart="16dp"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/nameLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Name"
+                android:textSize="16sp"
+                android:textColor="#000000"
+                android:layout_marginTop="16dp"/>
+
+            <EditText
+                android:id="@+id/nameEdit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Medication #1"
+                android:padding="8dp"
+                android:layout_marginTop="8dp"/>
+
+            <TextView
+                android:id="@+id/quantityLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Quantity"
+                android:textSize="16sp"
+                android:textColor="#000000"
+                android:layout_marginTop="16dp"/>
+
+            <EditText
+                android:id="@+id/quantityEdit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Medication quantity"
+                android:padding="8dp"
+                android:layout_marginTop="8dp"/>
+
+            <TextView
+                android:id="@+id/durationLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Duration"
+                android:textSize="16sp"
+                android:textColor="#000000"
+                android:layout_marginTop="16dp"/>
+
+            <LinearLayout
+                android:id="@+id/durationLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="8dp">
+
+                <EditText
+                    android:id="@+id/fromDateEdit"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="DD/MM/YYYY"
+                    android:padding="8dp"
+                    android:layout_marginEnd="8dp"/>
+
+                <TextView
+                    android:id="@+id/toLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="To:"
+                    android:textSize="16sp"
+                    android:textColor="#000000"
+                    android:layout_marginEnd="8dp"/>
+
+                <EditText
+                    android:id="@+id/toDateEdit"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="DD/MM/YYYY"
+                    android:padding="8dp"/>
+
+                <CheckBox
+                    android:id="@+id/untilDeletionCheck"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Until Deletion"
+                    android:textSize="14sp"
+                    android:textColor="#000000"
+                    android:layout_marginStart="8dp"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/daysLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Days"
+                android:textSize="16sp"
+                android:textColor="#000000"
+                android:layout_marginTop="16dp"/>
+
+            <LinearLayout
+                android:id="@+id/daysLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginTop="8dp">
+
+                <TextView
+                    android:id="@+id/everyLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Every"
+                    android:textSize="16sp"
+                    android:textColor="#000000"
+                    android:layout_marginEnd="8dp"/>
+
+                <EditText
+                    android:id="@+id/everyEdit"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:hint="3"
+                    android:padding="8dp"
+                    android:inputType="number"
+                    android:gravity="center"/>
+
+                <TextView
+                    android:id="@+id/daysText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="day(s)"
+                    android:textSize="16sp"
+                    android:textColor="#000000"
+                    android:layout_marginStart="8dp"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/customLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Custom"
+                android:textSize="16sp"
+                android:textColor="#000000"
+                android:layout_marginTop="16dp"/>
+
+            <LinearLayout
+                android:id="@+id/customDaysLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="8dp">
+
+                <Button
+                    android:id="@+id/moButton"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:text="MO"
+                    android:textColor="#FFFFFF"
+                    android:background="#4CAF50"
+                    android:layout_marginEnd="4dp"/>
+
+                <Button
+                    android:id="@+id/tuButton"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:text="TU"
+                    android:textColor="#FFFFFF"
+                    android:background="#4CAF50"
+                    android:layout_marginEnd="4dp"/>
+
+                <Button
+                    android:id="@+id/weButton"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:text="WE"
+                    android:textColor="#FFFFFF"
+                    android:background="#E0E0E0"
+                    android:layout_marginEnd="4dp"/>
+
+                <Button
+                    android:id="@+id/thButton"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:text="TH"
+                    android:textColor="#FFFFFF"
+                    android:background="#4CAF50"
+                    android:layout_marginEnd="4dp"/>
+
+                <Button
+                    android:id="@+id/frButton"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:text="FR"
+                    android:textColor="#FFFFFF"
+                    android:background="#E0E0E0"
+                    android:layout_marginEnd="4dp"/>
+
+                <Button
+                    android:id="@+id/saButton"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:text="SA"
+                    android:textColor="#FFFFFF"
+                    android:background="#E0E0E0"
+                    android:layout_marginEnd="4dp"/>
+
+                <Button
+                    android:id="@+id/suButton"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:text="SU"
+                    android:textColor="#FFFFFF"
+                    android:background="#E0E0E0"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/timeLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Time"
+                android:textSize="16sp"
+                android:textColor="#000000"
+                android:layout_marginTop="16dp"/>
+
+            <LinearLayout
+                android:id="@+id/time1Layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginTop="8dp">
+
+                <TextView
+                    android:id="@+id/time1Text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="9:00 am"
+                    android:textSize="16sp"
+                    android:textColor="#000000"/>
+
+                <ImageView
+                    android:id="@+id/time1Edit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"/>
+
+                <ImageView
+                    android:id="@+id/time1Delete"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/time2Layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginTop="8dp">
+
+                <TextView
+                    android:id="@+id/time2Text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="6:00 pm"
+                    android:textSize="16sp"
+                    android:textColor="#000000"/>
+
+                <ImageView
+                    android:id="@+id/time2Edit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"/>
+
+                <ImageView
+                    android:id="@+id/time2Delete"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/time3Layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginTop="8dp">
+
+                <TextView
+                    android:id="@+id/time3Text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="9:00 pm"
+                    android:textSize="16sp"
+                    android:textColor="#000000"/>
+
+                <ImageView
+                    android:id="@+id/time3Edit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"/>
+
+                <ImageView
+                    android:id="@+id/time3Delete"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/addTimeButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="+"
+                android:textColor="#000000"
+                android:background="@android:color/transparent"
+                android:layout_gravity="end"
+                android:layout_marginTop="8dp"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <Button
+        android:id="@+id/saveButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Save"
+        android:textColor="#FFFFFF"
+        android:background="#4CAF50"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="16dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
