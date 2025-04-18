@@ -6,11 +6,14 @@ import androidx.annotation.Nullable;
 import java.util.Objects;
 
 public class User {
-    static int _ID = 1;
+    private static int _ID = 1;
     int id;
     String name;
     String email;
     String password;
+
+    // home
+    Home home;
 
     public User(String name, String email, String password) {
         this.name = name;
@@ -18,6 +21,9 @@ public class User {
         this.password = password;
         this.id = _ID;
         _ID++;
+
+        // create home id
+        home = new Home();
     }
 
     @Override
@@ -35,5 +41,13 @@ public class User {
     @Override
     public String toString() {
         return "Name: " + this.name + "\nEmail: " + this.email + "\nPassword: " + this.password;
+    }
+
+    public Home getHome() {
+        return home;
+    }
+
+    public void setHome(Home home) {
+        this.home.updateHome(home);
     }
 }

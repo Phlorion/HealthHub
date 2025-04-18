@@ -18,13 +18,13 @@ public class UserDAO {
         return users.remove(user);
     }
 
-    public boolean findUserByID(int id) {
+    public User findUserByID(int id) {
         for (User u : users) {
             if (id == u.id) {
-                return true;
+                return u;
             }
         }
-        return false;
+        return null;
     }
 
     public boolean authUser(String email, String pass) {

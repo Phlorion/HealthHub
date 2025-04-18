@@ -57,10 +57,12 @@ public class EnterAdminUserActivity extends AppCompatActivity {
             }
         });
 
+        // TODO: Change intent destination
         userBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(EnterAdminUserActivity.this, AdminSetHome.class);
+                intent.putExtra("userId", 1); // TODO: Hardcoded for testing, REMOVE
                 startActivity(intent);
             }
         });
