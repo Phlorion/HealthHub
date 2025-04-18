@@ -34,6 +34,16 @@ public class EnterAdminUserActivity extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // check application storage for existing user data
+        int userId = Utils.getStoredUserId(getApplicationContext());
+        if (Utils.userDAO.findUserByID(userId) != null) { // valid user id
+            Intent intent = new Intent(EnterAdminUserActivity.this, AdminSetHome.class); //TODO: Change destination
+            intent.putExtra("userId", userId);
+            startActivity(intent);
+            finish();
+        }
+
         setContentView(R.layout.activity_enter_admin_user);
 
         // set gradient for header
@@ -57,12 +67,10 @@ public class EnterAdminUserActivity extends AppCompatActivity {
             }
         });
 
-        // TODO: Change intent destination
         userBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(EnterAdminUserActivity.this, AdminSetHome.class);
-                intent.putExtra("userId", 1); // TODO: Hardcoded for testing, REMOVE
+                Intent intent = new Intent(EnterAdminUserActivity.this, UserLogIn.class);
                 startActivity(intent);
             }
         });

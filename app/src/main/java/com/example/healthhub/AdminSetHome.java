@@ -21,6 +21,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -115,8 +116,12 @@ public class AdminSetHome extends AppCompatActivity implements OnMapReadyCallbac
 
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
+        // set map style
+        googleMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(this, R.raw.map_style));
         // when the map is ready, load googleMap to our variable
         map = googleMap;
+        map.getUiSettings().setZoomControlsEnabled(false);
+        map.getUiSettings().setScrollGesturesEnabled(false);
 
         // if the user has entered his home address, then find location on map
         if (user.getHome().registered())

@@ -72,6 +72,7 @@ public class AdminSignUp extends AppCompatActivity {
 
                 Intent intent = new Intent(AdminSignUp.this, AdminLogIn.class);
                 startActivity(intent);
+                finish();
             }
         });
     }

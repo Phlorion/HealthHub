@@ -27,6 +27,15 @@ public class UserDAO {
         return null;
     }
 
+    public User findUser(String email, String pass) {
+        for (User u : users) {
+            if (u.email.equals(email) && u.password.equals(pass)) {
+                return u;
+            }
+        }
+        return null;
+    }
+
     public boolean authUser(String email, String pass) {
         for (User u : users) {
             if (Objects.equals(u.email, email) && Objects.equals(u.password, pass)) {

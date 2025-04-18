@@ -43,6 +43,22 @@ public class User {
         return "Name: " + this.name + "\nEmail: " + this.email + "\nPassword: " + this.password;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
     public Home getHome() {
         return home;
     }
