@@ -12,6 +12,9 @@
         android:layout_width="match_parent"
         android:layout_height="67dp"
         android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingStart="@dimen/et_padding"
+        android:paddingEnd="@dimen/et_padding"
         app:layout_constraintBottom_toTopOf="@id/scrollable"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,7 +23,8 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:contentDescription="@null" />
+            android:contentDescription="@null"
+            android:src="@drawable/ic_arrow_back_green"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -421,7 +425,7 @@
                 android:layout_marginStart="@dimen/side_margin"
                 android:layout_marginEnd="@dimen/side_margin"
                 android:text="@string/set_medication_add_edit_save_button"
-                android:background="@color/app_main"
+                android:background="@drawable/green_button_background"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/time_container"
