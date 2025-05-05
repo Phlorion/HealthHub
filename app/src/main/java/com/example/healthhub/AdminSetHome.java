@@ -45,6 +45,9 @@ public class AdminSetHome extends AppCompatActivity implements OnMapReadyCallbac
     // Logged in user
     User user;
 
+    // User's home
+    Home userHome;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,12 +70,13 @@ public class AdminSetHome extends AppCompatActivity implements OnMapReadyCallbac
         postalET = findViewById(R.id.admin_sethome_et5);
 
         // check if the user has already entered his home address
-        if (user.getHome().registered()) {
-            countryET.setText(user.getHome().getCountry());
-            cityET.setText(user.getHome().getCity());
-            streetET.setText(user.getHome().getStreet());
-            numberET.setText(user.getHome().getNumber());
-            postalET.setText(user.getHome().getPostal());
+        userHome = Utils.homeDAO.findHomeByUserID(user.getId());
+        if (userHome != null) {
+            countryET.setText(userHome.getCountry());
+            cityET.setText(userHome.getCity());
+            streetET.setText(userHome.getStreet());
+            numberET.setText(userHome.getNumber());
+            postalET.setText(userHome.getPostal());
         }
 
         mapsFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.admin_sethome_fragment);
@@ -105,8 +109,12 @@ public class AdminSetHome extends AppCompatActivity implements OnMapReadyCallbac
 
                 // set home
                 if (user != null) { // if logged in user
-                    Home home = new Home(country, city, street, number, postal);
-                    user.setHome(home);
+                    if (userHome == null) {// if user hasn't set a home yet, create new home
+                        userHome = new Home(user.getId(), country, city, street, number, postal);
+                    }
+                    else { // if user has set a home previously, update existing one
+                        userHome.updateHome(country, city, street, number, postal);
+                    }
                 }
 
                 setLocationMap(country, city, street, number, postal);
@@ -124,7 +132,7 @@ public class AdminSetHome extends AppCompatActivity implements OnMapReadyCallbac
         map.getUiSettings().setScrollGesturesEnabled(false);
 
         // if the user has entered his home address, then find location on map
-        if (user.getHome().registered())
+        if (userHome != null)
             setLocationMap(countryET.getText().toString(), cityET.getText().toString(), streetET.getText().toString(), numberET.getText().toString(), postalET.getText().toString());
     }
 

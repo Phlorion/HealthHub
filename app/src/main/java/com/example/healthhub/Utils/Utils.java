@@ -3,11 +3,15 @@ package com.example.healthhub.Utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.example.healthhub.DAO.HomeDAO;
 import com.example.healthhub.DAO.UserDAO;
 
 public class Utils {
     /** User DAO */
     public static UserDAO userDAO = new UserDAO();
+
+    /** Home DAO */
+    public static HomeDAO homeDAO = new HomeDAO();
 
     /** Shared Preferences for accessing the application's storage */
     // constants for SharedPreferences

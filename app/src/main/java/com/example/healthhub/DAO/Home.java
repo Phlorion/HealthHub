@@ -3,28 +3,32 @@ package com.example.healthhub.DAO;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.example.healthhub.Utils.Utils;
+
 import java.util.Objects;
 
 public class Home {
     private static int _ID = 1;
     int id;
+    int userID;
     String country;
     String city;
     String street;
     String number;
     String postal;
 
-    public Home() { // this constructor is used only when a user is created, to create his home id
-        this.id = _ID;
-        _ID++;
-    }
-
-    public Home(String country, String city, String street, String number, String postal) {
+    public Home(int userID, String country, String city, String street, String number, String postal) {
+        this.userID = userID;
         this.country = country;
         this.city = city;
         this.street = street;
         this.number = number;
         this.postal = postal;
+
+        id = _ID;
+        _ID++;
+
+        Utils.homeDAO.addHome(this); // add to DAO
     }
 
     @Override
@@ -44,6 +48,8 @@ public class Home {
     public String toString() {
         return "Country: " + country +"\nCity: " + city + "\nStreet: " + street + "\nNumber: " + number + "\nPostal Code: " + postal;
     }
+
+    public int getID() { return id; }
 
     public String getCountry() {
         return country;
@@ -65,15 +71,13 @@ public class Home {
         return postal;
     }
 
-    public boolean registered() {
-        return country != null;
-    }
+    public void updateHome(String country, String city, String street, String number, String postal) {
+        this.country = country;
+        this.city = city;
+        this.street = street;
+        this.number = number;
+        this.postal = postal;
 
-    public void updateHome(Home home) {
-        this.country = home.country;
-        this.city = home.city;
-        this.street = home.street;
-        this.number = home.number;
-        this.postal = home.postal;
+        Utils.homeDAO.updateHome(this.id, this); // Update existing home in DAO
     }
 }
