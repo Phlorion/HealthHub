@@ -9,7 +9,12 @@ material = "1.12.0"
 activity = "1.10.1"
 constraintlayout = "2.2.1"
 playServicesMaps = "19.2.0"
+googleMapsServices = "2.2.0"
+slf4j = "1.7.32"
+playServicesLocation = "21.3.0"
 shawnLinNumberPicker = "2.4.13"
+gson = "2.13.1"
+roomCompiler = "2.7.1"
 
 [libraries]
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -20,7 +25,12 @@ material = { group = "com.google.android.material", name = "material", version.r
 activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
 constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 play-services-maps = { group = "com.google.android.gms", name = "play-services-maps", version.ref = "playServicesMaps" }
+google-maps-services = {group = "com.google.maps", name = "google-maps-services", version.ref = "googleMapsServices"}
+slf4j = {group = "org.slf4j", name="slf4j-nop", version.ref = "slf4j"}
+play-services-location = { group = "com.google.android.gms", name = "play-services-location", version.ref = "playServicesLocation" }
+gson = {group = "com.google.code.gson", name = "gson", version.ref = "gson"}
 shawn-lin-number-picker = { group = "io.github.ShawnLin013", name = "number-picker", version.ref = "shawnLinNumberPicker" }
+room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "roomCompiler" }
 
 
 [plugins]
