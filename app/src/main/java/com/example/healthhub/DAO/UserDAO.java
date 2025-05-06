@@ -27,6 +27,15 @@ public class UserDAO {
         return null;
     }
 
+    public boolean userExists(String email) {
+        for (User u : users) {
+            if (email.equals(u.email)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public User findUser(String email, String pass) {
         for (User u : users) {
             if (u.email.equals(email) && u.password.equals(pass)) {

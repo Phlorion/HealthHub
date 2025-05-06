@@ -65,6 +65,12 @@ public class AdminSignUp extends AppCompatActivity {
                     return;
                 }
 
+                // check if user already exists
+                if (Utils.userDAO.userExists(email)) {
+                    Toast.makeText(AdminSignUp.this, "A user with this email already exists.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 // create user
                 User user = new User(name, email, pass);
                 // add to DAO
