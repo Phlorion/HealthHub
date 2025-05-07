@@ -22,7 +22,7 @@
         tools:layout_editor_absoluteY="16dp" />
 
     <ImageButton
-        android:id="@+id/imageButton4"
+        android:id="@+id/set_Personal_Info_btn"
         android:layout_width="380dp"
         android:layout_height="130dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -31,10 +31,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.163"
-        android:src="@drawable/personal_info" />
+        android:src="@drawable/personal_info"
+        android:scaleType="centerCrop"
+        android:backgroundTint="@color/white"
+        />
 
     <ImageButton
-        android:id="@+id/imageButton"
+        android:id="@+id/set_Home_btn"
         android:layout_width="380dp"
         android:layout_height="130dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -42,10 +45,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.412"
-        android:src="@drawable/home" />
+        android:src="@drawable/home"
+        android:scaleType="centerCrop"
+        android:backgroundTint="@color/white"
+        />
 
     <ImageButton
-        android:id="@+id/imageButton2"
+        android:id="@+id/set_Medication_btn"
         android:layout_width="380dp"
         android:layout_height="130dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -54,10 +60,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.669"
-        android:src="@drawable/medicine" />
+        android:src="@drawable/medicine"
+        android:scaleType="centerCrop"
+        android:backgroundTint="@color/white"
+        />
 
     <ImageButton
-        android:id="@+id/imageButton3"
+        android:id="@+id/set_Fav_Contacts_btn"
         android:layout_width="380dp"
         android:layout_height="130dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -66,7 +75,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.93"
-        android:src="@drawable/family" />
+        android:src="@drawable/family"
+        android:scaleType="centerCrop"
+        android:backgroundTint="@color/white"
+        />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
