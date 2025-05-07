@@ -24,7 +24,7 @@
             android:orientation="horizontal"
             android:gravity="center_vertical"
             android:paddingBottom="16dp"
-            android:justifyContent="space-between">
+            >
 
             <Button
                 android:id="@+id/logout_btn"
@@ -40,8 +40,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="HELLO @{USERNAME}
-                            \n What do you want to do? "
+                android:text="@string/hello"
                 android:textSize="18sp"
                 android:textColor="@color/black" />
         </LinearLayout>
@@ -51,14 +50,14 @@
         <FrameLayout
             android:id="@+id/set_Personal_Info"
             android:layout_width="380dp"
-            android:layout_height="130dp"
+            android:layout_height="160dp"
             android:layout_marginBottom="25dp"
             android:layout_marginTop="25dp">
 
             <ImageButton
                 android:id="@+id/set_Personal_Info_btn"
                 android:layout_width="380dp"
-                android:layout_height="130dp"
+                android:layout_height="160dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/personal_info"
                 android:text="@string/set_Personal_Info_btn"
@@ -82,13 +81,13 @@
     <FrameLayout
         android:id="@+id/set_Favorite_Contacts"
         android:layout_width="380dp"
-        android:layout_height="130dp"
+        android:layout_height="160dp"
         android:layout_marginBottom="25dp">
 
         <ImageButton
             android:id="@+id/set_Fav_Contacts_btn"
             android:layout_width="380dp"
-            android:layout_height="130dp"
+            android:layout_height="160dp"
             app:layout_constraintVertical_bias="0.93"
             android:src="@drawable/family"
             android:scaleType="centerCrop"
@@ -112,14 +111,14 @@
     <FrameLayout
         android:id="@+id/set_Medication"
         android:layout_width="380dp"
-        android:layout_height="130dp"
+        android:layout_height="160dp"
         android:layout_marginBottom="25dp"
         >
 
         <ImageButton
             android:id="@+id/set_Medication_btn"
             android:layout_width="380dp"
-            android:layout_height="130dp"
+            android:layout_height="160dp"
             app:layout_constraintVertical_bias="0.669"
             android:src="@drawable/medicine"
             android:scaleType="centerCrop"
@@ -142,13 +141,13 @@
     <FrameLayout
         android:id="@+id/set_Home"
         android:layout_width="380dp"
-        android:layout_height="130dp"
+        android:layout_height="160dp"
         android:layout_marginBottom="25dp">
 
         <ImageButton
             android:id="@+id/set_Home_btn"
             android:layout_width="380dp"
-            android:layout_height="130dp"
+            android:layout_height="160dp"
             app:layout_constraintVertical_bias="0.412"
             android:src="@drawable/home"
             android:scaleType="centerCrop"

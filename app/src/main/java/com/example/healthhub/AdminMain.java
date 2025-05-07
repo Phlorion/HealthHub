@@ -2,6 +2,7 @@ package com.example.healthhub;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
@@ -14,6 +15,8 @@ import androidx.core.view.WindowInsetsCompat;
 public class AdminMain extends AppCompatActivity {
 
 
+
+    Button logoutbtn;
     ImageButton setPersonalInfo;
     ImageButton setMedication;
     ImageButton setHome;
@@ -24,6 +27,7 @@ public class AdminMain extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_main);
 
+        logoutbtn = (Button) findViewById(R.id.logout_btn);
         setPersonalInfo = (ImageButton) findViewById(R.id.set_Personal_Info_btn);
         setMedication = (ImageButton) findViewById(R.id.set_Medication_btn);
         setHome = (ImageButton) findViewById(R.id.set_Home_btn);
@@ -60,6 +64,11 @@ public class AdminMain extends AppCompatActivity {
             }
         });
 
-
+        logoutbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(AdminMain.this,"LOGOUT", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

@@ -29,6 +29,12 @@ public class EnterAdminUserActivity extends AppCompatActivity {
     TextView headerTV;
 
     public EnterAdminUserActivity() {
+
+
+        User AdminUSER = new User("Admin","admin","admin");
+        Home AdminHome= new Home(AdminUSER.getId(),"Greece","Athens","Fokon","11",  "143 41");
+
+
         User testUser = new User("George", "georgeavrabos@gmail.com", "george111");
         Home testHome = new Home(testUser.getId(), "Greece", "Athens", "28is Oktovriou", "76", "10434");
     }
