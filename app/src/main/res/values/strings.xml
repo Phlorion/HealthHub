@@ -15,6 +15,13 @@
     <string name="set_medication_add_edit_custom_label">Custom</string>
     <string name="set_medication_add_edit_time_label">Time</string>
 
+    <string name="logout">LOGOUT</string>
+
     <string name="set_medication_add_edit_save_button">Save</string>
     <string name="title_activity_maps_test">MapsActivityTest</string>
+    <string name="set_Home_btn">Set Home</string>
+    <string name="set_Medication_btn">Set Medication</string>
+    <string name="set_Favorite_Contacts_btn">Set Favorite Contacts</string>
+    <string name="set_Personal_Info_btn">Set Personal Information</string>
+
 </resources>
