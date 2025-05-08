@@ -19,6 +19,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.healthhub.DAO.Contact;
 import com.example.healthhub.DAO.Home;
+import com.example.healthhub.DAO.Medication;
 import com.example.healthhub.DAO.User;
 import com.example.healthhub.DAO.UserDAO;
 import com.example.healthhub.Utils.Utils;
@@ -38,6 +39,7 @@ public class EnterAdminUserActivity extends AppCompatActivity {
 
         User testUser = new User("George", "georgeavrabos@gmail.com", "george111");
         Home testHome = new Home(testUser.getId(), "Greece", "Athens", "28is Oktovriou", "76", "10434");
+        Medication med1 = new Medication(testUser.getId(),"Name","Monday, Teusday","09:00 am, 17:00 pm");
 
 
         Contact contact1 = new Contact("John Doe", "12345678",AdminUSER.getId());

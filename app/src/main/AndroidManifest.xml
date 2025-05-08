@@ -10,9 +10,9 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_launcher_heart"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ic_launcher_heart_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.HealthHub"
         tools:targetApi="31">
@@ -60,7 +60,10 @@
         <activity android:name=".AdminAddContactActivity" />
 
         <activity
-            android:name=".SetMedication"
+            android:name=".AdminSetMedication"
+            android:exported="false" />
+        <activity
+            android:name=".AdminSetMedicationAddEdit"
             android:exported="false" />
         <activity
             android:name=".EnterAdminUserActivity"

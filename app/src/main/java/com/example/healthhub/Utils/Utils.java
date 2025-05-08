@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 
 import com.example.healthhub.DAO.ContactDAO;
 import com.example.healthhub.DAO.HomeDAO;
+import com.example.healthhub.DAO.MedicationDAO;
 import com.example.healthhub.DAO.UserDAO;
 
 public class Utils {
@@ -13,6 +14,9 @@ public class Utils {
 
     /** Home DAO */
     public static HomeDAO homeDAO = new HomeDAO();
+
+    /** Medication DAO */
+    public static MedicationDAO medicationDAO = new MedicationDAO();
 
     /** Contact DAO*/
     public static ContactDAO contactDAO= new ContactDAO();
