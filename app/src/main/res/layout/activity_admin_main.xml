@@ -3,37 +3,38 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#FFFFFF">
 
-<!-- THIS SCROLL VIEW WILL HAVE ALL THE BUTTONS -->
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <!-- THIS SCROLL VIEW WILL HAVE ALL THE BUTTONS -->
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:gravity="center_horizontal"
+        android:orientation="vertical"
         android:padding="16dp">
 
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:paddingBottom="16dp"
-            >
+            android:orientation="horizontal"
+            android:layout_marginTop="18dp"
+            android:paddingBottom="16dp">
 
             <Button
                 android:id="@+id/logout_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
                 android:background="@drawable/round_btn"
                 android:text="@string/logout"
-                android:textColor="@color/white"
-                android:layout_marginEnd="16dp"/>
+                android:textColor="@color/white" />
 
             <TextView
                 android:id="@+id/greeting_txt"
@@ -41,131 +42,128 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/hello"
-                android:textSize="18sp"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                android:textSize="18sp" />
         </LinearLayout>
 
 
-<!--  SET PERSONAL INFO BUTTON   -->
+        <!--  SET PERSONAL INFO BUTTON   -->
         <FrameLayout
             android:id="@+id/set_Personal_Info"
             android:layout_width="380dp"
             android:layout_height="160dp"
-            android:layout_marginBottom="25dp"
-            android:layout_marginTop="25dp">
+            android:layout_marginTop="25dp"
+            android:layout_marginBottom="25dp">
 
             <ImageButton
                 android:id="@+id/set_Personal_Info_btn"
                 android:layout_width="380dp"
                 android:layout_height="160dp"
+                android:backgroundTint="@color/white"
                 android:scaleType="centerCrop"
                 android:src="@drawable/personal_info"
-                android:text="@string/set_Personal_Info_btn"
-                android:backgroundTint="@color/white"
-                />
+                android:text="@string/set_Personal_Info_btn" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/set_Personal_Info_btn"
-                android:textSize="25sp"
-                android:tint="@color/black"
-                android:textColor="@color/black"
                 android:layout_gravity="center"
-                />
+                android:background="#66FFFFFF"
+                android:backgroundTint="@color/white"
+                android:text="@string/set_Personal_Info_btn"
+                android:textColor="@color/black"
+                android:textSize="25sp"
+                android:tint="@color/black" />
 
         </FrameLayout>
 
 
-<!--  SET FAVORITE CONTACTS BUTTON   -->
-    <FrameLayout
-        android:id="@+id/set_Favorite_Contacts"
-        android:layout_width="380dp"
-        android:layout_height="160dp"
-        android:layout_marginBottom="25dp">
-
-        <ImageButton
-            android:id="@+id/set_Fav_Contacts_btn"
+        <!--  SET FAVORITE CONTACTS BUTTON   -->
+        <FrameLayout
+            android:id="@+id/set_Favorite_Contacts"
             android:layout_width="380dp"
             android:layout_height="160dp"
-            app:layout_constraintVertical_bias="0.93"
-            android:src="@drawable/family"
-            android:scaleType="centerCrop"
-            android:backgroundTint="@color/white"
-            />
+            android:layout_marginBottom="25dp">
+
+            <ImageButton
+                android:id="@+id/set_Fav_Contacts_btn"
+                android:layout_width="380dp"
+                android:layout_height="160dp"
+                android:backgroundTint="@color/white"
+                android:scaleType="centerCrop"
+                android:src="@drawable/family"
+                app:layout_constraintVertical_bias="0.93" />
 
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/set_Favorite_Contacts_btn"
-            android:textSize="25sp"
-            android:tint="@color/black"
-            android:textColor="@color/black"
-            android:layout_gravity="center"
-            />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="#66FFFFFF"
+                android:text="@string/set_Favorite_Contacts_btn"
+                android:textColor="@color/black"
+                android:textSize="25sp"
+                android:tint="@color/black" />
 
-    </FrameLayout>
+        </FrameLayout>
 
-<!--  SET MEDICATION BUTTON  -->
-    <FrameLayout
-        android:id="@+id/set_Medication"
-        android:layout_width="380dp"
-        android:layout_height="160dp"
-        android:layout_marginBottom="25dp"
-        >
-
-        <ImageButton
-            android:id="@+id/set_Medication_btn"
+        <!--  SET MEDICATION BUTTON  -->
+        <FrameLayout
+            android:id="@+id/set_Medication"
             android:layout_width="380dp"
             android:layout_height="160dp"
-            app:layout_constraintVertical_bias="0.669"
-            android:src="@drawable/medicine"
-            android:scaleType="centerCrop"
-            android:backgroundTint="@color/white"
-            />
+            android:layout_marginBottom="25dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/set_Medication_btn"
-            android:textSize="25sp"
-            android:tint="@color/black"
-            android:textColor="@color/black"
-            android:layout_gravity="center"
-            />
+            <ImageButton
+                android:id="@+id/set_Medication_btn"
+                android:layout_width="380dp"
+                android:layout_height="160dp"
+                android:backgroundTint="@color/white"
+                android:scaleType="centerCrop"
+                android:src="@drawable/medicine"
+                app:layout_constraintVertical_bias="0.669" />
 
-    </FrameLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="#66FFFFFF"
+                android:text="@string/set_Medication_btn"
+                android:textColor="@color/black"
+                android:textSize="25sp"
+                android:tint="@color/black" />
 
-<!--SET HOME BUTTON -->
-    <FrameLayout
-        android:id="@+id/set_Home"
-        android:layout_width="380dp"
-        android:layout_height="160dp"
-        android:layout_marginBottom="25dp">
+        </FrameLayout>
 
-        <ImageButton
-            android:id="@+id/set_Home_btn"
+        <!--SET HOME BUTTON -->
+        <FrameLayout
+            android:id="@+id/set_Home"
             android:layout_width="380dp"
             android:layout_height="160dp"
-            app:layout_constraintVertical_bias="0.412"
-            android:src="@drawable/home"
-            android:scaleType="centerCrop"
-            android:backgroundTint="@color/white"
-            />
+            android:layout_marginBottom="25dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/set_Home_btn"
-            android:textSize="25sp"
-            android:tint="@color/black"
-            android:textColor="@color/black"
-            android:layout_gravity="center"
-            />
+            <ImageButton
+                android:id="@+id/set_Home_btn"
+                android:layout_width="380dp"
+                android:layout_height="160dp"
+                android:backgroundTint="@color/white"
+                android:scaleType="centerCrop"
+                android:src="@drawable/home"
+                app:layout_constraintVertical_bias="0.412" />
 
-    </FrameLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="#66FFFFFF"
+                android:text="@string/set_Home_btn"
+                android:textColor="@color/black"
+                android:textSize="25sp"
+                android:tint="@color/black" />
+
+        </FrameLayout>
     </LinearLayout>
-    </ScrollView>
+</ScrollView>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

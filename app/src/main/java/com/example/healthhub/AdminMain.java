@@ -1,5 +1,6 @@
 package com.example.healthhub;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -13,8 +14,6 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class AdminMain extends AppCompatActivity {
-
-
 
     Button logoutbtn;
     ImageButton setPersonalInfo;
@@ -37,6 +36,10 @@ public class AdminMain extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Toast.makeText(AdminMain.this,"setPersonal", Toast.LENGTH_SHORT).show();
+
+//                Intent intent = new Intent(AdminMain.this,set);
+//                startActivity(intent);
+//                finish();
             }
         });
 
@@ -45,6 +48,10 @@ public class AdminMain extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Toast.makeText(AdminMain.this,"setHome", Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(AdminMain.this,AdminSetHome.class);
+                startActivity(intent);
+                finish();
             }
         });
 
@@ -53,6 +60,10 @@ public class AdminMain extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Toast.makeText(AdminMain.this,"setMedication", Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(AdminMain.this,SetMedication.class);
+                startActivity(intent);
+                finish();
             }
         });
 
@@ -61,6 +72,9 @@ public class AdminMain extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Toast.makeText(AdminMain.this,"setFavoriteCont", Toast.LENGTH_SHORT).show();
+//                Intent intent = new Intent(AdminMain.this,AdminSetFavoriteContact.class);
+//                startActivity(intent);
+//                finish();
             }
         });
 
@@ -68,6 +82,10 @@ public class AdminMain extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Toast.makeText(AdminMain.this,"LOGOUT", Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(AdminMain.this,EnterAdminUserActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
     }
