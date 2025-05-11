@@ -39,7 +39,9 @@ public class EnterAdminUserActivity extends AppCompatActivity {
 
         User testUser = new User("George", "georgeavrabos@gmail.com", "george111");
         Home testHome = new Home(testUser.getId(), "Greece", "Athens", "28is Oktovriou", "76", "10434");
+        Medication med2 = new Medication(testUser.getId(),"Name 2","Monday, Teusday, else","09:00 am, 17:00 pm");
         Medication med1 = new Medication(testUser.getId(),"Name","Monday, Teusday","09:00 am, 17:00 pm");
+//        Utils.medicationDAO.printMedications();
 
 
         Contact contact1 = new Contact("John Doe", "12345678",AdminUSER.getId());

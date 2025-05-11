@@ -17,6 +17,9 @@
 
     <string name="logout">LOGOUT</string>
 
+    <string name="hello">Hello there \nWhat would you like to do? </string>
+
+    <string name="set_medication_add_edit_add_button">Add</string>
     <string name="cntctName">Contact Name Here</string>
     <string name="cntctPhone">Contact Phone Number Here</string>
 

@@ -14,7 +14,7 @@
         android:gravity="center_vertical"
         android:paddingStart="@dimen/et_padding"
         android:paddingEnd="@dimen/et_padding"
-        app:layout_constraintBottom_toTopOf="@id/medications_slots_recycler_view"
+        app:layout_constraintBottom_toTopOf="@id/medications_slots"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -33,32 +33,45 @@
             android:textColor="@android:color/black"
             android:textSize="18sp"/>
     </LinearLayout>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/medications_slots_recycler_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <LinearLayout
+        android:id="@+id/medications_slots"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:gravity="start"
+        app:layout_constraintTop_toBottomOf="@+id/title"
+        app:layout_constraintBottom_toTopOf="@+id/set_medication_footer"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title">
+        app:layout_constraintStart_toStartOf="parent">
 
-    </androidx.recyclerview.widget.RecyclerView>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/medications_slots_recycler_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/title">
+
+        </androidx.recyclerview.widget.RecyclerView>
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/set_medication_footer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:orientation="vertical"
+        android:layout_marginTop="@dimen/side_margin"
+        android:layout_marginBottom="@dimen/side_margin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent">
         <Button
-            android:id="@+id/save_button"
+            android:id="@+id/add_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/side_margin"
             android:layout_marginEnd="@dimen/side_margin"
-            android:text="@string/set_medication_add_edit_save_button"
+            android:text="@string/set_medication_add_edit_add_button"
             android:background="@drawable/green_button_background"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

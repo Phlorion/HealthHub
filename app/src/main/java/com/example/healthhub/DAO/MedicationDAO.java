@@ -27,12 +27,20 @@ public class MedicationDAO {
     public ArrayList<Medication> findMedicationsByUsedID(int userId){
         ArrayList<Medication> userMeds = new ArrayList<>();
         for (Medication m : medications) {
-            if (userId == m.getID()) {
+            System.out.println("Medication "+m.getID()+" belongs to user "+m.getUserID());
+            if (userId == m.getUserID()) {
+                System.out.println("userId: "+userId+" m.getUserID(): "+m.getUserID());
                 userMeds.add(m);
+            }else{
+                System.out.println("userId: "+userId+" m.getUserID(): "+m.getUserID());
             }
         }
         return userMeds;
     }
+
+    /**
+     * Save all medications to the database - if they exist -> update them, else -> add them
+     * */
     public void saveMedications(ArrayList<Medication> newOrUpdatedMeds){
         for(Medication med : newOrUpdatedMeds){
             if(medications.contains(med)){//If it exists -> update it
@@ -41,5 +49,8 @@ public class MedicationDAO {
                 addMedication(med);
             }
         }
+    }
+    public void printMedications(){
+        medications.forEach(System.out::println);
     }
 }

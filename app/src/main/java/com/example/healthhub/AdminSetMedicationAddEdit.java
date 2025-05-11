@@ -13,13 +13,14 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.healthhub.DAO.Medication;
 import com.example.healthhub.Utils.Utils;
 
 import java.util.ArrayList;
 
 public class AdminSetMedicationAddEdit extends AppCompatActivity {
 
-    Button backBtn;
+    Button backBtn, saveBtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +41,7 @@ public class AdminSetMedicationAddEdit extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         backBtn = findViewById(R.id.back_button);
+        saveBtn = findViewById(R.id.save_button);
 
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,5 +49,18 @@ public class AdminSetMedicationAddEdit extends AppCompatActivity {
                 finish();
             }
         });
+
+        saveBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveMedications();
+                System.out.println("katse kala");
+                finish();
+            }
+        });
+    }
+    private void saveMedications(){
+        new Medication(Utils.getStoredUserId(getApplicationContext()),"test","test","test");
+//        Utils.medicationDAO.addMedication(new Medication(Utils.getStoredUserId(getApplicationContext()),"test","test","test"));
     }
 }

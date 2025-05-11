@@ -20,7 +20,9 @@ import java.util.ArrayList;
 
 public class AdminSetMedication extends AppCompatActivity implements AdminSetMedication_RecyclerViewInterface{
     ArrayList<Medication> medications;
-    Button backBtn, saveBtn;
+    Button backBtn, addBtn;
+    RecyclerView recyclerView;
+    AdminSetMedication_RecyclerViewAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,30 +34,44 @@ public class AdminSetMedication extends AppCompatActivity implements AdminSetMed
             return insets;
         });
 
-        RecyclerView recyclerView = findViewById(R.id.medications_slots_recycler_view);
-        medications = Utils.medicationDAO.findMedicationsByUsedID(Utils.getStoredUserId(getApplicationContext()));
-        AdminSetMedication_RecyclerViewAdapter adapter = new AdminSetMedication_RecyclerViewAdapter(this,medications,this);
+        recyclerView = findViewById(R.id.medications_slots_recycler_view);
+        medications = fetchMedications();
+        medications.forEach(System.out::println);
+        adapter = new AdminSetMedication_RecyclerViewAdapter(this,medications,this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         backBtn = findViewById(R.id.back_button);
-        saveBtn = findViewById(R.id.save_button);
+        addBtn = findViewById(R.id.add_button);
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
-        saveBtn.setOnClickListener(new View.OnClickListener() {
+        addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                saveMedications();
+                gotoAddEdit();
             }
         });
     }
 
-    private void saveMedications(){
-        Utils.medicationDAO.saveMedications(medications);
+    @Override
+    protected void onResume() {
+        super.onResume();
+        medications = fetchMedications();
+        adapter = new AdminSetMedication_RecyclerViewAdapter(this,medications,this);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+    }
+
+    private void gotoAddEdit(){
+        Intent intent = new Intent(this, AdminSetMedicationAddEdit.class);
+        startActivity(intent);
+    }
+    private ArrayList<Medication> fetchMedications(){
+        return Utils.medicationDAO.findMedicationsByUsedID(Utils.getStoredUserId(getApplicationContext()));
     }
     @Override
     public void onItemClick(int position) {

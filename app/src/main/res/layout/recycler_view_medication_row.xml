@@ -17,6 +17,10 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/side_margin"
+            android:layout_marginEnd="@dimen/side_margin"
+            android:layout_marginBottom="@dimen/half_side_margin"
+            android:layout_marginTop="@dimen/half_side_margin"
             android:padding="@dimen/et_padding"
             android:background="@drawable/green_border">
 
