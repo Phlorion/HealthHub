@@ -3,6 +3,9 @@ package com.example.healthhub.DAO;
 import com.example.healthhub.Utils.Utils;
 import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
+
+import java.time.LocalDate;
+import java.util.List;
 import java.util.Objects;
 
 public class Medication {
@@ -10,19 +13,22 @@ public class Medication {
     int id;
     int userID;
     String name;
-    String date;
-    String time;
+    LocalDate fromDate;
+    LocalDate toDate;
+    List<String> days;
+    List<String> time;
 
-    public Medication(int userID, String name, String date, String time) {
+    public Medication(int userID, String name, LocalDate fromDate, LocalDate toDate, List<String> days, List<String> time) {
         this.userID = userID;
         this.name = name;
-        this.date = date;
+        this.fromDate = fromDate;
+        this.toDate = toDate;
+        this.days = days;
         this.time = time;
 
         this.id = _ID;
         _ID++;
 
-        Utils.medicationDAO.addMedication(this); // add to DAO
     }
 
     public int getID() {
@@ -37,19 +43,22 @@ public class Medication {
         return name;
     }
 
-    public String getDate() {
-        return date;
+    public List<String> getDays() {
+        return days;
     }
 
-    public String getTime() {
+    public List<String> getTime() {
         return time;
+    }
+    public void saveMedicationToDAO() {
+        Utils.medicationDAO.addMedication(this); // add to DAO
     }
 
     @Override
     public boolean equals(@Nullable Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Medication that = (Medication) o;
-        return id == that.id && userID == that.userID && Objects.equals(name, that.name) && Objects.equals(date, that.date) && Objects.equals(time, that.time);
+        return id == that.id && userID == that.userID && Objects.equals(name, that.name) && Objects.equals(days, that.days) && Objects.equals(time, that.time);
     }
 
     @NonNull
@@ -59,7 +68,7 @@ public class Medication {
                 "id=" + id +
                 ", userID=" + userID +
                 ", name='" + name + '\'' +
-                ", date='" + date + '\'' +
+                ", days='" + days + '\'' +
                 ", time='" + time + '\'' +
                 '}';
     }

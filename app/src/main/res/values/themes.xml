@@ -1,9 +1,24 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.HealthHub" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="Base.Theme.HealthHub" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+<!--    <style name="Base.Theme.HealthHub" parent="Theme.AppCompat.Light.NoActionBar">-->
         <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+         <item name="colorPrimary">@color/green</item>
+        <item name="colorPrimaryVariant">@color/light_grey</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorSecondary">@color/material_dynamic_secondary0</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <item name="colorSurface">@color/white</item>
+        <item name="colorOnSurface">@color/black</item>
     </style>
-
+    <style name="MyTimePickerDialog" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Required Material attributes -->
+<!--        <item name="colorPrimary">@color/material_dynamic_primary0</item>-->
+<!--        <item name="colorPrimaryVariant">@color/your_primary_variant</item>-->
+<!--        <item name="colorOnPrimary">@color/your_on_primary</item>-->
+<!--        <item name="colorSecondary">@color/your_secondary_color</item>-->
+<!--        <item name="colorOnSecondary">@color/your_on_secondary</item>-->
+        <!-- Add other necessary Material attributes -->
+    </style>
     <style name="Theme.HealthHub" parent="Base.Theme.HealthHub" />
 </resources>

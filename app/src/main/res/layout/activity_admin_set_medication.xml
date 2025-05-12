@@ -31,7 +31,8 @@
             android:layout_marginStart="16dp"
             android:text="Medication"
             android:textColor="@android:color/black"
-            android:textSize="18sp"/>
+            android:textSize="18sp"
+            android:fontFamily="@font/inter_bold"/>
     </LinearLayout>
     <LinearLayout
         android:id="@+id/medications_slots"
@@ -72,7 +73,10 @@
             android:layout_marginStart="@dimen/side_margin"
             android:layout_marginEnd="@dimen/side_margin"
             android:text="@string/set_medication_add_edit_add_button"
+            android:textAllCaps="false"
             android:background="@drawable/green_button_background"
+            android:fontFamily="@font/inter_semibold"
+            android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/time_container"

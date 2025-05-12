@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.LinearGradient;
 import android.graphics.Shader;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextPaint;
 import android.view.View;
@@ -24,6 +25,11 @@ import com.example.healthhub.DAO.User;
 import com.example.healthhub.DAO.UserDAO;
 import com.example.healthhub.Utils.Utils;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Arrays;
+import java.util.List;
+
 public class EnterAdminUserActivity extends AppCompatActivity {
 
     Button adminBtn;
@@ -39,9 +45,18 @@ public class EnterAdminUserActivity extends AppCompatActivity {
 
         User testUser = new User("George", "georgeavrabos@gmail.com", "george111");
         Home testHome = new Home(testUser.getId(), "Greece", "Athens", "28is Oktovriou", "76", "10434");
-        Medication med2 = new Medication(testUser.getId(),"Name 2","Monday, Teusday, else","09:00 am, 17:00 pm");
-        Medication med1 = new Medication(testUser.getId(),"Name","Monday, Teusday","09:00 am, 17:00 pm");
-//        Utils.medicationDAO.printMedications();
+        LocalDate fromDate = null; // Example start date: May 15, 2025
+        LocalDate toDate = null; // Example start date: May 15, 2025
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            fromDate = LocalDate.of(2025, 5, 15);
+            toDate = LocalDate.of(2025, 5, 22);   // Example end date: May 22, 2025
+        }
+        List<String> days = Arrays.asList("Monday", "Wednesday", "Friday");
+        List<String> time = Arrays.asList("08:00", "14:00", "20:00");
+        Medication med2 = new Medication(testUser.getId(),"Name 2", fromDate, toDate, days, time);
+        med2.saveMedicationToDAO();
+        Medication med1 = new Medication(testUser.getId(),"Name", fromDate, toDate, days, time);
+        med1.saveMedicationToDAO();
 
 
         Contact contact1 = new Contact("John Doe", "12345678",AdminUSER.getId());

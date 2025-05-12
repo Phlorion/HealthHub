@@ -32,7 +32,8 @@
             android:layout_marginStart="8dp"
             android:text="Edit/Add"
             android:textSize="18sp"
-            android:textColor="@android:color/black" />
+            android:textColor="@color/black"
+            android:fontFamily="@font/inter_bold"/>
     </LinearLayout>
 
     <ScrollView
@@ -64,7 +65,8 @@
                     android:padding="@dimen/h2_title_padding"
                     android:paddingStart="0dp"
                     android:text="@string/set_medication_add_edit_name_label"
-                    android:textStyle="bold"
+                    android:fontFamily="@font/inter_bold"
+                    android:textColor="@color/black"
                     app:layout_constraintBottom_toTopOf="@id/name_edit_text"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -75,6 +77,8 @@
                     android:background="@drawable/et_style"
                     android:hint="@string/set_medication_add_edit_name_label_hint"
                     android:inputType="text"
+                    android:fontFamily="@font/inter_medium"
+                    android:textColor="@color/black"
                     android:isScrollContainer="true"
                     android:paddingStart="@dimen/et_padding"
                     app:layout_constraintTop_toBottomOf="@id/name_label" />
@@ -100,7 +104,8 @@
                     android:padding="@dimen/h2_title_padding"
                     android:paddingStart="0dp"
                     android:text="@string/set_medication_add_edit_quantity_label"
-                    android:textStyle="bold"
+                    android:fontFamily="@font/inter_bold"
+                    android:textColor="@color/black"
                     app:layout_constraintBottom_toTopOf="@id/quantity_edit_text"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -110,6 +115,8 @@
                     android:layout_height="48dp"
                     android:background="@drawable/et_style"
                     android:hint="@string/set_medication_add_edit_quantity_label_hint"
+                    android:fontFamily="@font/inter_medium"
+                    android:textColor="@color/black"
                     android:isScrollContainer="true"
                     android:paddingStart="@dimen/et_padding"
                     app:layout_constraintTop_toBottomOf="@id/quantity_label" />
@@ -135,7 +142,8 @@
                     android:padding="@dimen/h2_title_padding"
                     android:paddingStart="0dp"
                     android:text="@string/set_medication_add_edit_duration_label"
-                    android:textStyle="bold"
+                    android:fontFamily="@font/inter_bold"
+                    android:textColor="@color/black"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <RelativeLayout
@@ -151,7 +159,8 @@
                         android:padding="@dimen/h2_title_padding"
                         android:paddingStart="0dp"
                         android:text="@string/set_medication_add_edit_from_label"
-                        android:textStyle="bold"
+                        android:fontFamily="@font/inter_bold"
+                        android:textColor="@color/black"
                         app:layout_constraintTop_toTopOf="parent"/>
 
                     <EditText
@@ -161,10 +170,12 @@
                         android:layout_toEndOf="@+id/from_label"
                         android:background="@drawable/et_style"
                         android:hint="@string/set_medication_add_edit_date_label_hint"
+                        app:layout_constraintTop_toBottomOf="@id/from_label"
+                        android:textColor="@color/black"
                         android:inputType="date"
                         android:isScrollContainer="true"
                         android:paddingStart="@dimen/et_padding"
-                        app:layout_constraintTop_toBottomOf="@id/from_label" />
+                        />
 
                     <TextView
                         android:id="@+id/to_label"
@@ -175,7 +186,8 @@
                         android:layout_centerVertical="true"
                         android:paddingStart="0dp"
                         android:text="@string/set_medication_add_edit_to_label"
-                        android:textStyle="bold"
+                        android:fontFamily="@font/inter_bold"
+                        android:textColor="@color/black"
                         app:layout_constraintTop_toBottomOf="@id/from_edit_text" />
 
                     <EditText
@@ -185,10 +197,11 @@
                         android:layout_alignParentEnd="true"
                         android:background="@drawable/et_style"
                         android:hint="@string/set_medication_add_edit_date_label_hint"
+                        app:layout_constraintTop_toBottomOf="@id/from_label"
+                        android:textColor="@color/black"
                         android:inputType="date"
                         android:isScrollContainer="true"
-                        android:paddingStart="@dimen/et_padding"
-                        app:layout_constraintTop_toBottomOf="@id/to_label" />
+                        android:paddingStart="@dimen/et_padding" />
                 </RelativeLayout>
                 <!--<RelativeLayout
                     android:layout_width="wrap_content"
@@ -234,7 +247,8 @@
                     android:layout_marginBottom="@dimen/margin_between_form_fields"
                     android:padding="@dimen/h2_title_padding"
                     android:text="@string/set_medication_add_edit_day_label"
-                    android:textStyle="bold"
+                    android:fontFamily="@font/inter_bold"
+                    android:textColor="@color/black"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <LinearLayout
@@ -252,7 +266,8 @@
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
                         android:text="@string/set_medication_add_edit_every_label"
-                        android:textStyle="normal"
+                        android:fontFamily="@font/inter_medium"
+                        android:textColor="@color/black"
                         app:layout_constraintTop_toTopOf="parent" />
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -265,6 +280,7 @@
                             android:layout_height="match_parent"
                             android:paddingHorizontal="6dp"
                             android:text="0"
+                            android:textColor="@color/black"
                             android:textSize="16sp" />
 
                         <LinearLayout
@@ -298,7 +314,8 @@
                         android:padding="@dimen/h2_title_padding"
                         android:layout_centerVertical="true"
                         android:text="@string/set_medication_add_edit_days_label"
-                        android:textStyle="normal"
+                        android:fontFamily="@font/inter_medium"
+                        android:textColor="@color/black"
                         app:layout_constraintTop_toTopOf="parent" />
 
                 </LinearLayout>
@@ -313,7 +330,8 @@
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:text="@string/set_medication_add_edit_custom_label"
-                    android:textStyle="normal"
+                    android:fontFamily="@font/inter_medium"
+                    android:textColor="@color/black"
                     app:layout_constraintTop_toTopOf="parent" />
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -327,6 +345,7 @@
                         android:layout_weight="1"
                         android:id="@+id/monday_checkbox"
                         android:button="@null"
+                        android:checked="false"
                         android:background="@drawable/monday_checkbox_inset"/>
 
                     <CheckBox
@@ -335,6 +354,7 @@
                         android:layout_weight="1"
                         android:id="@+id/tuesday_checkbox"
                         android:button="@null"
+                        android:checked="false"
                         android:background="@drawable/tuesday_checkbox_inset"/>
 
                     <CheckBox
@@ -343,6 +363,7 @@
                         android:layout_weight="1"
                         android:id="@+id/wednesday_checkbox"
                         android:button="@null"
+                        android:checked="false"
                         android:background="@drawable/wednesday_checkbox_inset"/>
 
                     <CheckBox
@@ -351,6 +372,7 @@
                         android:layout_weight="1"
                         android:id="@+id/thursday_checkbox"
                         android:button="@null"
+                        android:checked="false"
                         android:background="@drawable/thursday_checkbox_inset"/>
 
                     <CheckBox
@@ -359,6 +381,7 @@
                         android:layout_weight="1"
                         android:id="@+id/friday_checkbox"
                         android:button="@null"
+                        android:checked="false"
                         android:background="@drawable/friday_checkbox_inset"/>
 
                     <CheckBox
@@ -367,6 +390,7 @@
                         android:layout_weight="1"
                         android:id="@+id/saturday_checkbox"
                         android:button="@null"
+                        android:checked="false"
                         android:background="@drawable/saturday_checkbox_inset"/>
 
                     <CheckBox
@@ -375,6 +399,7 @@
                         android:layout_weight="1"
                         android:id="@+id/sunday_checkbox"
                         android:button="@null"
+                        android:checked="false"
                         android:background="@drawable/sunday_checkbox_inset"/>
 
                 </LinearLayout>
@@ -400,17 +425,20 @@
                         android:id="@+id/time_label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/margin_between_form_fields"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
                         android:text="@string/set_medication_add_edit_time_label"
-                        android:textStyle="bold"
+                        android:fontFamily="@font/inter_bold"
+                        android:textColor="@color/black"
                         />
 
                     <ImageButton
                         android:id="@+id/add_time_button"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/margin_between_form_fields"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -422,6 +450,7 @@
                         android:id="@+id/time_slots_recycler_view"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_between_form_fields"
                         app:layout_constraintTop_toBottomOf="@+id/add_time_button"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -438,7 +467,10 @@
                 android:layout_marginStart="@dimen/side_margin"
                 android:layout_marginEnd="@dimen/side_margin"
                 android:text="@string/set_medication_add_edit_save_button"
+                android:textAllCaps="false"
                 android:background="@drawable/green_button_background"
+                android:fontFamily="@font/inter_semibold"
+                android:textColor="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/time_container"

@@ -29,9 +29,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Medication #1"
-                android:textColor="#000000"
+                android:textColor="@color/black"
                 android:textSize="16sp"
-                android:textStyle="bold"
+                android:fontFamily="@font/inter_semibold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -41,7 +41,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="17dp"
                 android:text="Mon, Tue, Thu"
-                android:textColor="#000000"
+                android:fontFamily="@font/inter_medium"
+                android:textColor="@color/black"
                 android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/medication_name" />
@@ -51,7 +52,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="9am, 9pm"
-                android:textColor="#000000"
+                android:fontFamily="@font/inter_medium"
+                android:textColor="@color/black"
                 android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/medication_date" />

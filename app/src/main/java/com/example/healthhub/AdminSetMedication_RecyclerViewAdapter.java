@@ -1,7 +1,5 @@
 package com.example.healthhub;
 
-import static androidx.core.content.ContextCompat.startActivity;
-
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -40,8 +38,8 @@ public class AdminSetMedication_RecyclerViewAdapter extends RecyclerView.Adapter
     public void onBindViewHolder(@NonNull AdminSetMedication_RecyclerViewAdapter.MyViewHolderMedication holder,  int position) {
         Medication medication = medications.get(position);
         holder.medName.setText(medication.getName());
-        holder.medDate.setText(medication.getDate());
-        holder.medTime.setText(medication.getTime());
+        holder.medDate.setText("medication.getDays()");
+        holder.medTime.setText("medication.getTime()");
 
         holder.editBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,7 +47,7 @@ public class AdminSetMedication_RecyclerViewAdapter extends RecyclerView.Adapter
                 System.out.println("edit button");
                 Context context = v.getContext();
                 Intent intent = new Intent(context,AdminSetMedicationAddEdit.class);
-                intent.putExtra("time",medication.getTime());
+                intent.putExtra("time","medication.getTime()");
                 context.startActivity(intent);
             }
         });
