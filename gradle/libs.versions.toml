@@ -15,6 +15,7 @@ playServicesLocation = "21.3.0"
 shawnLinNumberPicker = "2.4.13"
 gson = "2.13.1"
 roomCompiler = "2.7.1"
+places = "4.2.0"
 
 [libraries]
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -31,6 +32,7 @@ play-services-location = { group = "com.google.android.gms", name = "play-servic
 gson = {group = "com.google.code.gson", name = "gson", version.ref = "gson"}
 shawn-lin-number-picker = { group = "io.github.ShawnLin013", name = "number-picker", version.ref = "shawnLinNumberPicker" }
 room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "roomCompiler" }
+places = {group = "com.google.android.libraries.places", name = "places", version.ref = "places" }
 
 
 [plugins]

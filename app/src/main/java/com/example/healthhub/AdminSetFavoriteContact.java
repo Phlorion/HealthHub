@@ -4,6 +4,8 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.healthhub.Models.ContactModel;
+
 import java.util.ArrayList;
 
 public class AdminSetFavoriteContact extends AppCompatActivity{

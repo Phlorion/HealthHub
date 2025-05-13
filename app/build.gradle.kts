@@ -62,6 +62,7 @@ dependencies {
     implementation(libs.room.compiler) {
         exclude(group = "com.intellij", module = "annotations")
     }
+    implementation(libs.places)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
