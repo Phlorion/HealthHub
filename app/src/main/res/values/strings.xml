@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">HealthHub</string>
+    <string name="set_medication_add_edit_screen_title">Edit/ Add</string>
+    <string name="set_medication_screen_title">Medication</string>
     <string name="set_medication_add_edit_name_label">Name:</string>
     <string name="set_medication_add_edit_name_label_hint">Medication Name</string>
     <string name="set_medication_add_edit_quantity_label">Quantity:</string>

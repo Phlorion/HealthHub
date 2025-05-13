@@ -27,7 +27,8 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 
 public class AdminSetMedicationAddEdit extends AppCompatActivity {
-
+    ArrayList<String> timeSlots;
+    AdminSetMedicationAddEdit_RecyclerViewAdapter adapter;
     Button backBtn, saveBtn;
     TextView displayedDays;
     EditText nameEditText, quantityEditText, fromEditText, toEditText;
@@ -43,14 +44,6 @@ public class AdminSetMedicationAddEdit extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
-        String time = getIntent().getStringExtra("time");
-        RecyclerView recyclerView = findViewById(R.id.time_slots_recycler_view);
-        ArrayList<String> timeSlots = new ArrayList<>();
-        timeSlots.add(time);
-        AdminSetMedicationAddEdit_RecyclerViewAdapter adapter = new AdminSetMedicationAddEdit_RecyclerViewAdapter(this, timeSlots);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         backBtn = findViewById(R.id.back_button);
         saveBtn = findViewById(R.id.save_button);
@@ -69,6 +62,16 @@ public class AdminSetMedicationAddEdit extends AppCompatActivity {
         friCheckBox = findViewById(R.id.friday_checkbox);
         satCheckBox = findViewById(R.id.saturday_checkbox);
         sunCheckBox = findViewById(R.id.sunday_checkbox);
+
+        Medication medication = getIntent().getParcelableExtra("medication");
+        RecyclerView recyclerView = findViewById(R.id.time_slots_recycler_view);
+        timeSlots = new ArrayList<>();
+        if (medication != null) {
+            timeSlots.addAll(medication.getTime());
+        }
+        adapter = new AdminSetMedicationAddEdit_RecyclerViewAdapter(this, timeSlots);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
 
 
@@ -155,10 +158,43 @@ public class AdminSetMedicationAddEdit extends AppCompatActivity {
         timePicker.setTitleText("Select Medication Time");
         timePicker.setPositiveButtonText("Save");
         timePicker.setNegativeButtonText("Cancel");
-//        timePicker.setTheme(R.style.MyTimePickerDialog);
         // Show the MaterialTimePicker
         MaterialTimePicker picker = timePicker.build();
+        // Save button functionality
+        picker.addOnPositiveButtonClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //return the sting we want to add to the recycler view or a LocalTime object
+                int hour = picker.getHour();
+                int minute = picker.getMinute();
+                String amPm = (hour < 12) ? "am" : "pm";
+                // Convert 24-hour format to 12-hour format
+                if (hour > 12) {
+                    hour -= 12;
+                } else if (hour == 0) {
+                    hour = 12; // Midnight
+                }
+                String timeString = String.format("%02d:%02d %s", hour, minute, amPm);
+                //call private method to check if the time is already in the list
+                addToTimeSlots(timeString);
+            }
+        });
+        // Cancel button functionality
+        picker.addOnNegativeButtonClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Nothing
+            }
+        });
         picker.show(getSupportFragmentManager(), "Material_Time_Picker");
+    }
+    private void addToTimeSlots(String timeString){
+        if(!timeSlots.contains(timeString)){
+            timeSlots.add(timeString);
+            adapter.notifyDataSetChanged(); // Notify the adapter
+        }else{
+            Toast.makeText(this, "Time slot already exists.", Toast.LENGTH_SHORT).show();
+        }
     }
     private String getDisplayedDays(){
         return displayedDays.getText().toString();

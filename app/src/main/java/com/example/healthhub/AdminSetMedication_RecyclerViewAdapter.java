@@ -38,8 +38,9 @@ public class AdminSetMedication_RecyclerViewAdapter extends RecyclerView.Adapter
     public void onBindViewHolder(@NonNull AdminSetMedication_RecyclerViewAdapter.MyViewHolderMedication holder,  int position) {
         Medication medication = medications.get(position);
         holder.medName.setText(medication.getName());
-        holder.medDate.setText("medication.getDays()");
-        holder.medTime.setText("medication.getTime()");
+        //From - to DATE
+        holder.medDays.setText(medication.getDaysToString());
+        holder.medTime.setText(medication.getTimeToString());
 
         holder.editBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,7 +48,7 @@ public class AdminSetMedication_RecyclerViewAdapter extends RecyclerView.Adapter
                 System.out.println("edit button");
                 Context context = v.getContext();
                 Intent intent = new Intent(context,AdminSetMedicationAddEdit.class);
-                intent.putExtra("time","medication.getTime()");
+                intent.putExtra("medication",medication);
                 context.startActivity(intent);
             }
         });
@@ -70,13 +71,13 @@ public class AdminSetMedication_RecyclerViewAdapter extends RecyclerView.Adapter
 
     public static class MyViewHolderMedication extends RecyclerView.ViewHolder{
 
-        TextView medName, medDate, medTime;
+        TextView medName, medDays, medTime;
         ImageButton editBtn, delBtn;
         public MyViewHolderMedication(@NonNull View itemView,AdminSetMedication_RecyclerViewInterface recyclerViewInterface) {
             super(itemView);
 
             medName = itemView.findViewById(R.id.medication_name);
-            medDate = itemView.findViewById(R.id.medication_date);
+            medDays = itemView.findViewById(R.id.medication_days);
             medTime = itemView.findViewById(R.id.medication_time);
             editBtn = itemView.findViewById(R.id.edit_button);
             delBtn = itemView.findViewById(R.id.delete_button);
