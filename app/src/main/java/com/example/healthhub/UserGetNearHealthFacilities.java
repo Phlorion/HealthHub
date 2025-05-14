@@ -35,6 +35,7 @@ import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.android.libraries.places.api.net.SearchNearbyRequest;
 import com.google.maps.model.Distance;
+import com.google.maps.model.DistanceMatrix;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -42,6 +43,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 public class UserGetNearHealthFacilities extends AppCompatActivity {
 
@@ -155,6 +157,14 @@ public class UserGetNearHealthFacilities extends AppCompatActivity {
                 allIcon.setColorFilter(getColor(R.color.white));
 
                 lastFilter = FILTERS.ALL;
+
+                // clear recycler view before loading the contents
+                HealthFacilitiesAdapter healthFacilitiesAdapter = new HealthFacilitiesAdapter(getApplicationContext(), new ArrayList<>());
+                healthFacilitiesRV.setAdapter(healthFacilitiesAdapter);
+                healthFacilitiesRV.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+
+                // search for places
+                searchNearbyHealthFacilities(currentLocation.getLatitude(), currentLocation.getLongitude(), RADIUS, MAX_COUNT, lastFilter);
             }
         });
 
@@ -173,6 +183,14 @@ public class UserGetNearHealthFacilities extends AppCompatActivity {
                 hospitalsIcon.setColorFilter(getColor(R.color.white));
 
                 lastFilter = FILTERS.HOSPITAL;
+
+                // clear recycler view before loading the contents
+                HealthFacilitiesAdapter healthFacilitiesAdapter = new HealthFacilitiesAdapter(getApplicationContext(), new ArrayList<>());
+                healthFacilitiesRV.setAdapter(healthFacilitiesAdapter);
+                healthFacilitiesRV.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+
+                // search for places
+                searchNearbyHealthFacilities(currentLocation.getLatitude(), currentLocation.getLongitude(), RADIUS, MAX_COUNT, lastFilter);
             }
         });
 
@@ -191,6 +209,14 @@ public class UserGetNearHealthFacilities extends AppCompatActivity {
                 pharmaciesIcon.setColorFilter(getColor(R.color.white));
 
                 lastFilter = FILTERS.PHARMACY;
+
+                // clear recycler view before loading the contents
+                HealthFacilitiesAdapter healthFacilitiesAdapter = new HealthFacilitiesAdapter(getApplicationContext(), new ArrayList<>());
+                healthFacilitiesRV.setAdapter(healthFacilitiesAdapter);
+                healthFacilitiesRV.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+
+                // search for places
+                searchNearbyHealthFacilities(currentLocation.getLatitude(), currentLocation.getLongitude(), RADIUS, MAX_COUNT, lastFilter);
             }
         });
 
@@ -212,9 +238,11 @@ public class UserGetNearHealthFacilities extends AppCompatActivity {
         healthFacilityModels = new ArrayList<>();
 
         for (Place p : places) {
-            String distance = placesDistances.get(p.getId()).humanReadable;
+            Distance distance = placesDistances.get(p.getId());
             // if we got the distance from this place
             if (distance != null) {
+                String distanceHumanReadable = Objects.requireNonNull(placesDistances.get(p.getId())).humanReadable;
+
                 int imageID;
                 if (FILTERS.HOSPITAL.getIncludeTypes().contains(p.getPrimaryType()))
                     imageID = R.drawable.hospital_svgrepo;
@@ -222,7 +250,7 @@ public class UserGetNearHealthFacilities extends AppCompatActivity {
                     imageID = R.drawable.pharmacy_icon_svgrepo;
                 else
                     imageID = R.drawable.arrows_maximize_svgrepo;
-                HealthFacilityModel model = new HealthFacilityModel(p.getId(), p.getDisplayName(), p.getFormattedAddress(), distance, imageID);
+                HealthFacilityModel model = new HealthFacilityModel(p.getId(), p.getDisplayName(), p.getFormattedAddress(), distanceHumanReadable, imageID);
                 healthFacilityModels.add(model);
             }
         }
