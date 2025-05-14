@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.libraries.places.api.model.Place;
+import com.google.maps.model.Distance;
 import com.google.maps.model.DistanceMatrix;
 
 import java.util.HashMap;
@@ -12,7 +13,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class GMDistanceCalculationManager {
     private final String TAG = "DistanceCalculator";
-    private HashMap<String, String> placesDistances;
+    private HashMap<String, Distance> placesDistances;
     private List<Place> places;
     private LatLng currentLocation;
     private GMDistanceCalculator gmDistanceCalculator;
@@ -20,7 +21,7 @@ public class GMDistanceCalculationManager {
 
     // Custom callback interface to notify when all calculations are complete
     public interface DistanceCalculationCallback {
-        void onAllDistancesCalculated(HashMap<String, String> distances);
+        void onAllDistancesCalculated(HashMap<String, Distance> distances);
     }
 
     public GMDistanceCalculationManager(List<Place> places, LatLng currentLocation, GMDistanceCalculator gmDistanceCalculator, DistanceCalculationCallback callback) {
@@ -42,15 +43,16 @@ public class GMDistanceCalculationManager {
         final int totalPlaces = places.size();
 
         for (Place p : places) {
-            Log.d("Places", p.getId() + ", " + p.getDisplayName() + ", " + p.getPrimaryType() + ", " + p.getBusinessStatus() + ", " + p.getFormattedAddress());
+            //Log.d("Places", p.getId() + ", " + p.getDisplayName() + ", " + p.getPrimaryType() + ", " + p.getBusinessStatus() + ", " + p.getFormattedAddress());
+            //Log.d("Places", p.getDisplayName() + ", " + p.getPrimaryType());
 
             gmDistanceCalculator.calculateDistanceMatrix(currentLocation, p.getLocation(), new GMDistanceCalculator.onDistanceCalculatedListener() {
                 @Override
                 public void onDistanceCalculated(DistanceMatrix distanceMatrix) {
                     synchronized (placesDistances) {
                         if (distanceMatrix != null) {
-                            Log.d("DistanceCalculator", "Distance: " + distanceMatrix.rows[0].elements[0].distance.humanReadable);
-                            placesDistances.put(p.getId(), distanceMatrix.rows[0].elements[0].distance.humanReadable);
+                            //Log.d("DistanceCalculator", "Distance: " + distanceMatrix.rows[0].elements[0].distance.humanReadable);
+                            placesDistances.put(p.getId(), distanceMatrix.rows[0].elements[0].distance);
                         } else {
                             Log.d("DistanceCalculator", "Invalid Distance Matrix Response.");
                             placesDistances.put(p.getId(), null);

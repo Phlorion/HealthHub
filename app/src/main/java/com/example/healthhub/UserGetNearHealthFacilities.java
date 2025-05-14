@@ -4,8 +4,8 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
+import android.os.Debug;
 import android.util.Log;
-import android.util.Pair;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -34,26 +34,31 @@ import com.google.android.libraries.places.api.model.CircularBounds;
 import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.android.libraries.places.api.net.SearchNearbyRequest;
+import com.google.maps.model.Distance;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 
 public class UserGetNearHealthFacilities extends AppCompatActivity {
 
     // Google Maps
-    final int FINE_PERMISSION_CODE = 1;
-    FusedLocationProviderClient fusedLocationProviderClient;
-    Location currentLocation;
+    private final int FINE_PERMISSION_CODE = 1;
+    private FusedLocationProviderClient fusedLocationProviderClient;
+    private Location currentLocation;
 
     // Places API
-    PlacesClient placesClient;
-    List<Place> places;
-    HashMap<String, String> placesDistances;
+    private PlacesClient placesClient;
+    private List<Place> places;
+    private HashMap<String, Distance> placesDistances;
+    private final int RADIUS = 3000;
+    private final int MAX_COUNT = 20;
 
     // Logged in User
-    User user;
+    private User user;
 
     // Activity
     private FrameLayout allButton;
@@ -67,9 +72,26 @@ public class UserGetNearHealthFacilities extends AppCompatActivity {
     private Button backBtn;
 
     private enum FILTERS {
-        ALL,
-        HOSPITAL,
-        PHARMACY
+        ALL {
+            @Override
+            List<String> getIncludeTypes() {
+                return Arrays.asList("pharmacy", "hospital");
+            }
+        },
+        HOSPITAL {
+            @Override
+            List<String> getIncludeTypes() {
+                return List.of("hospital");
+            }
+        },
+        PHARMACY {
+            @Override
+            List<String> getIncludeTypes() {
+                return List.of("pharmacy");
+            }
+        };
+
+        abstract List<String> getIncludeTypes();
     }
 
     private FILTERS lastFilter = FILTERS.ALL; // changes to the last filter value, depending on what button we pressed
@@ -183,17 +205,38 @@ public class UserGetNearHealthFacilities extends AppCompatActivity {
         getLastLocation();
     }
 
+    /**
+     * Set the healthFacilityModels arraylist for the display of the recycler view items.
+     */
     private void setHealthFacilityModels() {
         healthFacilityModels = new ArrayList<>();
 
         for (Place p : places) {
-            String distance = placesDistances.get(p.getId());
+            String distance = placesDistances.get(p.getId()).humanReadable;
             // if we got the distance from this place
             if (distance != null) {
-                HealthFacilityModel model = new HealthFacilityModel(p.getDisplayName(), p.getFormattedAddress(), distance, R.drawable.arrows_maximize_svgrepo);
+                int imageID;
+                if (FILTERS.HOSPITAL.getIncludeTypes().contains(p.getPrimaryType()))
+                    imageID = R.drawable.hospital_svgrepo;
+                else if (FILTERS.PHARMACY.getIncludeTypes().contains(p.getPrimaryType()))
+                    imageID = R.drawable.pharmacy_icon_svgrepo;
+                else
+                    imageID = R.drawable.arrows_maximize_svgrepo;
+                HealthFacilityModel model = new HealthFacilityModel(p.getId(), p.getDisplayName(), p.getFormattedAddress(), distance, imageID);
                 healthFacilityModels.add(model);
             }
         }
+
+        // sort healthFacilityModels array based on distances hashmap
+        healthFacilityModels.sort(new Comparator<HealthFacilityModel>() {
+            @Override
+            public int compare(HealthFacilityModel model1, HealthFacilityModel model2) {
+                long value1 = placesDistances.get(model1.getId()).inMeters;
+                long value2 = placesDistances.get(model2.getId()).inMeters;
+
+                return Long.compare(value1, value2);
+            }
+        });
     }
 
     /**
@@ -203,7 +246,7 @@ public class UserGetNearHealthFacilities extends AppCompatActivity {
      * @param radius The radius in meters in which to search for the facilities.
      * @param maxResultCount Max amount of results contained in the response.
      */
-    private void searchNearbyHealthFacilities(double latitude, double longitude, int radius, int maxResultCount) {
+    private void searchNearbyHealthFacilities(double latitude, double longitude, int radius, int maxResultCount, FILTERS filter) {
         // Define a list of fields to include in the response for each returned place
         final List<Place.Field> placeFields = Arrays.asList(Place.Field.ID, Place.Field.DISPLAY_NAME, Place.Field.PRIMARY_TYPE, Place.Field.FORMATTED_ADDRESS, Place.Field.LOCATION, Place.Field.BUSINESS_STATUS);
 
@@ -212,7 +255,7 @@ public class UserGetNearHealthFacilities extends AppCompatActivity {
         CircularBounds circle = CircularBounds.newInstance(center, radius);
 
         // Define a list of types to include
-        final List<String> includedTypes = Arrays.asList("pharmacy", "hospital");
+        final List<String> includedTypes = filter.getIncludeTypes();
 
         // Use the builder to create a SearchNearbyRequest object
         final SearchNearbyRequest searchNearbyRequest = SearchNearbyRequest.builder(circle, placeFields)
@@ -224,7 +267,14 @@ public class UserGetNearHealthFacilities extends AppCompatActivity {
         placesClient.searchNearby(searchNearbyRequest)
                 .addOnSuccessListener(response -> {
                     // get a list response of all the places found
-                    places = response.getPlaces();
+                    places = new ArrayList<>();
+
+                    // remove those who are closed
+                    for (Place p : response.getPlaces()) {
+                        if (p.getBusinessStatus() == Place.BusinessStatus.OPERATIONAL) {
+                            places.add(p);
+                        }
+                    }
 
                     // set the GMDistanceCalculator to get the distance of every place
                     GMDistanceCalculator gmDistanceCalculator = new GMDistanceCalculator();
@@ -234,7 +284,7 @@ public class UserGetNearHealthFacilities extends AppCompatActivity {
                     GMDistanceCalculationManager gmDistanceCalculationManager = new GMDistanceCalculationManager(places, new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()),
                             gmDistanceCalculator, new GMDistanceCalculationManager.DistanceCalculationCallback() {
                         @Override
-                        public void onAllDistancesCalculated(HashMap<String, String> distances) {
+                        public void onAllDistancesCalculated(HashMap<String, Distance> distances) {
                             // this method is run when all distances have been calculated
                             // now we can create the recycler view
                             placesDistances = distances; // assign the distances to our arraylist
@@ -270,7 +320,7 @@ public class UserGetNearHealthFacilities extends AppCompatActivity {
                     currentLocation = location;
 
                     // search for places
-                    searchNearbyHealthFacilities(currentLocation.getLatitude(), currentLocation.getLongitude(), 10000, 10);
+                    searchNearbyHealthFacilities(currentLocation.getLatitude(), currentLocation.getLongitude(), RADIUS, MAX_COUNT, lastFilter);
                 }
             }
         });

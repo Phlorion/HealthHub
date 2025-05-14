@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@color/white">
 
     <androidx.cardview.widget.CardView
         android:layout_width="0dp"
@@ -12,11 +13,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="2dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginBottom="4dp"
         android:background="@color/white">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@drawable/health_facilites_rv_row">
 
             <ImageView
                 android:id="@+id/health_facilities_rv_row_img1"
@@ -26,46 +31,56 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/arrows_maximize_svgrepo" />
+                app:srcCompat="@drawable/arrows_maximize_svgrepo"
+                android:tint="@color/app_main"
+                tools:ignore="UseAppTint" />
 
             <TextView
                 android:id="@+id/health_facilities_rv_row_tv1"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="18dp"
+                android:ellipsize="end"
+                android:maxLines="1"
                 android:fontFamily="@font/inter_medium"
                 android:text="name"
                 android:textColor="@color/black"
                 android:textSize="20sp"
-                app:layout_constraintStart_toEndOf="@id/health_facilities_rv_row_img1"
-                app:layout_constraintTop_toTopOf="@id/health_facilities_rv_row_img1" />
+                app:flow_wrapMode="aligned"
+                app:layout_constraintEnd_toStartOf="@+id/health_facilities_rv_row_tv3"
+                app:layout_constraintStart_toEndOf="@+id/health_facilities_rv_row_img1"
+                app:layout_constraintTop_toTopOf="@id/health_facilities_rv_row_img1"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="18dp"/>
 
             <TextView
                 android:id="@+id/health_facilities_rv_row_tv2"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="18dp"
+                android:ellipsize="end"
+                android:maxLines="1"
                 android:fontFamily="@font/inter_medium"
                 android:text="address"
                 android:textColor="@color/black"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="@id/health_facilities_rv_row_img1"
-                app:layout_constraintStart_toEndOf="@id/health_facilities_rv_row_img1"
-                app:layout_constraintTop_toBottomOf="@id/health_facilities_rv_row_tv1" />
+                app:layout_constraintEnd_toStartOf="@+id/health_facilities_rv_row_tv3"
+                app:layout_constraintStart_toEndOf="@+id/health_facilities_rv_row_img1"
+                app:layout_constraintTop_toBottomOf="@id/health_facilities_rv_row_tv1"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="18dp"/>
 
             <TextView
                 android:id="@+id/health_facilities_rv_row_tv3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/inter_medium"
+                android:fontFamily="@font/inter_semibold"
                 android:text="distance"
                 android:textColor="@color/black"
-                android:textSize="16sp"
+                android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="@+id/health_facilities_rv_row_img1"
                 app:layout_constraintEnd_toStartOf="@id/health_facilities_rv_row_btn1"
                 app:layout_constraintTop_toTopOf="@+id/health_facilities_rv_row_img1"
-                android:layout_marginEnd="18dp"
-                android:layout_marginStart="24dp"/>
+                android:layout_marginEnd="18dp" />
 
             <Button
                 android:id="@+id/health_facilities_rv_row_btn1"
