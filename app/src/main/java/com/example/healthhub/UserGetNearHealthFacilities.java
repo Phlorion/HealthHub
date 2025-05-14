@@ -5,6 +5,7 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Debug;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -19,6 +20,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.healthhub.Adapters.HealthFacilitiesAdapter;
+import com.example.healthhub.Adapters.HealthFacilityRVInterface;
 import com.example.healthhub.DAO.User;
 import com.example.healthhub.Models.HealthFacilityModel;
 import com.example.healthhub.Utils.GMDistanceCalculationManager;
@@ -45,7 +47,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
-public class UserGetNearHealthFacilities extends AppCompatActivity {
+public class UserGetNearHealthFacilities extends AppCompatActivity implements HealthFacilityRVInterface {
 
     // Google Maps
     private final int FINE_PERMISSION_CODE = 1;
@@ -72,6 +74,33 @@ public class UserGetNearHealthFacilities extends AppCompatActivity {
     private ImageView pharmaciesIcon;
 
     private Button backBtn;
+
+    @Override
+    public void onItemClick(int position) {
+        Place p = places.get(position);
+        if (p == null) {
+            Toast.makeText(getApplicationContext(), "An error occurred.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        Intent intent = new Intent(getApplicationContext(), HealthFacilityDetails.class);
+        intent.putExtra("userId", user.getId());
+        intent.putExtra("fac_name", p.getDisplayName());
+        intent.putExtra("fac_address", p.getFormattedAddress());
+        intent.putExtra("fac_distance", placesDistances.get(p.getId()).humanReadable);
+        intent.putExtra("fac_primaryType", p.getPrimaryType());
+        intent.putExtra("fac_location", p.getLocation());
+        intent.putExtra("fac_businessStatus", (Parcelable) p.getBusinessStatus());
+        if (FILTERS.HOSPITAL.getIncludeTypes().contains(p.getPrimaryType()))
+            intent.putExtra("fac_image", R.drawable.hospital_svgrepo);
+        else if (FILTERS.PHARMACY.getIncludeTypes().contains(p.getPrimaryType()))
+            intent.putExtra("fac_image", R.drawable.pharmacy_icon_svgrepo);
+        else
+            intent.putExtra("fac_image", R.drawable.arrows_maximize_svgrepo);
+
+        startActivity(intent);
+
+    }
 
     private enum FILTERS {
         ALL {
@@ -159,7 +188,7 @@ public class UserGetNearHealthFacilities extends AppCompatActivity {
                 lastFilter = FILTERS.ALL;
 
                 // clear recycler view before loading the contents
-                HealthFacilitiesAdapter healthFacilitiesAdapter = new HealthFacilitiesAdapter(getApplicationContext(), new ArrayList<>());
+                HealthFacilitiesAdapter healthFacilitiesAdapter = new HealthFacilitiesAdapter(getApplicationContext(), new ArrayList<>(), UserGetNearHealthFacilities.this);
                 healthFacilitiesRV.setAdapter(healthFacilitiesAdapter);
                 healthFacilitiesRV.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
@@ -185,7 +214,7 @@ public class UserGetNearHealthFacilities extends AppCompatActivity {
                 lastFilter = FILTERS.HOSPITAL;
 
                 // clear recycler view before loading the contents
-                HealthFacilitiesAdapter healthFacilitiesAdapter = new HealthFacilitiesAdapter(getApplicationContext(), new ArrayList<>());
+                HealthFacilitiesAdapter healthFacilitiesAdapter = new HealthFacilitiesAdapter(getApplicationContext(), new ArrayList<>(), UserGetNearHealthFacilities.this);
                 healthFacilitiesRV.setAdapter(healthFacilitiesAdapter);
                 healthFacilitiesRV.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
@@ -211,7 +240,7 @@ public class UserGetNearHealthFacilities extends AppCompatActivity {
                 lastFilter = FILTERS.PHARMACY;
 
                 // clear recycler view before loading the contents
-                HealthFacilitiesAdapter healthFacilitiesAdapter = new HealthFacilitiesAdapter(getApplicationContext(), new ArrayList<>());
+                HealthFacilitiesAdapter healthFacilitiesAdapter = new HealthFacilitiesAdapter(getApplicationContext(), new ArrayList<>(), UserGetNearHealthFacilities.this);
                 healthFacilitiesRV.setAdapter(healthFacilitiesAdapter);
                 healthFacilitiesRV.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
@@ -250,7 +279,7 @@ public class UserGetNearHealthFacilities extends AppCompatActivity {
                     imageID = R.drawable.pharmacy_icon_svgrepo;
                 else
                     imageID = R.drawable.arrows_maximize_svgrepo;
-                HealthFacilityModel model = new HealthFacilityModel(p.getId(), p.getDisplayName(), p.getFormattedAddress(), distanceHumanReadable, imageID);
+                HealthFacilityModel model = new HealthFacilityModel(p.getId(), p.getDisplayName(), p.getFormattedAddress(), distanceHumanReadable, p.getPrimaryType(), p.getLocation(), p.getBusinessStatus(), imageID);
                 healthFacilityModels.add(model);
             }
         }
@@ -318,7 +347,7 @@ public class UserGetNearHealthFacilities extends AppCompatActivity {
                             placesDistances = distances; // assign the distances to our arraylist
 
                             setHealthFacilityModels();
-                            HealthFacilitiesAdapter healthFacilitiesAdapter = new HealthFacilitiesAdapter(getApplicationContext(), healthFacilityModels);
+                            HealthFacilitiesAdapter healthFacilitiesAdapter = new HealthFacilitiesAdapter(getApplicationContext(), healthFacilityModels, UserGetNearHealthFacilities.this);
                             healthFacilitiesRV.setAdapter(healthFacilitiesAdapter);
                             healthFacilitiesRV.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
                         }

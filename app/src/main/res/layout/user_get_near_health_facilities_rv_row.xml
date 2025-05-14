@@ -4,9 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:focusable="true"
+    android:clickable="true">
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/health_facilities_rv_row_card1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -19,6 +22,7 @@
         android:background="@color/white">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/health_facilities_rv_row_constraint1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/health_facilites_rv_row">
