@@ -29,21 +29,32 @@ public class AdminSetFavoriteContact extends AppCompatActivity {
     User user;
     List<Contact> userContacts = new ArrayList<>();
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_set_favorite_contact); // Make sure this layout has a LinearLayout with id contacts_linear_layout
 
-        contactsContainer = findViewById(R.id.contacts_linear_layout);
+
+        contactsContainer = findViewById(R.id.activity_admin_set_favorite_contact);
 
         Intent receivedIntent = getIntent();
         int userId = receivedIntent.getIntExtra("userId", -1);
 
         user = Utils.userDAO.findUserByID(userId);
         if (user != null) {
+//            LOAD MAKE THE CONTACTS FOR THE USER
             loadFavoriteContactsForUser(user.getId());
+
+//          SETUPS TEH UI
             setupContacts();
         }
+        ImageButton addContactButton = (ImageButton) findViewById(R.id.addContactButtonID);
+        addContactButton.setOnClickListener(v -> {
+            Intent intent = new Intent(this, AdminAddContactActivity.class);
+            intent.putExtra("userId", user.getId());
+            startActivityForResult(intent, 2);
+        });
     }
 
     private void loadFavoriteContactsForUser(int userId) {
@@ -57,6 +68,8 @@ public class AdminSetFavoriteContact extends AppCompatActivity {
     }
 
     private void setupContacts() {
+
+        LinearLayout contactsContainer = findViewById(R.id.contactsContainer);
         contactsContainer.removeAllViews();
 
         for (Contact contact : userContacts) {
@@ -112,21 +125,26 @@ public class AdminSetFavoriteContact extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == 1 && resultCode == RESULT_OK && data != null) {
+            // edit contact result (already done before)
             String updatedName = data.getStringExtra("updatedName");
             String updatedPhone = data.getStringExtra("updatedPhone");
 
-            // Find and update the contact
             for (Contact c : Utils.contactDAO.getContacts()) {
                 if (c.getUserID() == user.getId()) {
                     if (c.getName().equals(updatedName) || c.getPhoneNum().equals(updatedPhone)) {
-                        c.updateContact(updatedName, updatedPhone); // update logic already in your class
+                        c.updateContact(updatedName, updatedPhone);
                         break;
                     }
                 }
             }
 
-            loadFavoriteContactsForUser(user.getId()); // reload models
-            setupContacts(); // refresh UI
+            loadFavoriteContactsForUser(user.getId());
+            setupContacts();
+
+        } else if (requestCode == 2 && resultCode == RESULT_OK && data != null) {
+            // add new contact result
+            loadFavoriteContactsForUser(user.getId());
+            setupContacts();
         }
     }
 }
