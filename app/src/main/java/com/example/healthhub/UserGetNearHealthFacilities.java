@@ -85,6 +85,7 @@ public class UserGetNearHealthFacilities extends AppCompatActivity implements He
 
         Intent intent = new Intent(getApplicationContext(), HealthFacilityDetails.class);
         intent.putExtra("userId", user.getId());
+        intent.putExtra("user_current_location", currentLocation);
         intent.putExtra("fac_name", p.getDisplayName());
         intent.putExtra("fac_address", p.getFormattedAddress());
         intent.putExtra("fac_distance", placesDistances.get(p.getId()).humanReadable);

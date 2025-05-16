@@ -135,7 +135,6 @@ public class UserGetHome extends AppCompatActivity implements OnMapReadyCallback
             currentLatLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
 
             map.addMarker(new MarkerOptions().position(currentLatLng).icon(BitmapDescriptorFactory.fromBitmap(getBitmapFromDrawable(R.drawable.user))));
-            map.moveCamera(CameraUpdateFactory.newLatLng(currentLatLng));
 
             // set current location textview
             currentAddressTV.setText(getLocationAddress(currentLatLng));
@@ -147,7 +146,6 @@ public class UserGetHome extends AppCompatActivity implements OnMapReadyCallback
             homeLatLng = getLatLng(userHome.getCountry(), userHome.getCity(), userHome.getStreet(), userHome.getNumber(), userHome.getPostal());
 
             map.addMarker(new MarkerOptions().position(homeLatLng));
-            map.moveCamera(CameraUpdateFactory.newLatLng(homeLatLng));
         }
 
         // move camera so it fits both markers

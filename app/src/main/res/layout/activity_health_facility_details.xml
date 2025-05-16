@@ -2,9 +2,161 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+    android:id="@+id/healthfac_constraint1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".HealthFacilityDetails">
+
+    <LinearLayout
+        android:id="@+id/healthfac_linear1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:padding="16dp"
+        android:gravity="center_vertical"
+        android:background="@color/white">
+
+        <Button
+            android:id="@+id/healthfac_btn1"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:background="@drawable/baseline_chevron_left_24"/>
+
+        <TextView
+            android:id="@+id/healthfac_tv1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Health Facility"
+            android:textSize="18sp"
+            android:fontFamily="@font/inter_semibold"
+            android:textColor="@color/black"
+            android:layout_marginStart="8dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/healthfac_linear2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:id="@+id/healthfac_linear3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginTop="12dp">
+
+            <ImageView
+                android:id="@+id/healthfac_img1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/pharmacy_icon_svgrepo"
+                android:tint="@color/app_main"
+                android:layout_marginStart="24dp"
+                tools:ignore="UseAppTint" />
+
+            <TextView
+                android:id="@+id/healthfac_tv6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Health Facility Name"
+                android:textSize="18dp"
+                android:fontFamily="@font/inter_semibold"
+                android:textColor="@color/black"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="24dp"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/healthfac_tv7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="State"
+            android:textSize="16dp"
+            android:fontFamily="@font/inter_semibold"
+            android:textColor="@color/app_main"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginTop="10dp"/>
+
+        <TextView
+            android:id="@+id/healthfac_tv2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Current address"
+            android:textSize="16sp"
+            android:fontFamily="@font/inter_semibold"
+            android:textColor="@color/black"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginTop="12dp"/>
+
+        <TextView
+            android:id="@+id/healthfac_tv3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Unknown address"
+            android:textSize="14sp"
+            android:fontFamily="@font/inter_medium"
+            android:textColor="@color/black"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="12dp"/>
+
+        <TextView
+            android:id="@+id/healthfac_tv4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Health Facility address"
+            android:textSize="16sp"
+            android:fontFamily="@font/inter_semibold"
+            android:textColor="@color/black"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp" />
+
+        <TextView
+            android:id="@+id/healthfac_tv5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Unknown home address"
+            android:textSize="14sp"
+            android:fontFamily="@font/inter_medium"
+            android:textColor="@color/black"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp" />
+
+        <Button
+            android:id="@+id/healthfac_btn2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Go"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="24dp"
+            android:background="@drawable/round_btn"
+            android:textSize="14sp"
+            android:textColor="@color/white"
+            android:fontFamily="@font/inter_semibold"/>
+
+    </LinearLayout>
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/healthfac_mapsFragment"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/healthfac_linear2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/healthfac_linear1" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
