@@ -35,19 +35,11 @@ public class ContactDAO {
     }
 
 
-    private Contact convertModelToContact(ContactModel model) {
-        for (Contact c : Utils.contactDAO.getContacts()) {
-            if (c.getPhoneNum().equals(model.getContPhone()) &&
-                    c.getName().equals(model.getContName())) {
-                return c;
-            }
-        }
-        return null;
-    }
-
     public ArrayList<Contact> getContacts() {
         return contacts;
     }
+
+
 
     public void updateContact(int contactID, String name, String phoneNum){
        for (int i = 0; i < contacts.size(); i++) {
@@ -59,4 +51,13 @@ public class ContactDAO {
            }
    }
 }
+
+    public Contact findContactByID(int contactId) {
+        for (Contact c : contacts){
+            if (c.getID() == contactId){
+                return c;
+            }
+        }
+        return null;
+    }
 }

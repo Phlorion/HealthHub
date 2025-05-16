@@ -71,19 +71,20 @@ public class AdminSetFavoriteContact extends AppCompatActivity {
             numberTextView.setText(contact.getPhoneNum());
 
             editButton.setOnClickListener(v -> {
-                Toast.makeText(this,"EDITING",Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(AdminSetFavoriteContact.this, AdminEditContact.class);
+                intent.putExtra("contactName", contact.getName());
+                intent.putExtra("contactPhone", contact.getPhoneNum());
+                startActivityForResult(intent, 1);
             });
 
             removeButton.setOnClickListener(v -> {
-                // Inflate your custom dialog layout
+                // This is the popup when trying to remove a contact
                 View dialogView = LayoutInflater.from(this).inflate(R.layout.layout_remove_contact, null);
 
-                // Build the dialog
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setView(dialogView);
                 AlertDialog dialog = builder.create();
 
-                // Get buttons from layout
                 Button cancelButton = dialogView.findViewById(R.id.button_cancel);
                 Button removeButtonInDialog = dialogView.findViewById(R.id.button_remove);
 
@@ -103,6 +104,29 @@ public class AdminSetFavoriteContact extends AppCompatActivity {
             });
 
             contactsContainer.addView(contactCard);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 1 && resultCode == RESULT_OK && data != null) {
+            String updatedName = data.getStringExtra("updatedName");
+            String updatedPhone = data.getStringExtra("updatedPhone");
+
+            // Find and update the contact
+            for (Contact c : Utils.contactDAO.getContacts()) {
+                if (c.getUserID() == user.getId()) {
+                    if (c.getName().equals(updatedName) || c.getPhoneNum().equals(updatedPhone)) {
+                        c.updateContact(updatedName, updatedPhone); // update logic already in your class
+                        break;
+                    }
+                }
+            }
+
+            loadFavoriteContactsForUser(user.getId()); // reload models
+            setupContacts(); // refresh UI
         }
     }
 }

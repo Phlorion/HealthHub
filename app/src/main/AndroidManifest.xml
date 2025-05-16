@@ -56,6 +56,8 @@
         <activity
             android:name=".AdminLogIn"
             android:exported="false" />
+        <activity android:name=".AdminEditContact" />
+
         <activity
             android:name=".SetMedication"
             android:exported="false" />
