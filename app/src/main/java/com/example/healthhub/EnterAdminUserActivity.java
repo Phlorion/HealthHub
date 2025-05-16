@@ -17,6 +17,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.healthhub.DAO.Contact;
 import com.example.healthhub.DAO.Home;
 import com.example.healthhub.DAO.User;
 import com.example.healthhub.DAO.UserDAO;
@@ -37,6 +38,14 @@ public class EnterAdminUserActivity extends AppCompatActivity {
 
         User testUser = new User("George", "georgeavrabos@gmail.com", "george111");
         Home testHome = new Home(testUser.getId(), "Greece", "Athens", "28is Oktovriou", "76", "10434");
+
+
+        Contact contact1 = new Contact("John Doe", "12345678",AdminUSER.getId());
+        Contact contact2 = new Contact("Gustavo Fring", "87654321",AdminUSER.getId());
+
+        Contact contact3 = new Contact("John Doe", "12345678",testUser.getId());
+        Contact contact4 = new Contact("Gustavo Fring", "87654321",testUser.getId());
+
     }
 
     protected void onCreate(Bundle savedInstanceState) {

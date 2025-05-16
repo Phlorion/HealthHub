@@ -55,6 +55,7 @@ public class AdminLogIn extends AppCompatActivity {
                 if (Utils.userDAO.authUser(email, pass)) {
                     // go to corresponding activity
                     Intent intent = new Intent(AdminLogIn.this, AdminMain.class);
+                    intent.putExtra("userId",Utils.userDAO.findUser(email,pass).getId());
                     startActivity(intent);
                     finish();
                 } else {

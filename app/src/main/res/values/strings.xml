@@ -17,8 +17,6 @@
 
     <string name="logout">LOGOUT</string>
 
-    <string name="hello">Hello there \nWhat would you like to do? </string>
-
     <string name="cntctName">Contact Name Here</string>
     <string name="cntctPhone">Contact Phone Number Here</string>
 
@@ -26,7 +24,7 @@
     <string name="title_activity_maps_test">MapsActivityTest</string>
     <string name="set_Home_btn">Set Home</string>
     <string name="set_Medication_btn">Set Medication</string>
-    <string name="set_Favorite_Contacts_btn">Set Favorite Contacts</string>
+    <string name="set_Favorite_Contacts_btn">Set Favorite           Contacts</string>
     <string name="set_Personal_Info_btn">Set Personal Information</string>
 
 </resources>

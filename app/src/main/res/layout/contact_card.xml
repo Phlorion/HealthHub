@@ -1,66 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:padding="8dp">
 
-    <androidx.cardview.widget.CardView
+    <LinearLayout
+        android:id="@+id/contact_card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
-        app:cardCornerRadius="20dp"
-        app:cardElevation="8dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        app:cardBackgroundColor="@color/card"
-
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="16dp"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        >
+        app:layout_constraintBottom_toBottomOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="65dp">
-
-            <ImageButton
-                android:id="@+id/removeContact"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:layout_marginEnd="28dp"
-
-                android:background="@drawable/trash_can"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
 
             <TextView
-                android:id="@+id/contactName"
+                android:id="@+id/contactNameTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="Contact Name"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
+            <TextView
+                android:id="@+id/contactNumberTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:layout_marginEnd="172dp"
-                android:text="@string/cntctName"
-                app:layout_constraintEnd_toStartOf="@+id/removeContact"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:text="Phone Number"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="14sp" />
+        </LinearLayout>
 
-            <TextView
-                android:id="@+id/contactPhoneNumb"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/cntctPhone"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/removeContact"
-                app:layout_constraintHorizontal_bias="0.241"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/contactName"
-                app:layout_constraintVertical_bias="0.681" />
+        <ImageButton
+            android:id="@+id/editContactButton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="16dp"
+            android:background="@drawable/round_btn"
+            android:src="@drawable/edit_pen"
+            android:contentDescription="Edit contact" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
+        <ImageButton
+            android:id="@+id/removeContactButton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="16dp"
+            android:background="@drawable/red_button_background"
+            android:src="@drawable/trash_can"
+            android:contentDescription="Remove contact" />
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -17,7 +17,11 @@ public class ContactModel {
     public String getContName() {
         return contName;
     }
+
+
 }
+
+
 
 
 

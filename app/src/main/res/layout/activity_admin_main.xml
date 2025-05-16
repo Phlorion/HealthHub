@@ -29,6 +29,7 @@
 
             <Button
                 android:id="@+id/logout_btn"
+                android:fontFamily="@font/inter_semibold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
@@ -41,7 +42,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/hello"
+                android:text="Hello there \nWhat would you like to do? "
                 android:textColor="@color/black"
                 android:textSize="18sp" />
         </LinearLayout>
@@ -67,11 +68,12 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:background="#66FFFFFF"
+                android:layout_gravity="bottom"
+                android:layout_marginLeft="12dp"
+                android:fontFamily="@font/inter_semibold"
                 android:backgroundTint="@color/white"
                 android:text="@string/set_Personal_Info_btn"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="25sp"
                 android:tint="@color/black" />
 
@@ -98,12 +100,14 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:background="#66FFFFFF"
-                android:text="@string/set_Favorite_Contacts_btn"
-                android:textColor="@color/black"
+                android:layout_gravity="bottom"
+                android:layout_marginLeft="12dp"
+                android:fontFamily="@font/inter_semibold"
+                android:text="Set Favorite Contacts"
+                android:background="#6695b89b"
+                android:textColor="@color/white"
                 android:textSize="25sp"
-                android:tint="@color/black" />
+                />
 
         </FrameLayout>
 
@@ -126,10 +130,11 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:background="#66FFFFFF"
+                android:layout_gravity="bottom"
+                android:layout_marginLeft="12dp"
+                android:fontFamily="@font/inter_semibold"
                 android:text="@string/set_Medication_btn"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="25sp"
                 android:tint="@color/black" />
 
@@ -154,10 +159,11 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:background="#66FFFFFF"
+                android:layout_gravity="bottom"
+                android:layout_marginLeft="12dp"
+                android:fontFamily="@font/inter_semibold"
                 android:text="@string/set_Home_btn"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="25sp"
                 android:tint="@color/black" />
 

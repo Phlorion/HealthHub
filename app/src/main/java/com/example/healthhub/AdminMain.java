@@ -21,6 +21,7 @@ public class AdminMain extends AppCompatActivity {
     ImageButton setHome;
     ImageButton setFavContact;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,10 +72,14 @@ public class AdminMain extends AppCompatActivity {
         setFavContact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(AdminMain.this,"setFavoriteCont", Toast.LENGTH_SHORT).show();
-//                Intent intent = new Intent(AdminMain.this,AdminSetFavoriteContact.class);
-//                startActivity(intent);
-//                finish();
+
+                Intent preIntent = getIntent();
+                int passId= preIntent.getIntExtra("userId",-1);
+
+                Intent intent = new Intent(AdminMain.this, AdminSetFavoriteContact.class);
+                intent.putExtra("userId",passId);
+                startActivity(intent);
+                finish();
             }
         });
 
