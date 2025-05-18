@@ -33,8 +33,7 @@ public class AdminSetFavoriteContact extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_admin_set_favorite_contact); // Make sure this layout has a LinearLayout with id contacts_linear_layout
-
+        setContentView(R.layout.activity_admin_set_favorite_contact);
 
         contactsContainer = findViewById(R.id.activity_admin_set_favorite_contact);
 

@@ -36,11 +36,10 @@ public class AdminMain extends AppCompatActivity {
         setPersonalInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(AdminMain.this,"setPersonal", Toast.LENGTH_SHORT).show();
 
-//                Intent intent = new Intent(AdminMain.this,set);
-//                startActivity(intent);
-//                finish();
+                Intent intent = new Intent(AdminMain.this,AdminSetPersonalInfo.class);
+                startActivity(intent);
+                finish();
             }
         });
 
@@ -48,7 +47,6 @@ public class AdminMain extends AppCompatActivity {
         setHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(AdminMain.this,"setHome", Toast.LENGTH_SHORT).show();
 
                 Intent intent = new Intent(AdminMain.this,AdminSetHome.class);
                 startActivity(intent);
@@ -60,7 +58,6 @@ public class AdminMain extends AppCompatActivity {
         setMedication.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(AdminMain.this,"setMedication", Toast.LENGTH_SHORT).show();
 
                 Intent intent = new Intent(AdminMain.this,AdminSetMedication.class);
                 startActivity(intent);

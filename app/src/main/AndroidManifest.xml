@@ -43,7 +43,7 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="${MAPS_API_KEY}" />
         <activity android:name=".AdminSetFavoriteContact" />
-
+        <activity android:name=".AdminSetPersonalInfo"/>
         <activity
             android:name=".AdminSetHome"
             android:exported="false" />
