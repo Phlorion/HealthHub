@@ -62,7 +62,7 @@ public class AdminMain extends AppCompatActivity {
             public void onClick(View view) {
                 Toast.makeText(AdminMain.this,"setMedication", Toast.LENGTH_SHORT).show();
 
-                Intent intent = new Intent(AdminMain.this,SetMedication.class);
+                Intent intent = new Intent(AdminMain.this,AdminSetMedication.class);
                 startActivity(intent);
                 finish();
             }

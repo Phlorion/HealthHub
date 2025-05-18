@@ -42,11 +42,20 @@ public class MedicationDAO {
      * Save all medications to the database - if they exist -> update them, else -> add them
      * */
     public void saveMedications(ArrayList<Medication> newOrUpdatedMeds){
-        for(Medication med : newOrUpdatedMeds){
-            if(medications.contains(med)){//If it exists -> update it
-                updateMedication(med.getID(),med);
-            }else{//Else -> add it
-                addMedication(med);
+        for (Medication newMed : newOrUpdatedMeds) {
+            boolean updated = false;
+
+            for (int i = 0; i < medications.size(); i++) {
+                Medication existingMed = medications.get(i);
+                if (existingMed.getID() == (newMed.getID())) {
+                    updateMedication(newMed.getID(), newMed);
+                    updated = true;
+                    break;
+                }
+            }
+
+            if (!updated) {
+                addMedication(newMed);
             }
         }
     }

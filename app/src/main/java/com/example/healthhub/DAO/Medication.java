@@ -1,5 +1,6 @@
 package com.example.healthhub.DAO;
 
+import android.annotation.SuppressLint;
 import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -7,8 +8,12 @@ import android.os.Parcelable;
 import com.example.healthhub.Utils.Utils;
 import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -18,14 +23,16 @@ public class Medication implements Parcelable {
     int id;
     int userID;
     String name;
+    String quantity;
     LocalDate fromDate;
     LocalDate toDate;
     List<String> days;
     List<String> time;
 
-    public Medication(int userID, String name, LocalDate fromDate, LocalDate toDate, List<String> days, List<String> time) {
+    public Medication(int userID, String name, String quantity, LocalDate fromDate, LocalDate toDate, List<String> days, List<String> time) {
         this.userID = userID;
         this.name = name;
+        this.quantity = quantity;
         this.fromDate = fromDate;
         this.toDate = toDate;
         this.days = days;
@@ -39,6 +46,7 @@ public class Medication implements Parcelable {
         id = in.readInt();
         userID = in.readInt();
         name = in.readString();
+        quantity = in.readString();
         // Use ParcelUtils or handle null LocalDate
         long fromDateMillis = in.readLong();
         long toDateMillis = in.readLong();
@@ -66,16 +74,37 @@ public class Medication implements Parcelable {
     public int getID() {
         return id;
     }
-
     public int getUserID() {
         return userID;
     }
-
     public String getName() {
         return name;
     }
+    public String getQuantity() {
+        return quantity;
+    }
     public LocalDate getFromDate() {
         return fromDate;
+    }
+    public String getFromDateAsString() {
+        if (fromDate != null) {
+            DateTimeFormatter formatter = null;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                return fromDate.format(formatter);
+            }
+        }
+        return null;
+    }
+    public String getToDateAsString() {
+        if (toDate != null) {
+            DateTimeFormatter formatter = null;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                return toDate.format(formatter);
+            }
+        }
+        return null;
     }
     public LocalDate getToDate() {
         return toDate;
@@ -83,38 +112,48 @@ public class Medication implements Parcelable {
     public List<String> getDays() {
         return days;
     }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setQuantity(String quantity) {
+        this.quantity = quantity;
+    }
+
+    public void setFromDate(LocalDate fromDate) {
+        this.fromDate = fromDate;
+    }
+
+    public void setToDate(LocalDate toDate) {
+        this.toDate = toDate;
+    }
+
+    public void setDays(List<String> days) {
+        this.days = days;
+    }
+
+    public void setTime(List<String> time) {
+        this.time = time;
+    }
+
     public String getDaysToString() {
-        if(days.size()==1 && isStringAnInteger(days.get(0))){
-            return days.get(0);
-        }
         StringBuilder daysString = new StringBuilder();
-        for (int i = 0; i < days.size(); i++) {
-            daysString.append(days.get(i));
-            if(i==days.size()-1){
-                return daysString.toString();
-            }else{
-                daysString.append(", ");
+        if(days.size()==1 && Utils.isStringAnInteger(days.get(0))){
+            daysString.append("Every ");
+            daysString.append(days.get(0));
+            daysString.append(" day(s)");
+        }else{
+            for (int i = 0; i < days.size(); i++) {
+                daysString.append(days.get(i));
+                if(i==days.size()-1){
+                    return daysString.toString();
+                }else{
+                    daysString.append(", ");
+                }
             }
         }
         return daysString.toString();
-    }
-    /**
-     * Checks if a String is a valid integer string.
-     *
-     * @param day The String to check.
-     * @return true if the String is an integer string, false otherwise.
-     * Returns false if the String is null or empty.
-     */
-    private boolean isStringAnInteger(String day) {
-        if (day != null && !day.isEmpty()) {
-            try {
-                Integer.parseInt(day);
-                return true;
-            } catch (NumberFormatException e) {
-                return false;
-            }
-        }
-        return false;
     }
     public List<String> getTime() {
         return time;
@@ -132,7 +171,7 @@ public class Medication implements Parcelable {
         return timeString.toString();
     }
     public void saveMedicationToDAO() {
-        Utils.medicationDAO.addMedication(this); // add to DAO
+        Utils.medicationDAO.saveMedications(new ArrayList<>(Collections.singletonList(this))); // add to DAO
     }
 
     @Override
@@ -146,9 +185,12 @@ public class Medication implements Parcelable {
     @Override
     public String toString() {
         return "Medication{" +
-                "id=" + id +
-                ", userID=" + userID +
+                "id='" + id +
+                ", userID='" + userID +
                 ", name='" + name + '\'' +
+                ", quantity='" + quantity + '\'' +
+                ", fromDate='" + fromDate + '\'' +
+                ", toDate='" + toDate + '\'' +
                 ", days='" + days + '\'' +
                 ", time='" + time + '\'' +
                 '}';
@@ -164,6 +206,7 @@ public class Medication implements Parcelable {
         dest.writeInt(id);
         dest.writeInt(userID);
         dest.writeString(name);
+        dest.writeString(quantity);
         // Use ParcelUtils or handle null LocalDate
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             dest.writeLong(fromDate == null ? -1 : fromDate.toEpochDay());

@@ -4,9 +4,9 @@
 <!--    <style name="Base.Theme.HealthHub" parent="Theme.AppCompat.Light.NoActionBar">-->
         <!-- Customize your light theme here. -->
          <item name="colorPrimary">@color/green</item>
-        <item name="colorPrimaryVariant">@color/light_grey</item>
+        <item name="colorPrimaryVariant">@color/light_green</item>
         <item name="colorOnPrimary">@color/white</item>
-        <item name="colorSecondary">@color/material_dynamic_secondary0</item>
+        <item name="colorSecondary">@color/dark_green</item>
         <item name="colorOnSecondary">@color/white</item>
         <item name="colorSurface">@color/white</item>
         <item name="colorOnSurface">@color/black</item>

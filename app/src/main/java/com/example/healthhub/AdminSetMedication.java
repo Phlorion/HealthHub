@@ -36,7 +36,7 @@ public class AdminSetMedication extends AppCompatActivity implements AdminSetMed
 
         recyclerView = findViewById(R.id.medications_slots_recycler_view);
         medications = fetchMedications();
-        medications.forEach(System.out::println);
+        medications.forEach(System.out::println);//TODO: Remove
         adapter = new AdminSetMedication_RecyclerViewAdapter(this,medications,this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

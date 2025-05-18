@@ -1,10 +1,12 @@
 package com.example.healthhub;
 
+import android.icu.util.LocaleData;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -19,21 +21,38 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.healthhub.DAO.Medication;
+import com.example.healthhub.Models.MedicationDateValidator;
 import com.example.healthhub.Utils.Utils;
+import com.google.android.material.datepicker.CalendarConstraints;
+import com.google.android.material.datepicker.MaterialDatePicker;
+import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 import com.google.android.material.timepicker.MaterialTimePicker;
 import com.google.android.material.timepicker.TimeFormat;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+import java.util.Objects;
 
 public class AdminSetMedicationAddEdit extends AppCompatActivity {
+    Medication currentMedication;
     ArrayList<String> timeSlots;
     AdminSetMedicationAddEdit_RecyclerViewAdapter adapter;
     Button backBtn, saveBtn;
-    TextView displayedDays;
-    EditText nameEditText, quantityEditText, fromEditText, toEditText;
+    TextView displayedDays, fromDatePicker, toDatePicker;
+    EditText nameEditText, quantityEditText;
     ImageButton incrementImgBtn, decrementImgBtn, addTimeSlotImgBtn;
     CheckBox monCheckBox, tueCheckBox, wedCheckBox, thuCheckBox, friCheckBox, satCheckBox, sunCheckBox;
+    private List<CheckBox> dayOfWeekCheckBoxes;
+    RecyclerView recyclerView;
+    private Long fromEpoch = null;
+    private Long toEpoch   = null;
+    private final SimpleDateFormat fmt = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,8 +69,8 @@ public class AdminSetMedicationAddEdit extends AppCompatActivity {
         displayedDays = findViewById(R.id.number_display);
         nameEditText = findViewById(R.id.name_edit_text);
         quantityEditText = findViewById(R.id.quantity_edit_text);
-        fromEditText = findViewById(R.id.from_edit_text);
-        toEditText = findViewById(R.id.to_edit_text);
+        fromDatePicker = findViewById(R.id.from_date_picker);
+        toDatePicker = findViewById(R.id.to_date_picker);
         incrementImgBtn = findViewById(R.id.increment_button);
         decrementImgBtn = findViewById(R.id.decrement_button);
         addTimeSlotImgBtn = findViewById(R.id.add_time_button);
@@ -62,12 +81,31 @@ public class AdminSetMedicationAddEdit extends AppCompatActivity {
         friCheckBox = findViewById(R.id.friday_checkbox);
         satCheckBox = findViewById(R.id.saturday_checkbox);
         sunCheckBox = findViewById(R.id.sunday_checkbox);
+        recyclerView = findViewById(R.id.time_slots_recycler_view);
+        dayOfWeekCheckBoxes = new ArrayList<>();
+        dayOfWeekCheckBoxes.add(monCheckBox);
+        dayOfWeekCheckBoxes.add(tueCheckBox);
+        dayOfWeekCheckBoxes.add(wedCheckBox);
+        dayOfWeekCheckBoxes.add(thuCheckBox);
+        dayOfWeekCheckBoxes.add(friCheckBox);
+        dayOfWeekCheckBoxes.add(satCheckBox);
+        dayOfWeekCheckBoxes.add(sunCheckBox);
+        setupDayOfWeekCheckBoxListeners();
 
-        Medication medication = getIntent().getParcelableExtra("medication");
-        RecyclerView recyclerView = findViewById(R.id.time_slots_recycler_view);
+        currentMedication = getIntent().getParcelableExtra("medication");
         timeSlots = new ArrayList<>();
-        if (medication != null) {
-            timeSlots.addAll(medication.getTime());
+        if (currentMedication != null) {
+            timeSlots.addAll(currentMedication.getTime());
+            nameEditText.setText(currentMedication.getName());
+            quantityEditText.setText(currentMedication.getQuantity());
+            if (currentMedication.getFromDate() != null) {
+                fromDatePicker.setText(currentMedication.getFromDateAsString());
+            }
+            if (currentMedication.getToDate() != null) {
+                toDatePicker.setText(currentMedication.getToDateAsString());
+            }
+            // Set Days
+            setDays(currentMedication.getDays());
         }
         adapter = new AdminSetMedicationAddEdit_RecyclerViewAdapter(this, timeSlots);
         recyclerView.setAdapter(adapter);
@@ -86,7 +124,6 @@ public class AdminSetMedicationAddEdit extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(saveMedications()){
-                    System.out.println("katse kala");
                     finish();
                 }
             }
@@ -109,23 +146,126 @@ public class AdminSetMedicationAddEdit extends AppCompatActivity {
                 addTimeSlot();
             }
         });
+        fromDatePicker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showFromPicker();
+            }
+        });
+        toDatePicker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showToPicker();
+            }
+        });
     }
     private boolean saveMedications(){
-        String displayedDays = getDisplayedDays(), name = getName(), quantity = getQuantity(), from = getFromDate(), to = getToDate();
-        if(displayedDays.isEmpty() || name.isEmpty() || quantity.isEmpty() || from.isEmpty() || to.isEmpty()){
+        // Firstly make sure the user has entered all the fields
+        String  name = getName(), quantity = getQuantity(), from = getFromDate(), to = getToDate(),displayedDays = getDisplayedDays();
+        boolean daysSelected = false;
+        if(isMonChecked() || isTueChecked() || isWedChecked() || isThuChecked() || isFriChecked() || isSatChecked() || isSunChecked()||displayedDays.compareTo("1") >= 0){
+            daysSelected = true;
+        }else{
+            Toast.makeText(this, "At least one day must be selected.", Toast.LENGTH_SHORT).show();
+        }
+        if(name.isEmpty() || quantity.isEmpty() || from.isEmpty() || to.isEmpty()|| !daysSelected || timeSlots.isEmpty()){
             Toast.makeText(this, "All fields must be completed.", Toast.LENGTH_SHORT).show();
             return false;
         }
-        System.out.println(this.isMonChecked());
-        System.out.println(this.isTueChecked());
-        System.out.println(this.isWedChecked());
-        System.out.println(this.isThuChecked());
-        System.out.println(this.isFriChecked());
-        System.out.println(this.isSatChecked());
-        System.out.println(this.isSunChecked());
-//        new Medication(Utils.getStoredUserId(getApplicationContext()),"test","test","test");
-//        Utils.medicationDAO.addMedication(new Medication(Utils.getStoredUserId(getApplicationContext()),"test","test","test"));
+        // Now save the medication
+        if(currentMedication == null){
+            currentMedication = new Medication(Utils.getStoredUserId(getApplicationContext()),name,quantity,transformStringToDate(from),transformStringToDate(to),getDaysList(),getTimeSlots());
+        }else{//Update medication
+            currentMedication.setName(name);
+            currentMedication.setQuantity(quantity);
+            currentMedication.setFromDate(transformStringToDate(from));
+            currentMedication.setToDate(transformStringToDate(to));
+            currentMedication.setDays(getDaysList());
+            currentMedication.setTime(getTimeSlots());
+        }
+        Objects.requireNonNull(currentMedication).saveMedicationToDAO();
+        System.out.println("Here here here n: "+currentMedication);
         return true;
+    }
+    private void showFromPicker() {
+
+        // Build calendar constraints
+        CalendarConstraints.Builder constraintsBuilder = new CalendarConstraints.Builder();
+        // Build custom validator
+        MedicationDateValidator medicationDateValidator = new MedicationDateValidator(null,null);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            if (fromEpoch != null) {
+                medicationDateValidator = new MedicationDateValidator(Math.min(fromEpoch, LocalDate.now().atStartOfDay(ZoneOffset.UTC).toInstant().toEpochMilli()), toEpoch);
+            } else {
+                medicationDateValidator = new MedicationDateValidator(LocalDate.now().atStartOfDay(ZoneOffset.UTC).toInstant().toEpochMilli(), toEpoch);
+            }
+        }
+        constraintsBuilder.setValidator(medicationDateValidator);
+
+        // Build Material Picker
+        MaterialDatePicker.Builder<Long> fromPicker = MaterialDatePicker.Builder.datePicker();
+        fromPicker.setTitleText("Select initial date");
+        fromPicker.setCalendarConstraints(constraintsBuilder.build());
+
+        // Pre-select previously picked FROM date, if any
+        // Default selection: today
+        fromPicker.setSelection(Objects.requireNonNullElseGet(fromEpoch, MaterialDatePicker::todayInUtcMilliseconds));
+
+        MaterialDatePicker<Long> fromMaterialDatePicker = fromPicker.build();
+        fromMaterialDatePicker.addOnNegativeButtonClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fromMaterialDatePicker.dismiss();
+            }
+        });
+        fromMaterialDatePicker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener<Long>() {
+            @Override
+            public void onPositiveButtonClick(Long selection) {
+                fromEpoch = selection;
+                fromDatePicker.setText(fmt.format(selection));
+            }
+        });
+        fromMaterialDatePicker.show(getSupportFragmentManager(), "FROM_PICKER");
+    }
+    private void showToPicker() {
+        // Build calendar constraints
+        CalendarConstraints.Builder constraintsBuilder = new CalendarConstraints.Builder();
+        // Build custom validator
+        MedicationDateValidator medicationDateValidator = new MedicationDateValidator(null,null);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            if (fromEpoch != null) {
+                medicationDateValidator = new MedicationDateValidator(Math.max(fromEpoch, LocalDate.now().atStartOfDay(ZoneOffset.UTC).toInstant().toEpochMilli()), toEpoch);
+            } else {
+                medicationDateValidator = new MedicationDateValidator(LocalDate.now().atStartOfDay(ZoneOffset.UTC).toInstant().toEpochMilli(), toEpoch);
+            }
+        }
+        constraintsBuilder.setValidator(medicationDateValidator);
+
+        // Build Material Picker
+        MaterialDatePicker.Builder<Long> toPicker = MaterialDatePicker.Builder.datePicker();
+        toPicker.setTitleText("Select final date");
+        toPicker.setCalendarConstraints(constraintsBuilder.build());
+        // pre-select previous value if exists
+        if (toEpoch != null) {
+            toPicker.setSelection(toEpoch);
+        }
+
+        MaterialDatePicker<Long> toMaterialdatePicker = toPicker.build();
+
+        toMaterialdatePicker.addOnNegativeButtonClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                toMaterialdatePicker.dismiss();
+            }
+        });
+        toMaterialdatePicker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener<Long>() {
+            @Override
+            public void onPositiveButtonClick(Long selection) {
+                toEpoch = selection;
+                toDatePicker.setText(fmt.format(selection));
+            }
+        });
+        toMaterialdatePicker.show(getSupportFragmentManager(), "TO_PICKER");
     }
     private void incrementDisplayedDays() {
         int displayedDays = Integer.parseInt(getDisplayedDays());
@@ -133,6 +273,8 @@ public class AdminSetMedicationAddEdit extends AppCompatActivity {
             displayedDays++;
             this.displayedDays.setText(String.valueOf(displayedDays));
         }
+        //Uncheck all checkboxes
+        setAllCheckboxes(false);
     }
     private void decrementDisplayedDays() {
         int displayedDays = Integer.parseInt(getDisplayedDays());
@@ -140,6 +282,36 @@ public class AdminSetMedicationAddEdit extends AppCompatActivity {
             displayedDays--;
             this.displayedDays.setText(String.valueOf(displayedDays));
         }
+        //Uncheck all checkboxes
+        setAllCheckboxes(false);
+    }
+    private void setAllCheckboxes(boolean isChecked){
+        monCheckBox.setChecked(isChecked);
+        tueCheckBox.setChecked(isChecked);
+        wedCheckBox.setChecked(isChecked);
+        thuCheckBox.setChecked(isChecked);
+        friCheckBox.setChecked(isChecked);
+        satCheckBox.setChecked(isChecked);
+        sunCheckBox.setChecked(isChecked);
+    }
+    private void setupDayOfWeekCheckBoxListeners() {
+        for (CheckBox checkBox : dayOfWeekCheckBoxes) {
+            checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    // Logic: If a checkbox is checked, set the day number to 0
+                    if (isChecked) {
+                        setDayNumberToZero();
+                    }
+                    // Note: We don't need to uncheck other checkboxes here.
+                    // The user can select multiple days of the week.
+                    // The unchecking happens when the day number counter is used.
+                }
+            });
+        }
+    }
+    private void setDayNumberToZero() {
+        displayedDays.setText("0");
     }
     private void addTimeSlot() {
         // Set-up the MaterialTimePicker
@@ -176,7 +348,7 @@ public class AdminSetMedicationAddEdit extends AppCompatActivity {
                 }
                 String timeString = String.format("%02d:%02d %s", hour, minute, amPm);
                 //call private method to check if the time is already in the list
-                addToTimeSlots(timeString);
+                addToTimeSlotsCollection(timeString);
             }
         });
         // Cancel button functionality
@@ -188,7 +360,7 @@ public class AdminSetMedicationAddEdit extends AppCompatActivity {
         });
         picker.show(getSupportFragmentManager(), "Material_Time_Picker");
     }
-    private void addToTimeSlots(String timeString){
+    private void addToTimeSlotsCollection(String timeString){
         if(!timeSlots.contains(timeString)){
             timeSlots.add(timeString);
             adapter.notifyDataSetChanged(); // Notify the adapter
@@ -196,20 +368,96 @@ public class AdminSetMedicationAddEdit extends AppCompatActivity {
             Toast.makeText(this, "Time slot already exists.", Toast.LENGTH_SHORT).show();
         }
     }
+    private LocalDate transformStringToDate(String dateString){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            try {
+                return LocalDate.parse(dateString,formatter);
+            } catch (Exception e) {
+                Toast.makeText(this, "Invalid date format.", Toast.LENGTH_SHORT).show();
+            }
+        }
+        return null;
+    }
+    private List<String> getDaysList(){
+        List<String> days = new ArrayList<>();
+        if(isMonChecked()){
+            days.add("Mon");
+        }
+        if(isTueChecked()){
+            days.add("Tue");
+        }
+        if(isWedChecked()){
+            days.add("Wed");
+        }
+        if(isThuChecked()){
+            days.add("Thu");
+        }
+        if(isFriChecked()){
+            days.add("Fri");
+        }
+        if(isSatChecked()){
+            days.add("Sat");
+        }
+        if(isSunChecked()){
+            days.add("Sun");
+        }
+        if(days.isEmpty()){
+            days.add(getDisplayedDays());
+        }
+        return days;
+    }
+    private void setDays(List<String> days){
+        if(days.size()==1 && Utils.isStringAnInteger(days.get(0))){
+            displayedDays.setText(days.get(0));
+        }else{
+            for (String day : days) {
+                switch (day) {
+                    case "Mon":
+                        monCheckBox.setChecked(true);
+                        break;
+                    case "Tue":
+                        tueCheckBox.setChecked(true);
+                        break;
+                    case "Wed":
+                        wedCheckBox.setChecked(true);
+                        break;
+                    case "Thu":
+                        thuCheckBox.setChecked(true);
+                        break;
+                    case "Fri":
+                        friCheckBox.setChecked(true);
+                        break;
+                    case "San":
+                        thuCheckBox.setChecked(true);
+                        break;
+                    case "Sun":
+                        friCheckBox.setChecked(true);
+                        break;
+                    default:
+                        System.out.println("Invalid day: "+day);
+                        break;
+                }
+            }
+        }
+    }
+    private ArrayList<String> getTimeSlots() {
+        return timeSlots;
+    }
     private String getDisplayedDays(){
         return displayedDays.getText().toString();
     }
     private String getName(){
-        return nameEditText.getText().toString();
+        return nameEditText.getText().toString().trim();
     }
     private String getQuantity(){
-        return quantityEditText.getText().toString();
+        return quantityEditText.getText().toString().trim();
     }
     private String getFromDate(){
-        return fromEditText.getText().toString();
+        return fromDatePicker.getText().toString();
     }
     private String getToDate(){
-        return toEditText.getText().toString();
+        return toDatePicker.getText().toString();
     }
     private boolean isMonChecked(){
         return monCheckBox.isChecked();

@@ -39,4 +39,22 @@ public class Utils {
         SharedPreferences sharedPrefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         sharedPrefs.edit().clear().apply();
     }
+    /**
+     * Checks if a String is a valid integer string.
+     *
+     * @param day The String to check.
+     * @return true if the String is an integer string, false otherwise.
+     * Returns false if the String is null or empty.
+     */
+    public static boolean isStringAnInteger(String day) {
+        if (day != null && !day.isEmpty()) {
+            try {
+                Integer.parseInt(day);
+                return true;
+            } catch (NumberFormatException e) {
+                return false;
+            }
+        }
+        return false;
+    }
 }

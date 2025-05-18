@@ -27,6 +27,7 @@ import com.example.healthhub.Utils.Utils;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
 
@@ -48,15 +49,18 @@ public class EnterAdminUserActivity extends AppCompatActivity {
         LocalDate fromDate = null; // Example start date: May 15, 2025
         LocalDate toDate = null; // Example start date: May 15, 2025
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            fromDate = LocalDate.of(2025, 5, 15);
-            toDate = LocalDate.of(2025, 5, 22);   // Example end date: May 22, 2025
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            fromDate = LocalDate.parse(LocalDate.of(2025, 5, 15).format(formatter),formatter);
+            toDate = LocalDate.parse(LocalDate.of(2025, 5, 22).format(formatter),formatter);   // Example end date: May 22, 2025
         }
-        List<String> days = Arrays.asList("Monday", "Wednesday", "Friday");
-        List<String> time = Arrays.asList("08:00", "14:00", "20:00");
-        Medication med2 = new Medication(testUser.getId(),"Name 2", fromDate, toDate, days, time);
+        List<String> days = Arrays.asList("Mon", "Wed", "Fri");
+        List<String> time = Arrays.asList("08:00 pm", "02:00 am", "09:00 pm");
+        Medication med2 = new Medication(testUser.getId(),"Name 2","Yes Quantity 2", fromDate, toDate, days, time);
         med2.saveMedicationToDAO();
-        Medication med1 = new Medication(testUser.getId(),"Name", fromDate, toDate, days, time);
+        Medication med1 = new Medication(testUser.getId(),"Name", "Yes Quantity 1",fromDate, toDate, days, time);
         med1.saveMedicationToDAO();
+        Medication med3 = new Medication(testUser.getId(),"Name 3","Yes Quantity 3", fromDate, toDate, List.of("3"), time);
+        med3.saveMedicationToDAO();
 
 
         Contact contact1 = new Contact("John Doe", "12345678",AdminUSER.getId());

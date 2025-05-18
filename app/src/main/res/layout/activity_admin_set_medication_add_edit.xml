@@ -171,46 +171,47 @@
                             android:fontFamily="@font/inter_bold"
                             android:textColor="@color/black"
                             app:layout_constraintTop_toTopOf="parent"/>
-
-                        <EditText
-                            android:id="@+id/from_edit_text"
+                        <TextView
+                            android:id="@+id/from_date_picker"
                             android:layout_width="135dp"
                             android:layout_height="48dp"
                             android:layout_toEndOf="@+id/from_label"
-                            android:background="@drawable/et_style"
                             android:hint="@string/set_medication_add_edit_date_label_hint"
-                            app:layout_constraintTop_toBottomOf="@id/from_label"
+                            android:text=""
                             android:textColor="@color/black"
-                            android:inputType="date"
-                            android:isScrollContainer="true"
-                            android:paddingStart="@dimen/et_padding"
-                            />
+                            android:fontFamily="@font/inter_medium"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:background="@drawable/et_style"
+                            android:gravity="center"
+                            app:layout_constraintTop_toBottomOf="@id/from_label"/>
 
                         <TextView
                             android:id="@+id/to_label"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_toStartOf="@+id/to_edit_text"
+                            android:layout_toStartOf="@+id/to_date_picker"
                             android:padding="@dimen/h2_title_padding"
                             android:layout_centerVertical="true"
                             android:paddingStart="0dp"
                             android:text="@string/set_medication_add_edit_to_label"
                             android:fontFamily="@font/inter_bold"
                             android:textColor="@color/black"
-                            app:layout_constraintTop_toBottomOf="@id/from_edit_text" />
-
-                        <EditText
-                            android:id="@+id/to_edit_text"
+                            app:layout_constraintTop_toBottomOf="@id/from_date_picker" />
+                        <TextView
+                            android:id="@+id/to_date_picker"
                             android:layout_width="135dp"
                             android:layout_height="48dp"
                             android:layout_alignParentEnd="true"
-                            android:background="@drawable/et_style"
                             android:hint="@string/set_medication_add_edit_date_label_hint"
-                            app:layout_constraintTop_toBottomOf="@id/from_label"
+                            android:text=""
                             android:textColor="@color/black"
-                            android:inputType="date"
-                            android:isScrollContainer="true"
-                            android:paddingStart="@dimen/et_padding" />
+                            android:fontFamily="@font/inter_medium"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:background="@drawable/et_style"
+                            android:gravity="center"
+                            app:layout_constraintTop_toBottomOf="@id/to_label"/>
                     </RelativeLayout>
                     <!--    For "Until Deletion" functionality    -->
                     <!--<RelativeLayout
