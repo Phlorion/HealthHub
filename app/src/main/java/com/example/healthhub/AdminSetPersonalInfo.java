@@ -32,8 +32,12 @@ public class AdminSetPersonalInfo extends AppCompatActivity {
                 Toast.makeText(AdminSetPersonalInfo.this, "Info saved", Toast.LENGTH_SHORT).show();
 
                 Intent intent = new Intent(AdminSetPersonalInfo.this, AdminMain.class);
+                Intent preIntent = getIntent();
+                int passId= preIntent.getIntExtra("userId",-1);
+                intent.putExtra("userId",passId);
                 startActivity(intent);
                 finish();
+
             }
         });
 
@@ -42,6 +46,9 @@ public class AdminSetPersonalInfo extends AppCompatActivity {
             public void onClick(View view) {
                 // Just go back to main admin activity
                 Intent intent = new Intent(AdminSetPersonalInfo.this, AdminMain.class);
+                Intent preIntent = getIntent();
+                int passId= preIntent.getIntExtra("userId",-1);
+                intent.putExtra("userId",passId);
                 startActivity(intent);
                 finish();
             }

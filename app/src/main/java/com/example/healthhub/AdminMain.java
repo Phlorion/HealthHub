@@ -38,6 +38,9 @@ public class AdminMain extends AppCompatActivity {
             public void onClick(View view) {
 
                 Intent intent = new Intent(AdminMain.this,AdminSetPersonalInfo.class);
+                Intent preIntent = getIntent();
+                int passId= preIntent.getIntExtra("userId",-1);
+                intent.putExtra("userId",passId);
                 startActivity(intent);
                 finish();
             }
@@ -49,6 +52,9 @@ public class AdminMain extends AppCompatActivity {
             public void onClick(View view) {
 
                 Intent intent = new Intent(AdminMain.this,AdminSetHome.class);
+                Intent preIntent = getIntent();
+                int passId= preIntent.getIntExtra("userId",-1);
+                intent.putExtra("userId",passId);
                 startActivity(intent);
                 finish();
             }
@@ -60,6 +66,10 @@ public class AdminMain extends AppCompatActivity {
             public void onClick(View view) {
 
                 Intent intent = new Intent(AdminMain.this,AdminSetMedication.class);
+                Intent preIntent = getIntent();
+                int passId= preIntent.getIntExtra("userId",-1);
+                intent.putExtra("userId",passId);
+
                 startActivity(intent);
                 finish();
             }
