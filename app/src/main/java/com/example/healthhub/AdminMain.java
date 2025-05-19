@@ -42,7 +42,6 @@ public class AdminMain extends AppCompatActivity {
                 int passId= preIntent.getIntExtra("userId",-1);
                 intent.putExtra("userId",passId);
                 startActivity(intent);
-                finish();
             }
         });
 
@@ -56,7 +55,6 @@ public class AdminMain extends AppCompatActivity {
                 int passId= preIntent.getIntExtra("userId",-1);
                 intent.putExtra("userId",passId);
                 startActivity(intent);
-                finish();
             }
         });
 
@@ -69,9 +67,7 @@ public class AdminMain extends AppCompatActivity {
                 Intent preIntent = getIntent();
                 int passId= preIntent.getIntExtra("userId",-1);
                 intent.putExtra("userId",passId);
-
                 startActivity(intent);
-                finish();
             }
         });
 
@@ -86,7 +82,6 @@ public class AdminMain extends AppCompatActivity {
                 Intent intent = new Intent(AdminMain.this, AdminSetFavoriteContact.class);
                 intent.putExtra("userId",passId);
                 startActivity(intent);
-                finish();
             }
         });
 
