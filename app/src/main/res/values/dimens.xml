@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="side_margin">24dp</dimen>
-    <dimen name="half_side_margin">12dp</dimen>
+    <dimen name="side_margin_big">30dp</dimen>
+    <dimen name="side_margin_half">12dp</dimen>
     <dimen name="margin_between_form_fields">8dp</dimen>
     <dimen name="h2_title_padding">5dp</dimen>
     <dimen name="et_padding">16dp</dimen>
+    <dimen name="et_padding_small">10dp</dimen>
 </resources>

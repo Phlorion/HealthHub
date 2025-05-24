@@ -8,6 +8,10 @@ import com.example.healthhub.DAO.HomeDAO;
 import com.example.healthhub.DAO.MedicationDAO;
 import com.example.healthhub.DAO.UserDAO;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 public class Utils {
     /** User DAO */
     public static UserDAO userDAO = new UserDAO();
@@ -56,5 +60,16 @@ public class Utils {
             }
         }
         return false;
+    }
+
+    public static String getCurrentTimeString() {
+//        int hour = java.util.Calendar.getInstance().get(java.util.Calendar.HOUR_OF_DAY);
+//        int minute = java.util.Calendar.getInstance().get(java.util.Calendar.MINUTE);
+//        return hour * 100 + minute;
+        return new SimpleDateFormat("hh:mm", Locale.getDefault()).format(new Date());
+    }
+    public static String getCurrentTimeAMPM() {
+        int hour = java.util.Calendar.getInstance().get(java.util.Calendar.HOUR_OF_DAY);
+        return hour < 12 ? "AM" : "PM";
     }
 }

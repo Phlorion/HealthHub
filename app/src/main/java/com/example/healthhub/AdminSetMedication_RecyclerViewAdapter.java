@@ -70,7 +70,6 @@ public class AdminSetMedication_RecyclerViewAdapter extends RecyclerView.Adapter
     }
 
     public static class MyViewHolderMedication extends RecyclerView.ViewHolder{
-
         TextView medName, medDays, medTime;
         ImageButton editBtn, delBtn;
         public MyViewHolderMedication(@NonNull View itemView,AdminSetMedication_RecyclerViewInterface recyclerViewInterface) {

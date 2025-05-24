@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".UserMedicationReminder">
+  <LinearLayout
+      android:id="@+id/title"
+      android:layout_width="match_parent"
+      android:layout_height="67dp"
+      android:orientation="horizontal"
+      android:gravity="center_vertical"
+      android:paddingStart="@dimen/et_padding"
+      android:paddingEnd="@dimen/et_padding"
+      app:layout_constraintBottom_toTopOf="@id/time_container"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent">
+
+    <Button
+        android:id="@+id/back_button"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:background="@drawable/baseline_chevron_left_24"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="@string/medication_reminder_screen_title"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        android:fontFamily="@font/inter_bold"/>
+  </LinearLayout>
+  <LinearLayout
+      android:id="@+id/time_container"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      android:gravity="center"
+      android:layout_marginTop="@dimen/side_margin"
+      android:layout_marginBottom="@dimen/side_margin"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/title"
+      app:layout_constraintBottom_toTopOf="@+id/todays_medications_slots">
+
+    <TextView
+        android:id="@+id/current_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="09:45"
+        android:textColor="@android:color/black"
+        android:textSize="48sp"
+        android:fontFamily="@font/inter_medium"/>
+    <TextView
+        android:id="@+id/current_time_ap_pm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="AM"
+        android:textColor="@android:color/black"
+        android:textSize="43sp"
+        android:fontFamily="@font/inter_medium"/>
+  </LinearLayout>
+  <LinearLayout
+      android:id="@+id/todays_medications_slots"
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      android:orientation="vertical"
+      android:gravity="start"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/time_container"
+      app:layout_constraintBottom_toBottomOf="parent">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/todays_medications_slots_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/time_container"/>
+
+  </LinearLayout>
+
+  </androidx.constraintlayout.widget.ConstraintLayout>

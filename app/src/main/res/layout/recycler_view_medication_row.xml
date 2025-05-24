@@ -10,13 +10,15 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/side_margin"
         android:layout_marginEnd="@dimen/side_margin"
-        android:layout_marginBottom="@dimen/half_side_margin"
-        android:layout_marginTop="@dimen/half_side_margin"
+        android:layout_marginBottom="@dimen/side_margin_half"
+        android:layout_marginTop="@dimen/side_margin_half"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:cardCornerRadius="8dp">
+        app:cardCornerRadius="8dp"
+        app:cardElevation="0dp"
+        app:cardMaxElevation="0dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
