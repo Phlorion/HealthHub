@@ -25,7 +25,7 @@ public class AdminEditContact extends AppCompatActivity {
     EditText editName, editPhone;
     Button btnSave;
     int contactId;
-    Button saveButton, cancelButton;
+    Button saveButton, cancelButton,goBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +36,7 @@ public class AdminEditContact extends AppCompatActivity {
         editPhone = findViewById(R.id.edit_contact_phone);
         saveButton = findViewById(R.id.save_button);
         cancelButton = findViewById(R.id.cancel_button);
-
+        goBack=findViewById(R.id.admin_setpersonal_btn1);
         // Get data passed from the previous screen
         String name = getIntent().getStringExtra("contactName");
         String phone = getIntent().getStringExtra("contactPhone");
@@ -54,6 +54,18 @@ public class AdminEditContact extends AppCompatActivity {
             resultIntent.putExtra("updatedPhone", updatedPhone);
             setResult(RESULT_OK, resultIntent);
             finish();
+        });
+
+        goBack.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                Intent preIntent = getIntent();
+                int passId= preIntent.getIntExtra("userId",-1);
+                Intent intent = new Intent(AdminEditContact.this, AdminSetFavoriteContact.class);
+                intent.putExtra("userId",passId);
+                startActivity(intent);
+                finish();
+            }
         });
 
         cancelButton.setOnClickListener(v -> {

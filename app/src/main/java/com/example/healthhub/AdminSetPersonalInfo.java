@@ -20,6 +20,7 @@ public class AdminSetPersonalInfo extends AppCompatActivity {
         personalInfoEditText = findViewById(R.id.personalInfoEditText);
         Button saveInfoButton = findViewById(R.id.saveInfoButton);
         Button cancelButton = findViewById(R.id.cancelButton);
+        Button goBack = findViewById(R.id.admin_setpersonal_btn1);
 
         // Set text from memory
         personalInfoEditText.setText(PersonalInfo.getPersonalInfo());
@@ -45,6 +46,19 @@ public class AdminSetPersonalInfo extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // Just go back to main admin activity
+                Intent intent = new Intent(AdminSetPersonalInfo.this, AdminMain.class);
+                Intent preIntent = getIntent();
+                int passId= preIntent.getIntExtra("userId",-1);
+                intent.putExtra("userId",passId);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+
+        goBack.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
                 Intent intent = new Intent(AdminSetPersonalInfo.this, AdminMain.class);
                 Intent preIntent = getIntent();
                 int passId= preIntent.getIntExtra("userId",-1);

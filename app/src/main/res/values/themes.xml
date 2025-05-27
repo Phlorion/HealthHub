@@ -10,6 +10,8 @@
         <item name="colorOnSecondary">@color/white</item>
         <item name="colorSurface">@color/white</item>
         <item name="colorOnSurface">@color/black</item>
+
+
     </style>
     <style name="MyTimePickerDialog" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Required Material attributes -->

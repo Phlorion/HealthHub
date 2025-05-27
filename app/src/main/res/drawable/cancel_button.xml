@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+
+    <solid android:background="@color/light_grey"/> <!-- Light gray background -->
+    <corners android:radius="12dp"/>
+    <padding android:top="8dp"/>
+    <solid android:color="@color/light_grey"/>
+    <solid android:textColor="@color/red"/>
+    <!-- Curved corners -->
+</shape>

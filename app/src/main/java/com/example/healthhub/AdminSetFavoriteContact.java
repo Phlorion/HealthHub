@@ -29,12 +29,13 @@ public class AdminSetFavoriteContact extends AppCompatActivity {
     User user;
     List<Contact> userContacts = new ArrayList<>();
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_set_favorite_contact);
 
+
+        Button goBack = findViewById(R.id.admin_setpersonal_btn1);
         contactsContainer = findViewById(R.id.activity_admin_set_favorite_contact);
 
         Intent receivedIntent = getIntent();
@@ -48,11 +49,28 @@ public class AdminSetFavoriteContact extends AppCompatActivity {
 //          SETUPS TEH UI
             setupContacts();
         }
+
         ImageButton addContactButton = (ImageButton) findViewById(R.id.addContactButtonID);
         addContactButton.setOnClickListener(v -> {
-            Intent intent = new Intent(this, AdminAddContactActivity.class);
-            intent.putExtra("userId", user.getId());
+            Intent intent = new Intent(AdminSetFavoriteContact.this, AdminAddContactActivity.class);
+            Intent preIntent = getIntent();
+            int passId= preIntent.getIntExtra("userId",-1);
+            intent.putExtra("userId",passId);
             startActivityForResult(intent, 2);
+            startActivity(intent);
+            finish();
+        });
+
+        goBack.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                Intent intent = new Intent(AdminSetFavoriteContact.this, AdminMain.class);
+                Intent preIntent = getIntent();
+                int passId= preIntent.getIntExtra("userId",-1);
+                intent.putExtra("userId",passId);
+                startActivity(intent);
+                finish();
+            }
         });
     }
 

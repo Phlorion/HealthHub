@@ -82,6 +82,8 @@ public class AdminMain extends AppCompatActivity {
                 Intent intent = new Intent(AdminMain.this, AdminSetFavoriteContact.class);
                 intent.putExtra("userId",passId);
                 startActivity(intent);
+                finish();
+
             }
         });
 
