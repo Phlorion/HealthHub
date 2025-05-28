@@ -16,7 +16,7 @@ import androidx.core.view.WindowInsetsCompat;
 public class AdminMain extends AppCompatActivity {
 
     Button logoutbtn;
-    ImageButton setPersonalInfo;
+    ImageButton setPersonalInfo; //TODO Na to kano textView kai na travaei info apo afto pou exei valei o admin
     ImageButton setMedication;
     ImageButton setHome;
     ImageButton setFavContact;
@@ -90,7 +90,6 @@ public class AdminMain extends AppCompatActivity {
         logoutbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(AdminMain.this,"LOGOUT", Toast.LENGTH_SHORT).show();
 
                 Intent intent = new Intent(AdminMain.this,EnterAdminUserActivity.class);
                 startActivity(intent);

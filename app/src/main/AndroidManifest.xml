@@ -11,6 +11,12 @@
     <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.SEND_SMS"
+        tools:ignore="PermissionImpliesUnsupportedChromeOsHardware" />
+    <uses-permission android:name="android.permission.CALL_PHONE"
+        tools:ignore="PermissionImpliesUnsupportedChromeOsHardware" />
+    <uses-permission android:name="android.permission.READ_CONTACTS"/>
+
 
     <application
         android:allowBackup="true"
@@ -34,7 +40,8 @@
             android:name=".UserMedicationAlarmSoundService"
             android:enabled="true"
             android:exported="false"
-            android:foregroundServiceType="mediaPlayback" />
+            android:foregroundServiceType="mediaPlayback"
+            tools:ignore="ForegroundServicePermission" />
 
         <activity
             android:name=".UserMedicationAlarmActivity"
@@ -72,6 +79,9 @@
 
         <activity android:name=".AdminSetFavoriteContact" />
         <activity android:name=".AdminSetPersonalInfo" />
+        <activity android:name=".UserMain" />
+        <activity android:name=".UserSos" />
+
         <activity
             android:name=".AdminSetHome"
             android:exported="false" />
