@@ -49,6 +49,8 @@
 
 
             <!--  VIEW PERSONAL INFO BUTTON   -->
+
+
             <FrameLayout
                 android:id="@+id/view_Personal_Info"
                 android:layout_width="380dp"
@@ -56,29 +58,22 @@
                 android:layout_marginTop="25dp"
                 android:layout_marginBottom="25dp">
 
-                <ImageButton
-                    android:id="@+id/view_Personal_Info_btn"
-                    android:layout_width="380dp"
-                    android:layout_height="160dp"
-                    android:backgroundTint="@color/white"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/personal_info"
-                    />
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fillViewport="true">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom"
-                    android:layout_marginLeft="12dp"
-                    android:fontFamily="@font/inter_semibold"
-                    android:backgroundTint="@color/white"
-                    android:text="View Personal Info"
-                    android:textColor="@color/white"
-                    android:textSize="25sp"
-                    android:tint="@color/black" />
+                    <TextView
+                        android:id="@+id/view_Personal_Info_btn"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="21sp"
+                        android:textColor="@color/black"
+                        android:padding="10dp"
+                        android:lineSpacingExtra="4dp"/>
+                </ScrollView>
 
             </FrameLayout>
-
 
             <!--  SOS BUTTON   -->
             <FrameLayout

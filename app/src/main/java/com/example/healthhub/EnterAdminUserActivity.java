@@ -44,7 +44,7 @@ public class EnterAdminUserActivity extends AppCompatActivity {
 //        Home AdminHome= new Home(AdminUSER.getId(),"Greece","Athens","Fokon","11",  "143 41");
 
 
-        User testUser = new User("George", "admin", "admin");
+        User testUser = new User("George", "admin", "admin","My days often start with a dose of allergies, a familiar companion that dictates whether I can enjoy a morning walk outside or if I'm reaching for the antihistamines. I've also learned to manage acid reflux, keeping a mindful eye on my diet and relying on OTC antacids when needed. It's all about finding that balance to keep feeling good");
         Home testHome = new Home(testUser.getId(), "Greece", "Athens", "28is Oktovriou", "76", "10434");
         LocalDate fromDate = null; // Example start date: May 15, 2025
         LocalDate toDate = null; // Example start date: May 15, 2025
@@ -78,7 +78,7 @@ public class EnterAdminUserActivity extends AppCompatActivity {
         // check application storage for existing user data
         int userId = Utils.getStoredUserId(getApplicationContext());
         if (Utils.userDAO.findUserByID(userId) != null) { // valid user id
-            Intent intent = new Intent(EnterAdminUserActivity.this, UserMain.class); //TODO: Change destination
+            Intent intent = new Intent(EnterAdminUserActivity.this, UserMain.class);
 //            Intent intent = new Intent(EnterAdminUserActivity.this, UserGetNearHealthFacilities.class); //TODO: Change destination
             intent.putExtra("userId", userId);
             startActivity(intent);
@@ -105,6 +105,7 @@ public class EnterAdminUserActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(EnterAdminUserActivity.this, AdminLogIn.class);
                 startActivity(intent);
+                finish();
             }
         });
 
