@@ -27,9 +27,13 @@ public class AdminSetPersonalInfo extends AppCompatActivity {
         Button goBack = findViewById(R.id.admin_setpersonal_btn1);
 
 
+        Intent preIntent = getIntent();
+        int passId= preIntent.getIntExtra("userId",-1);
+        User curUsr = Utils.userDAO.findUserByID(passId);
+        String info=curUsr.getPersonalInfo();
 
         // Set text from memory
-        personalInfoEditText.setText(PersonalInfo.getPersonalInfo());
+        personalInfoEditText.setText(info);
 
         saveInfoButton.setOnClickListener(new View.OnClickListener() {
             @Override

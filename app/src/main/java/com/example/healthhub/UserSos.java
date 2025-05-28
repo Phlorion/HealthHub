@@ -74,6 +74,11 @@ public class UserSos extends AppCompatActivity{
         List<Contact> contacts = Utils.contactDAO.getContacts();
         SmsManager smsManager = SmsManager.getDefault();
 
+        if (contacts.isEmpty()){
+            Toast.makeText(this, "No contacts!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         boolean smsSent = false;
 
         for (Contact contact : contacts) {
@@ -94,6 +99,11 @@ public class UserSos extends AppCompatActivity{
     private void callFavorites(int userId) {
         List<Contact> contacts = Utils.contactDAO.getContacts();
 
+        if (contacts.isEmpty()){
+            Toast.makeText(this, "No contacts!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         for (Contact contact : Utils.contactDAO.getContacts()) {
             if (contact.getUserID() == userId) {
                 String phoneNumber = contact.getPhoneNum();
@@ -110,7 +120,7 @@ public class UserSos extends AppCompatActivity{
     }
 
     private void callAmbulance() {
-        Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:166")); // Fixed ambulance number
+        Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:0123465789")); // Fixed ambulance number
 
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
             startActivity(intent);

@@ -102,6 +102,7 @@ public class UserMain extends AppCompatActivity {
             public void onClick(View view) {
 
                 Intent intent = new Intent(UserMain.this,EnterAdminUserActivity.class);
+                Utils.clearLoginSession(getApplicationContext());
                 startActivity(intent);
                 finish();
             }
