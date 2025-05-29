@@ -54,12 +54,12 @@ public class EnterAdminUserActivity extends AppCompatActivity {
             toDate = LocalDate.parse(LocalDate.of(2025, 5, 28).format(formatter),formatter);   // Example end date: May 22, 2025
         }
         List<String> days = Arrays.asList("Mon", "Wed", "Fri");
-        List<String> time = Arrays.asList("08:00 pm", "02:00 am", "09:00 pm");
+        List<String> time = Arrays.asList("02:00 am", "08:00 pm", "09:00 pm");
         Medication med2 = new Medication(testUser.getId(),"Name 2","Yes Quantity 2", fromDate, toDate, days, time);
         med2.saveMedicationToDAO();
         Medication med1 = new Medication(testUser.getId(),"Name", "Yes Quantity 1",fromDate, toDate, days, time);
         med1.saveMedicationToDAO();
-        Medication med3 = new Medication(testUser.getId(),"Name 3","Yes Quantity 3", fromDate, toDate, List.of("3"), time);
+        Medication med3 = new Medication(testUser.getId(),"Name 3","Yes Quantity 3", fromDate, toDate, List.of("5"), time);
         med3.saveMedicationToDAO();
 
 
