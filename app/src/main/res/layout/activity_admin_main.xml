@@ -104,7 +104,6 @@
                 android:layout_marginLeft="12dp"
                 android:fontFamily="@font/inter_semibold"
                 android:text="Set Favorite Contacts"
-                android:background="#6695b89b"
                 android:textColor="@color/white"
                 android:textSize="25sp"
                 />

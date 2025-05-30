@@ -77,7 +77,7 @@ public class EnterAdminUserActivity extends AppCompatActivity {
         // check application storage for existing user data
         int userId = Utils.getStoredUserId(getApplicationContext());
         if (Utils.userDAO.findUserByID(userId) != null) { // valid user id
-            Intent intent = new Intent(EnterAdminUserActivity.this, UserMedicationReminder.class); //TODO: Change destination
+            Intent intent = new Intent(EnterAdminUserActivity.this, UserGetHome.class); //TODO: Change destination
 //            Intent intent = new Intent(EnterAdminUserActivity.this, UserGetNearHealthFacilities.class); //TODO: Change destination
             intent.putExtra("userId", userId);
             startActivity(intent);
