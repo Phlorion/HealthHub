@@ -56,7 +56,6 @@ public class AdminSetFavoriteContact extends AppCompatActivity {
             Intent preIntent = getIntent();
             int passId= preIntent.getIntExtra("userId",-1);
             intent.putExtra("userId",passId);
-            startActivityForResult(intent, 2);
             startActivity(intent);
             finish();
         });
@@ -104,7 +103,7 @@ public class AdminSetFavoriteContact extends AppCompatActivity {
                 Intent intent = new Intent(AdminSetFavoriteContact.this, AdminEditContact.class);
                 intent.putExtra("contactName", contact.getName());
                 intent.putExtra("contactPhone", contact.getPhoneNum());
-                startActivityForResult(intent, 1);
+                startActivity(intent);
             });
 
             removeButton.setOnClickListener(v -> {

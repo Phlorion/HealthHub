@@ -58,8 +58,7 @@ public class AdminAddContactActivity extends AppCompatActivity {
             int passId= preIntent.getIntExtra("userId",-1);
             Intent intent = new Intent(AdminAddContactActivity.this, AdminSetFavoriteContact.class);
             intent.putExtra("userId",passId);
-            startActivity(intent
-            );
+            startActivity(intent);
             setResult(RESULT_CANCELED);
             finish();
         });

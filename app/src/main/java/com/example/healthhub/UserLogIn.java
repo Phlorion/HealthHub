@@ -48,7 +48,7 @@ public class UserLogIn extends AppCompatActivity {
                     Utils.saveLoginSession(getApplicationContext(), userId);
 
                     // go to corresponding activity
-                    Intent intent = new Intent(UserLogIn.this, UserGetHome.class); // TODO: Change destination
+                    Intent intent = new Intent(UserLogIn.this, UserMain.class); // TODO: Change destination
                     intent.putExtra("userId", userId); // pass user id to next activity
                     startActivity(intent);
                     finish();

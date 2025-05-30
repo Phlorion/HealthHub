@@ -66,8 +66,9 @@ public class EnterAdminUserActivity extends AppCompatActivity {
 //        Contact contact1 = new Contact("John Doe", "12345678",AdminUSER.getId());
 //        Contact contact2 = new Contact("Gustavo Fring", "87654321",AdminUSER.getId());
 
-        Contact contact3 = new Contact("John Doe", "12345678",testUser.getId());
-        Contact contact4 = new Contact("Gustavo Fring", "87654321",testUser.getId());
+        Contact contact4 = new Contact("GEORGIOS AVRAMPOS", "00306980765558",testUser.getId());
+        Contact contact3 = new Contact("NIKOLAOS VAITSIS", "00306971964052",testUser.getId());
+        Contact contact5 = new Contact("VICTOR KEKAS", "00306948920844",testUser.getId());
 
     }
 
@@ -77,7 +78,7 @@ public class EnterAdminUserActivity extends AppCompatActivity {
         // check application storage for existing user data
         int userId = Utils.getStoredUserId(getApplicationContext());
         if (Utils.userDAO.findUserByID(userId) != null) { // valid user id
-            Intent intent = new Intent(EnterAdminUserActivity.this, UserGetHome.class); //TODO: Change destination
+            Intent intent = new Intent(EnterAdminUserActivity.this, UserMain.class);
 //            Intent intent = new Intent(EnterAdminUserActivity.this, UserGetNearHealthFacilities.class); //TODO: Change destination
             intent.putExtra("userId", userId);
             startActivity(intent);

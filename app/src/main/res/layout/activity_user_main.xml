@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF">
+
+    <!-- THIS SCROLL VIEW WILL HAVE ALL THE BUTTONS -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_marginTop="18dp"
+                android:paddingBottom="16dp">
+
+                <Button
+                    android:id="@+id/logout_btn"
+                    android:fontFamily="@font/inter_semibold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:background="@drawable/round_btn"
+                    android:text="@string/logout"
+                    android:textColor="@color/white" />
+
+                <TextView
+                    android:id="@+id/greeting_txt"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Hello there \nWhat would you like to do? "
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+
+            <!--  VIEW PERSONAL INFO BUTTON   -->
+
+
+            <FrameLayout
+                android:id="@+id/view_Personal_Info"
+                android:layout_width="380dp"
+                android:layout_height="160dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginBottom="25dp">
+
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fillViewport="true">
+
+                    <TextView
+                        android:id="@+id/view_Personal_Info_btn"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="21sp"
+                        android:textColor="@color/black"
+                        android:padding="10dp"
+                        android:lineSpacingExtra="4dp"/>
+                </ScrollView>
+
+            </FrameLayout>
+
+            <!--  SOS BUTTON   -->
+            <FrameLayout
+                android:id="@+id/sos"
+                android:layout_width="380dp"
+                android:layout_height="160dp"
+                android:layout_marginBottom="25dp">
+
+                <ImageButton
+                    android:id="@+id/sos_btn"
+                    android:layout_width="380dp"
+                    android:layout_height="160dp"
+                    android:backgroundTint="@color/white"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/sos"
+                    app:layout_constraintVertical_bias="0.93" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_marginLeft="12dp"
+                    android:fontFamily="@font/inter_semibold"
+                    android:text="SOS"
+                    android:textColor="@color/white"
+                    android:textSize="25sp"
+                    />
+
+            </FrameLayout>
+
+
+<!--      HEALTH FACILITIES BUTTON     -->
+            <FrameLayout
+                android:id="@+id/health_facilities"
+                android:layout_width="380dp"
+                android:layout_height="160dp"
+                android:layout_marginBottom="25dp">
+
+                <ImageButton
+                    android:id="@+id/health_facilities_btn"
+                    android:layout_width="380dp"
+                    android:layout_height="160dp"
+                    android:backgroundTint="@color/white"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/pharmacy"
+                    app:layout_constraintVertical_bias="0.93" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_marginLeft="12dp"
+                    android:fontFamily="@font/inter_semibold"
+                    android:text="Health Facilities"
+                    android:textColor="@color/white"
+                    android:textSize="25sp"
+                    />
+
+            </FrameLayout>
+
+            <!--  VIEW MEDICATION BUTTON  -->
+            <FrameLayout
+                android:id="@+id/view_Medication"
+                android:layout_width="380dp"
+                android:layout_height="160dp"
+                android:layout_marginBottom="25dp">
+
+                <ImageButton
+                    android:id="@+id/view_Medication_btn"
+                    android:layout_width="380dp"
+                    android:layout_height="160dp"
+                    android:backgroundTint="@color/white"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/medicine"
+                    app:layout_constraintVertical_bias="0.669" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_marginLeft="12dp"
+                    android:fontFamily="@font/inter_semibold"
+                    android:text="View Medication"
+                    android:textColor="@color/white"
+                    android:textSize="25sp"
+                    android:tint="@color/black" />
+
+            </FrameLayout>
+
+            <!--GET ME HOME BUTTON -->
+            <FrameLayout
+                android:id="@+id/get_Me_Home"
+                android:layout_width="380dp"
+                android:layout_height="160dp"
+                android:layout_marginBottom="25dp">
+
+                <ImageButton
+                    android:id="@+id/get_Me_Home_btn"
+                    android:layout_width="380dp"
+                    android:layout_height="160dp"
+                    android:backgroundTint="@color/white"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/home"
+                    app:layout_constraintVertical_bias="0.412" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_marginLeft="12dp"
+                    android:fontFamily="@font/inter_semibold"
+                    android:text="Get me Home"
+                    android:textColor="@color/white"
+                    android:textSize="25sp"
+                    android:tint="@color/black" />
+
+            </FrameLayout>
+        </LinearLayout>
+    </ScrollView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

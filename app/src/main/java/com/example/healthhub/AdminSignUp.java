@@ -72,7 +72,7 @@ public class AdminSignUp extends AppCompatActivity {
                 }
 
                 // create user
-                User user = new User(name, email, pass);
+                User user = new User(name, email, pass,"");
                 // add to DAO
                 Utils.userDAO.addUser(user);
 

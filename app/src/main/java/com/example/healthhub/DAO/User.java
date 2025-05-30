@@ -3,6 +3,7 @@ package com.example.healthhub.DAO;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.example.healthhub.PersonalInfo;
 import com.example.healthhub.Utils.Utils;
 
 import java.util.Objects;
@@ -14,12 +15,18 @@ public class User {
     String email;
     String password;
 
-    public User(String name, String email, String password) {
+    String personalInfo;
+
+
+
+    public User(String name, String email, String password, String personalInfo) {
         this.name = name;
         this.email = email;
         this.password = password;
         this.id = _ID;
         _ID++;
+        this.personalInfo = personalInfo;
+
 
         Utils.userDAO.addUser(this); // add user to DAO
     }
@@ -55,5 +62,13 @@ public class User {
 
     public String getPassword() {
         return password;
+    }
+
+    public String getPersonalInfo() {
+        return personalInfo;
+    }
+
+    public void setPersonalInfo(String personalInfo) {
+        this.personalInfo = personalInfo;
     }
 }

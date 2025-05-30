@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout
+        android:id="@+id/admin_sethome_linear_layout1"
+        android:layout_width="match_parent"
+        android:layout_height="62dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="16dp">
+
+        <Button
+            android:id="@+id/admin_setpersonal_btn1"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:background="@drawable/baseline_chevron_left_24" />
+
+        <TextView
+            android:id="@+id/admin_sethome_tv1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/inter_semibold"
+            android:text="SOS"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:padding="24dp"
+        >
+
+        <Button
+            android:id="@+id/btnSendSms"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Send SMS to Favorites"
+            android:layout_marginBottom="32dp"/>
+
+        <Button
+            android:id="@+id/btnCallFavorites"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Call Favorite Contacts"
+            android:layout_marginBottom="32dp"/>
+
+        <Button
+            android:id="@+id/btnCallAmbulance"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="🚑 Call Ambulance 🚑"/>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
