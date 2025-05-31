@@ -45,9 +45,6 @@ android {
         resValues = true
         buildConfig = true
     }
-    aaptOptions {
-        noCompress("tflite") // Prevents Android from compressing .tflite files in assets
-    }
 }
 
 dependencies {
@@ -69,8 +66,6 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
-    implementation(libs.tensorflow.lite.runtime)
-    implementation(libs.tensorflow.lite.gpu.delegate)
-    implementation(libs.tensorflow.lite.support)
-    implementation(libs.tensorflow.lite.metadata)
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
 }

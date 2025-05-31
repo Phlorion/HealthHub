@@ -5,11 +5,16 @@ import android.content.Intent;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
 import android.speech.tts.TextToSpeech;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
 import java.util.Locale;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Singleton class to manage all AI-related services (Speech-to-Text, NLU, Text-to-Speech)
@@ -17,6 +22,7 @@ import java.util.Locale;
  * It implements CustomRecognitionListener.RecognitionCallback to receive speech results.
  */
 public class AIManager implements VoiceRecognitionListener.RecognitionCallback{
+    private static final String TAG = "AIManager";
     private static AIManager instance; // Singleton instance
 
     private Context appContext; // Application context for long-lived services
@@ -27,7 +33,7 @@ public class AIManager implements VoiceRecognitionListener.RecognitionCallback{
     private NLUParser nluParser;
     private IntentDispatcher intentDispatcher;
     private AppActionSpeaker currentSpeaker; // Reference to the Activity/Fragment currently interacting with AI
-    private TFLiteNLUModel tfliteNLUModel;
+//    private TFLiteNLUModel tfliteNLUModel;
     /**
      * Private constructor for Singleton pattern.
      * Initializes all AI components with the application context.
@@ -41,7 +47,7 @@ public class AIManager implements VoiceRecognitionListener.RecognitionCallback{
         // Pass null initially for speaker. It will be set dynamically by Activities.
         intentDispatcher = new IntentDispatcher(null);
         // Initialize your TFLite NLU model here
-        tfliteNLUModel = new TFLiteNLUModel(appContext); // <--- NEW: Initialize TFLite model
+//        tfliteNLUModel = new TFLiteNLUModel(appContext); // <--- NEW: Initialize TFLite model
 
         // Initialize SpeechRecognizer
         if (SpeechRecognizer.isRecognitionAvailable(appContext)) {
@@ -164,10 +170,10 @@ public class AIManager implements VoiceRecognitionListener.RecognitionCallback{
             tts.shutdown();
             tts = null;
         }
-        if (tfliteNLUModel != null) { // <--- NEW: Close TFLite model
-            tfliteNLUModel.close();
-            tfliteNLUModel = null;
-        }
+//        if (tfliteNLUModel != null) { // <--- NEW: Close TFLite model
+//            tfliteNLUModel.close();
+//            tfliteNLUModel = null;
+//        }
         instance = null; // Clear the singleton instance
     }
 
@@ -205,28 +211,9 @@ public class AIManager implements VoiceRecognitionListener.RecognitionCallback{
             nluModelOutputString = "intent: unknown | response: I didn't understand that. Can you please rephrase?";
         }
         // --- END OF NLU MODEL SIMULATION ---*/
-        // --- NEW: CALL YOUR TFLITE NLU MODEL HERE ---
         String nluModelOutputString = null; // Initialize to null
-        if (tfliteNLUModel != null) {
-            try {
-                // Call the TFLite model to get the intent and response string
-                nluModelOutputString = tfliteNLUModel.runInference(recognizedText);
-            } catch (Exception e) {
-                System.out.println("Error running TFLite NLU model inference: " + e.getMessage());
-                if (currentSpeaker != null) {
-                    currentSpeaker.showToast("AI model error. Please try again.");
-                }
-                // Fallback to a generic response if the model fails
-                nluModelOutputString = "intent: unknown | response: I apologize, there was an error processing your request with the AI model. Please try again.";
-            }
-        } else {
-            System.out.println("TFLite NLU model is not initialized.");
-            if (currentSpeaker != null) {
-                currentSpeaker.showToast("AI model not ready. Please restart app.");
-            }
-            nluModelOutputString = "intent: unknown | response: I am not ready to respond yet. Please try again later.";
-        }
-        // --- END OF TFLITE MODEL CALL ---
+        nluModelOutputString = makePredictionRequest(recognizedText);
+
         // Parse the NLU output string
         ParsedNLUResult parsedResult = nluParser.parse(nluModelOutputString);
 
@@ -258,5 +245,56 @@ public class AIManager implements VoiceRecognitionListener.RecognitionCallback{
             currentSpeaker.updateStatus(status);
         }
         System.out.println("Speech Recognizer Status: " + status);
+    }
+    private String makePredictionRequest(String text) {
+        final String[] responseText = {""};
+
+        PredictionRequest requestBody = new PredictionRequest(text);
+
+        // Make the API call
+        RetrofitClient.getInstance().getFlaskApiService().getPrediction(requestBody)
+                .enqueue(new Callback<PredictionResponse>() {
+                    @Override
+                    public void onResponse(Call<PredictionResponse> call, Response<PredictionResponse> response) {
+                        if (response.isSuccessful()) {
+                            PredictionResponse predictionResponse = response.body();
+                            if (predictionResponse != null) {
+                                if (predictionResponse.getError() != null) {
+                                    responseText[0] = predictionResponse.getError();
+                                    Log.e(TAG, "API returned error: " + predictionResponse.getError());
+                                } else {
+                                    // Assuming prediction is a String
+                                    String prediction = predictionResponse.getPrediction();
+                                    if (prediction != null && !prediction.isEmpty()) {
+                                        responseText[0] = prediction;
+                                    } else {
+                                        responseText[0] = "No prediction data received.";
+                                    }
+                                    Log.d(TAG, "Prediction successful: " + prediction);
+                                }
+                            } else {
+                                responseText[0] = "Empty response body from server.";
+                                Log.e(TAG, "Response body is null.");
+                            }
+                        } else {
+                            try {
+                                String errorBody = response.errorBody() != null ? response.errorBody().string() : "No error body";
+                                responseText[0] = errorBody;
+                                Log.e(TAG, "API call failed. Code: " + response.code() + ", Body: " + errorBody);
+                            } catch (Exception e) {
+                                responseText[0] = "Could not parse error body.";
+                                Log.e(TAG, "Error parsing error body: " + e.getMessage());
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<PredictionResponse> call, Throwable t) {
+                        responseText[0] = "Network Error: " + t.getMessage();
+                        Log.e(TAG, "Network error during API call: " + t.getMessage(), t);
+                    }
+                });
+
+        return responseText[0];
     }
 }

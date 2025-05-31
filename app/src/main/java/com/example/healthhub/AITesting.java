@@ -2,6 +2,7 @@ package com.example.healthhub;
 
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -15,10 +16,18 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 import com.example.healthhub.AI.AIManager;
 import com.example.healthhub.AI.AppActionSpeaker;
+import com.example.healthhub.AI.PredictionRequest;
+import com.example.healthhub.AI.PredictionResponse;
+import com.example.healthhub.AI.RetrofitClient;
 
 public class AITesting extends AppCompatActivity implements AppActionSpeaker {
+    private static final String TAG = "AITesting";
     private static final int REQUEST_RECORD_AUDIO_PERMISSION = 500;
     Button aiButton;
     TextView aiResponse;
