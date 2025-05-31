@@ -22,14 +22,15 @@
             android:orientation="horizontal"
             android:paddingBottom="16dp">
 
-            <Button
-                android:id="@+id/logout_btn"
+            <ImageButton
+                android:padding="@dimen/et_padding_small"
+                android:id="@+id/ai_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:background="@drawable/round_btn"
                 android:fontFamily="@font/inter_semibold"
-                android:text="@string/logout"
+                android:src="@drawable/microphone_svgrepo_com"
                 android:textColor="@color/white" />
 
             <TextView
@@ -176,6 +177,15 @@
                 android:tint="@color/black" />
 
         </FrameLayout>
+        <Button
+            android:id="@+id/logout_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/round_btn"
+            android:fontFamily="@font/inter_semibold"
+            android:text="@string/logout"
+            android:textColor="@color/white"
+            android:layout_marginBottom="@dimen/side_margin"/>
     </LinearLayout>
 
 </ScrollView>
