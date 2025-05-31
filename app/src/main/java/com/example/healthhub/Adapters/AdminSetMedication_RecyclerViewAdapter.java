@@ -1,4 +1,4 @@
-package com.example.healthhub;
+package com.example.healthhub.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,7 +12,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.healthhub.AdminSetMedicationAddEdit;
 import com.example.healthhub.DAO.Medication;
+import com.example.healthhub.R;
 import com.example.healthhub.Utils.Utils;
 
 import java.util.ArrayList;
@@ -47,7 +49,7 @@ public class AdminSetMedication_RecyclerViewAdapter extends RecyclerView.Adapter
             public void onClick(View v) {
                 System.out.println("edit button");
                 Context context = v.getContext();
-                Intent intent = new Intent(context,AdminSetMedicationAddEdit.class);
+                Intent intent = new Intent(context, AdminSetMedicationAddEdit.class);
                 intent.putExtra("medication",medication);
                 context.startActivity(intent);
             }

@@ -5,9 +5,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -22,13 +20,15 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.healthhub.Adapters.AdminSetMedication_RecyclerViewAdapter;
+import com.example.healthhub.Adapters.AdminSetMedication_RecyclerViewInterface;
 import com.example.healthhub.DAO.Medication;
 import com.example.healthhub.Utils.Utils;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public class AdminSetMedication extends AppCompatActivity implements AdminSetMedication_RecyclerViewInterface{
+public class AdminSetMedication extends AppCompatActivity implements AdminSetMedication_RecyclerViewInterface {
     ArrayList<Medication> medications;
     Button backBtn, addBtn;
     RecyclerView recyclerView;

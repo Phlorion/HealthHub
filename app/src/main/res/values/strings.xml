@@ -32,5 +32,6 @@
     <string name="set_Medication_btn">Set Medication</string>
     <string name="set_Favorite_Contacts_btn">Set Favorite           Contacts</string>
     <string name="set_Personal_Info_btn">Set Personal Information</string>
+    <string name="no_medications_today">No Medications for Today!</string>
 
 </resources>
