@@ -131,6 +131,7 @@ public class UserGetNearHealthFacilities extends AppCompatActivity implements He
     // Recycler View
     ArrayList<HealthFacilityModel> healthFacilityModels;
     RecyclerView healthFacilitiesRV;
+    String filter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -139,9 +140,11 @@ public class UserGetNearHealthFacilities extends AppCompatActivity implements He
 
         // get data from previous activity
         Intent receivedIntent = getIntent();
+        filter = null;
         if (receivedIntent != null) {
             int userId = receivedIntent.getIntExtra("userId", -1);
             user = Utils.userDAO.findUserByID(userId);
+            filter = receivedIntent.getStringExtra("filter");
         }
 
         allButton = findViewById(R.id.user_healthfac_fl1);
@@ -176,25 +179,7 @@ public class UserGetNearHealthFacilities extends AppCompatActivity implements He
         allButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // set unselected colors for other
-                hospitalsButton.setBackground(getDrawable(R.drawable.health_facilities_middle_btn_unselected));
-                hospitalsIcon.setColorFilter(getColor(R.color.app_main));
-                pharmaciesButton.setBackground(getDrawable(R.drawable.health_facilities_right_btn_unselected));
-                pharmaciesIcon.setColorFilter(getColor(R.color.app_main));
-
-                // set selected colors for this
-                allButton.setBackground(getDrawable(R.drawable.health_facilities_left_btn_selected));
-                allIcon.setColorFilter(getColor(R.color.white));
-
-                lastFilter = FILTERS.ALL;
-
-                // clear recycler view before loading the contents
-                HealthFacilitiesAdapter healthFacilitiesAdapter = new HealthFacilitiesAdapter(getApplicationContext(), new ArrayList<>(), UserGetNearHealthFacilities.this);
-                healthFacilitiesRV.setAdapter(healthFacilitiesAdapter);
-                healthFacilitiesRV.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-
-                // search for places
-                searchNearbyHealthFacilities(currentLocation.getLatitude(), currentLocation.getLongitude(), RADIUS, MAX_COUNT, lastFilter);
+                filterBoth();
             }
         });
 
@@ -202,25 +187,7 @@ public class UserGetNearHealthFacilities extends AppCompatActivity implements He
         hospitalsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // set unselected colors for other
-                allButton.setBackground(getDrawable(R.drawable.health_facilities_left_btn_unselected));
-                allIcon.setColorFilter(getColor(R.color.app_main));
-                pharmaciesButton.setBackground(getDrawable(R.drawable.health_facilities_right_btn_unselected));
-                pharmaciesIcon.setColorFilter(getColor(R.color.app_main));
-
-                // set selected colors for this
-                hospitalsButton.setBackground(getDrawable(R.drawable.health_facilities_middle_btn_selected));
-                hospitalsIcon.setColorFilter(getColor(R.color.white));
-
-                lastFilter = FILTERS.HOSPITAL;
-
-                // clear recycler view before loading the contents
-                HealthFacilitiesAdapter healthFacilitiesAdapter = new HealthFacilitiesAdapter(getApplicationContext(), new ArrayList<>(), UserGetNearHealthFacilities.this);
-                healthFacilitiesRV.setAdapter(healthFacilitiesAdapter);
-                healthFacilitiesRV.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-
-                // search for places
-                searchNearbyHealthFacilities(currentLocation.getLatitude(), currentLocation.getLongitude(), RADIUS, MAX_COUNT, lastFilter);
+                filterHospitals();
             }
         });
 
@@ -228,25 +195,7 @@ public class UserGetNearHealthFacilities extends AppCompatActivity implements He
         pharmaciesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // set unselected colors for other
-                allButton.setBackground(getDrawable(R.drawable.health_facilities_left_btn_unselected));
-                allIcon.setColorFilter(getColor(R.color.app_main));
-                hospitalsButton.setBackground(getDrawable(R.drawable.health_facilities_middle_btn_unselected));
-                hospitalsIcon.setColorFilter(getColor(R.color.app_main));
-
-                // set selected colors for this
-                pharmaciesButton.setBackground(getDrawable(R.drawable.health_facilities_right_btn_selected));
-                pharmaciesIcon.setColorFilter(getColor(R.color.white));
-
-                lastFilter = FILTERS.PHARMACY;
-
-                // clear recycler view before loading the contents
-                HealthFacilitiesAdapter healthFacilitiesAdapter = new HealthFacilitiesAdapter(getApplicationContext(), new ArrayList<>(), UserGetNearHealthFacilities.this);
-                healthFacilitiesRV.setAdapter(healthFacilitiesAdapter);
-                healthFacilitiesRV.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-
-                // search for places
-                searchNearbyHealthFacilities(currentLocation.getLatitude(), currentLocation.getLongitude(), RADIUS, MAX_COUNT, lastFilter);
+                filterPharmacies();
             }
         });
 
@@ -259,6 +208,73 @@ public class UserGetNearHealthFacilities extends AppCompatActivity implements He
         // get last known location of client
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         getLastLocation();
+    }
+
+    public void filterPharmacies(){
+        System.out.println("1");
+        allButton.setBackground(getDrawable(R.drawable.health_facilities_left_btn_unselected));
+        allIcon.setColorFilter(getColor(R.color.app_main));
+        hospitalsButton.setBackground(getDrawable(R.drawable.health_facilities_middle_btn_unselected));
+        hospitalsIcon.setColorFilter(getColor(R.color.app_main));
+
+        // set selected colors for this
+        pharmaciesButton.setBackground(getDrawable(R.drawable.health_facilities_right_btn_selected));
+        pharmaciesIcon.setColorFilter(getColor(R.color.white));
+
+        lastFilter = FILTERS.PHARMACY;
+
+        // clear recycler view before loading the contents
+        HealthFacilitiesAdapter healthFacilitiesAdapter = new HealthFacilitiesAdapter(getApplicationContext(), new ArrayList<>(), UserGetNearHealthFacilities.this);
+        healthFacilitiesRV.setAdapter(healthFacilitiesAdapter);
+        healthFacilitiesRV.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+
+        // search for places
+        System.out.println("1");
+        searchNearbyHealthFacilities(currentLocation.getLatitude(), currentLocation.getLongitude(), RADIUS, MAX_COUNT, lastFilter);
+        System.out.println("2");
+    }
+    private void filterHospitals(){
+        // set unselected colors for other
+        allButton.setBackground(getDrawable(R.drawable.health_facilities_left_btn_unselected));
+        allIcon.setColorFilter(getColor(R.color.app_main));
+        pharmaciesButton.setBackground(getDrawable(R.drawable.health_facilities_right_btn_unselected));
+        pharmaciesIcon.setColorFilter(getColor(R.color.app_main));
+
+        // set selected colors for this
+        hospitalsButton.setBackground(getDrawable(R.drawable.health_facilities_middle_btn_selected));
+        hospitalsIcon.setColorFilter(getColor(R.color.white));
+
+        lastFilter = FILTERS.HOSPITAL;
+
+        // clear recycler view before loading the contents
+        HealthFacilitiesAdapter healthFacilitiesAdapter = new HealthFacilitiesAdapter(getApplicationContext(), new ArrayList<>(), UserGetNearHealthFacilities.this);
+        healthFacilitiesRV.setAdapter(healthFacilitiesAdapter);
+        healthFacilitiesRV.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+
+        // search for places
+        searchNearbyHealthFacilities(currentLocation.getLatitude(), currentLocation.getLongitude(), RADIUS, MAX_COUNT, lastFilter);
+    }
+    private void filterBoth(){
+        // set unselected colors for other
+        hospitalsButton.setBackground(getDrawable(R.drawable.health_facilities_middle_btn_unselected));
+        hospitalsIcon.setColorFilter(getColor(R.color.app_main));
+        pharmaciesButton.setBackground(getDrawable(R.drawable.health_facilities_right_btn_unselected));
+        pharmaciesIcon.setColorFilter(getColor(R.color.app_main));
+
+        // set selected colors for this
+        allButton.setBackground(getDrawable(R.drawable.health_facilities_left_btn_selected));
+        allIcon.setColorFilter(getColor(R.color.white));
+
+        lastFilter = FILTERS.ALL;
+
+        // clear recycler view before loading the contents
+        HealthFacilitiesAdapter healthFacilitiesAdapter = new HealthFacilitiesAdapter(getApplicationContext(), new ArrayList<>(), UserGetNearHealthFacilities.this);
+        healthFacilitiesRV.setAdapter(healthFacilitiesAdapter);
+        healthFacilitiesRV.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+
+        // search for places
+        searchNearbyHealthFacilities(currentLocation.getLatitude(), currentLocation.getLongitude(), RADIUS, MAX_COUNT, lastFilter);
+
     }
 
     /**
@@ -376,12 +392,32 @@ public class UserGetNearHealthFacilities extends AppCompatActivity implements He
             public void onSuccess(Location location) {
                 if (location != null) {
                     currentLocation = location;
+                    //Check for filter from AI
+                    if(filter != null){
+                        switch (filter){
+                            case "pharmacies":
+                                System.out.println("Filter is pharmacies");
+                                filterPharmacies();
+                                break;
+                            case "hospitals":
+                                System.out.println("Filter is hospitals");
+                                filterHospitals();
+                                break;
+                            default:
+                                System.out.println("Filter is default");
+                                filterBoth();
+                                break;
+                        }
+                    }else{
+                        System.out.println("Filter is null");
+                        // search for places
+                        searchNearbyHealthFacilities(currentLocation.getLatitude(), currentLocation.getLongitude(), RADIUS, MAX_COUNT, lastFilter);
+                    }
 
-                    // search for places
-                    searchNearbyHealthFacilities(currentLocation.getLatitude(), currentLocation.getLongitude(), RADIUS, MAX_COUNT, lastFilter);
                 }
             }
         });
+
     }
 
     @Override

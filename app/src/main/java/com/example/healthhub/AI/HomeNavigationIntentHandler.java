@@ -4,6 +4,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 
+import com.example.healthhub.UserGetHome;
+import com.example.healthhub.Utils.Utils;
+
+import okhttp3.internal.Util;
+
 /**
  * Handles Home navigation intent
  */
@@ -14,7 +19,7 @@ public class HomeNavigationIntentHandler implements IntentHandler{
     }
 
     @Override
-    public String handleIntent(ParsedNLUResult parsedResult, AppActionSpeaker speaker) {
+    public String handleIntent(ParsedNLUResult parsedResult, AppActionSpeaker speaker, Context appContext) {
         String response = parsedResult.response; // Use the response from the NLU model
 
         // Check if the speaker can provide a Context for starting activities
@@ -27,15 +32,9 @@ public class HomeNavigationIntentHandler implements IntentHandler{
             // Example: Launch Google Maps for "Home" location
             // Replace with your actual home address or logic
             //TODO: Change this
-            Uri gmmIntentUri = Uri.parse("google.navigation:q=Your+Home+Address,+Your+City,+Your+Country");
-            navigationIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
-            navigationIntent.setPackage("com.google.android.apps.maps"); // Open in Google Maps
-
-            if (navigationIntent != null) {
-                // Important: If context is not an Activity (e.g., ApplicationContext), you need FLAG_ACTIVITY_NEW_TASK
-                // However, since speaker is an Activity implementing AppActionSpeaker, direct startActivity is fine.
-                context.startActivity(navigationIntent);
-            }
+            navigationIntent = new Intent(appContext, UserGetHome.class);
+            navigationIntent.putExtra("userId", Utils.getStoredUserId(appContext));
+            context.startActivity(navigationIntent);
         } else {
             System.out.println("Speaker is not an Activity Context. Cannot start navigation activity directly.");
             speaker.showToast("Cannot navigate. Speaker context is not an Activity.");

@@ -25,6 +25,8 @@ import com.example.healthhub.AI.AppActionSpeaker;
 import com.example.healthhub.DAO.User;
 import com.example.healthhub.Utils.Utils;
 
+import java.sql.SQLOutput;
+
 public class UserMain extends AppCompatActivity implements AppActionSpeaker {
 
     Button logoutbtn;
@@ -144,6 +146,15 @@ public class UserMain extends AppCompatActivity implements AppActionSpeaker {
         if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
             requestAudioPermission();
         }
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // IMPORTANT: Set this Activity as the current speaker for AIManager.
+        // This ensures that all AI feedback (toasts, UI updates, TTS) is directed
+        // to this currently active screen.
+        aiManager.setCurrentSpeaker(this);
+        System.out.println("Current speaker set");
     }
 
     @Override

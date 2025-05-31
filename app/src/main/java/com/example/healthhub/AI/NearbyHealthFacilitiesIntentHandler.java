@@ -4,6 +4,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 
+import com.example.healthhub.UserGetHome;
+import com.example.healthhub.UserGetNearHealthFacilities;
+import com.example.healthhub.Utils.Utils;
+
 public class NearbyHealthFacilitiesIntentHandler implements IntentHandler {
     @Override
     public boolean canHandle(String intentName) {
@@ -13,37 +17,29 @@ public class NearbyHealthFacilitiesIntentHandler implements IntentHandler {
     }
 
     @Override
-    public String handleIntent(ParsedNLUResult parsedResult, AppActionSpeaker speaker) {
+    public String handleIntent(ParsedNLUResult parsedResult, AppActionSpeaker speaker, Context appContext) {
         String response = parsedResult.response;
         String filter = parsedResult.filter; // e.g., "nearby"
 
-        System.out.println("Handling find_hospitals intent with filter: " + filter);
+        /*System.out.println("Handling find_hospitals intent with filter: " + filter);
         String toastMessage = "Searching for hospitals.";
         if (filter != null && filter.equals("nearby")) {
             toastMessage += " Applying 'nearby' filter.";
         }
         speaker.showToast(toastMessage);
-
+*/
         if (speaker instanceof Context) {
-            Context context = (Context) speaker;
-            // Example: Launch Google Maps to search for hospitals
-            Uri gmmIntentUri = Uri.parse("geo:0,0?q=hospitals"); // Default search
-            if (filter != null && filter.equals("nearby")) {
-                // If you have a way to get current location, you could use it here
-                gmmIntentUri = Uri.parse("geo:0,0?q=hospitals+near+me"); // More specific search
-            }
+            Context context = (Context) speaker; // Cast to Context
+            Intent navigationIntent = null;
 
-            Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
-            mapIntent.setPackage("com.google.android.apps.maps"); // Try to open in Google Maps
-
-            // Check if there's an app to handle this intent
-            if (mapIntent.resolveActivity(context.getPackageManager()) != null) {
-                context.startActivity(mapIntent);
-            } else {
-                System.out.println("No app found to handle map intent for hospitals.");
-                speaker.showToast("Could not open maps to find hospitals.");
-                response = "I couldn't open maps to find hospitals. Do you have a map app installed?";
-            }
+            speaker.showToast(response);
+            // Example: Launch Google Maps for "Home" location
+            // Replace with your actual home address or logic
+            //TODO: Change this
+            navigationIntent = new Intent(appContext, UserGetNearHealthFacilities.class);
+            navigationIntent.putExtra("userId", Utils.getStoredUserId(appContext));
+            navigationIntent.putExtra("filter", filter);
+            context.startActivity(navigationIntent);
         } else {
             System.out.println("Speaker is not an Activity Context. Cannot start activity directly.");
             speaker.showToast("Cannot find hospitals. Speaker context is not an Activity.");

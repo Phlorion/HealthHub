@@ -35,8 +35,8 @@ public class NLUParser {
                 intent = trimmedPart.substring("intent:".length()).trim();
             } else if (trimmedPart.startsWith("response:")) {
                 response = trimmedPart.substring("response:".length()).trim();
-            } else if (trimmedPart.startsWith("filter:")) { // Handle the filter if it exists
-                filter = trimmedPart.substring("filter:".length()).trim();
+            } else if (trimmedPart.startsWith("filters:")) { // Handle the filter if it exists
+                filter = trimmedPart.substring("filters:".length()).trim();
             }
             // Add more `else if` conditions here for other potential fields
             // For example:

@@ -1,5 +1,7 @@
 package com.example.healthhub.AI;
 
+import android.content.Context;
+
 /**
  * Interface for classes that are responsible for handling specific NLU intents.
  * This promotes modularity and keeps intent-specific logic separate.
@@ -18,5 +20,5 @@ public interface IntentHandler {
      * @param speaker An AppActionSpeaker instance to provide UI feedback (toasts, status updates) and speak responses.
      * @return The response string to be spoken or displayed to the user.
      */
-    String handleIntent(ParsedNLUResult parsedResult, AppActionSpeaker speaker);
+    String handleIntent(ParsedNLUResult parsedResult, AppActionSpeaker speaker, Context appContext);
 }

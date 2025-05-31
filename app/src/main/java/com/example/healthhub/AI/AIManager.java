@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import java.util.Arrays;
 import java.util.Locale;
 
 import retrofit2.Call;
@@ -45,7 +46,7 @@ public class AIManager implements VoiceRecognitionListener.RecognitionCallback{
         // Initialize NLU components
         nluParser = new NLUParser();
         // Pass null initially for speaker. It will be set dynamically by Activities.
-        intentDispatcher = new IntentDispatcher(null);
+        intentDispatcher = new IntentDispatcher(null,appContext);
         // Initialize your TFLite NLU model here
 //        tfliteNLUModel = new TFLiteNLUModel(appContext); // <--- NEW: Initialize TFLite model
 
@@ -212,20 +213,54 @@ public class AIManager implements VoiceRecognitionListener.RecognitionCallback{
         }
         // --- END OF NLU MODEL SIMULATION ---*/
         String nluModelOutputString = null; // Initialize to null
-        nluModelOutputString = makePredictionRequest(recognizedText);
+        makePredictionRequest(recognizedText, new PredictionCallback() {
+            @Override
+            public void onPredictionSuccess(String nluModelOutputString) {
+                // This entire block runs ONLY when the network prediction is successful
+                Log.d(TAG, "NLU Model Output String (from API): " + nluModelOutputString);
 
+                // Parse the NLU output string
+                ParsedNLUResult parsedResult = nluParser.parse(nluModelOutputString);
+
+                // Dispatch the intent to the appropriate handler.
+                String spokenResponse = intentDispatcher.dispatch(parsedResult);
+
+                // AIManager speaks the final response, and also updates the UI of the current speaker.
+                speakResponse(spokenResponse);
+                if (currentSpeaker != null) {
+                    currentSpeaker.updateStatus("AI: " + spokenResponse);
+                }
+            }
+
+            @Override
+            public void onPredictionFailure(String errorMessage) {
+                // This block runs if the API call fails or returns an error
+                Log.e(TAG, "NLU prediction failed: " + errorMessage);
+                if (currentSpeaker != null) {
+                    currentSpeaker.updateStatus("AI Error: " + errorMessage);
+                }
+                speakResponse("Sorry, I couldn't get a response from the AI. " + errorMessage);
+            }
+        });
+        /*System.out.println("Here 1");
         // Parse the NLU output string
         ParsedNLUResult parsedResult = nluParser.parse(nluModelOutputString);
+        System.out.println("Here 2");
 
         // Dispatch the intent to the appropriate handler.
         // The chosen handler will perform the action and return the response string.
         String spokenResponse = intentDispatcher.dispatch(parsedResult);
 
+        System.out.println("Here 3");
         // AIManager speaks the final response, and also updates the UI of the current speaker.
         speakResponse(spokenResponse);
+        System.out.println("Here 4");
         if (currentSpeaker != null) {
+            System.out.println("Here 5");
             currentSpeaker.updateStatus("AI: " + spokenResponse);
+            System.out.println("Here 6");
         }
+        System.out.println("Here 7");*/
     }
 
     @Override
@@ -246,8 +281,64 @@ public class AIManager implements VoiceRecognitionListener.RecognitionCallback{
         }
         System.out.println("Speech Recognizer Status: " + status);
     }
-    private String makePredictionRequest(String text) {
-        final String[] responseText = {""};
+    private void makePredictionRequest(String text, PredictionCallback callback) {
+        PredictionRequest requestBody = new PredictionRequest(text);
+
+        RetrofitClient.getInstance().getFlaskApiService().getPrediction(requestBody)
+                .enqueue(new Callback<PredictionResponse>() {
+                    @Override
+                    public void onResponse(Call<PredictionResponse> call, Response<PredictionResponse> response) {
+                        String resultMessage;
+                        if (response.isSuccessful()) {
+                            PredictionResponse predictionResponse = response.body();
+                            if (predictionResponse != null) {
+                                if (predictionResponse.getError() != null) {
+                                    resultMessage = predictionResponse.getError();
+                                    Log.e(TAG, "API returned error: " + resultMessage);
+                                    if (callback != null) callback.onPredictionFailure(resultMessage);
+                                } else {
+                                    String prediction = predictionResponse.getPrediction();
+                                    if (prediction != null && !prediction.isEmpty()) {
+                                        resultMessage = prediction;
+                                        Log.d(TAG, "Prediction successful: " + resultMessage);
+                                        if (callback != null) callback.onPredictionSuccess(resultMessage); // SUCCESS!
+                                    } else {
+                                        resultMessage = "No prediction data received.";
+                                        Log.e(TAG, resultMessage);
+                                        if (callback != null) callback.onPredictionFailure(resultMessage);
+                                    }
+                                }
+                            } else {
+                                resultMessage = "Empty response body from server.";
+                                Log.e(TAG, resultMessage);
+                                if (callback != null) callback.onPredictionFailure(resultMessage);
+                            }
+                        } else {
+                            try {
+                                resultMessage = response.errorBody() != null ? response.errorBody().string() : "No error body";
+                                Log.e(TAG, "API call failed. Code: " + response.code() + ", Body: " + resultMessage);
+                                if (callback != null) callback.onPredictionFailure(resultMessage);
+                            } catch (Exception e) {
+                                resultMessage = "Could not parse error body: " + e.getMessage();
+                                Log.e(TAG, resultMessage, e);
+                                if (callback != null) callback.onPredictionFailure(resultMessage);
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<PredictionResponse> call, Throwable t) {
+                        String errorMessage = "Network Error: " + t.getMessage();
+                        Log.e(TAG, "Network error during API call: " + errorMessage, t);
+                        if (callback != null) callback.onPredictionFailure(errorMessage); // FAILURE!
+                    }
+                });
+
+        // REMOVE the System.out.println and the return statement here
+        // The result is handled by the callback now.
+    }
+    private String makePredictionRequest2(String text) {
+        String[] responseText = {""};
 
         PredictionRequest requestBody = new PredictionRequest(text);
 
@@ -295,6 +386,7 @@ public class AIManager implements VoiceRecognitionListener.RecognitionCallback{
                     }
                 });
 
+        System.out.println("Response Text: " + Arrays.toString(responseText));
         return responseText[0];
     }
 }

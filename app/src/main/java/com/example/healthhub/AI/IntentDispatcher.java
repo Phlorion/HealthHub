@@ -1,18 +1,22 @@
 package com.example.healthhub.AI;
 
+import android.content.Context;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class IntentDispatcher {
     private List<IntentHandler> handlers;
     private AppActionSpeaker speaker; // This will be dynamically set by AIManager
+    private Context appContext; // Application context for long-lived services
 
     /**
      * Constructor for IntentDispatcher.
      * @param speaker The initial AppActionSpeaker (can be null initially, set later via setSpeaker()).
      */
-    public IntentDispatcher(AppActionSpeaker speaker) {
+    public IntentDispatcher(AppActionSpeaker speaker, Context appContext) {
         this.speaker = speaker;
+        this.appContext = appContext;
         this.handlers = new ArrayList<>();
         // Register your handlers here. Order matters: more specific handlers first,
         // general/fallback handlers last (like UnknownIntentHandler).
@@ -56,7 +60,7 @@ public class IntentDispatcher {
             if (handler.canHandle(intentName)) {
                 System.out.println("Handling intent: " + intentName);
                 // Pass the current speaker to the handler
-                return handler.handleIntent(parsedResult, speaker);
+                return handler.handleIntent(parsedResult, speaker,appContext);
             }
         }
 
