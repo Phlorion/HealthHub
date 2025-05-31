@@ -1,11 +1,13 @@
 package com.example.healthhub;
 
+import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -23,6 +25,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.healthhub.Adapters.AdminSetMedication_RecyclerViewAdapter;
 import com.example.healthhub.Adapters.AdminSetMedication_RecyclerViewInterface;
 import com.example.healthhub.DAO.Medication;
+import com.example.healthhub.DAO.User;
 import com.example.healthhub.Utils.Utils;
 
 import java.util.ArrayList;
@@ -33,6 +36,8 @@ public class AdminSetMedication extends AppCompatActivity implements AdminSetMed
     Button backBtn, addBtn;
     RecyclerView recyclerView;
     AdminSetMedication_RecyclerViewAdapter adapter;
+
+    User user;
     private static final int ALARM_PERMISSION_REQUEST_CODE = 2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +49,13 @@ public class AdminSetMedication extends AppCompatActivity implements AdminSetMed
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        // get data from previous activity
+        Intent receivedIntent = getIntent();
+        if (receivedIntent != null) {
+            int userId = receivedIntent.getIntExtra("userId", -1);
+            user = Utils.userDAO.findUserByID(userId);
+        }
 
         recyclerView = findViewById(R.id.medications_slots_recycler_view);
         medications = fetchMedications();
@@ -85,7 +97,9 @@ public class AdminSetMedication extends AppCompatActivity implements AdminSetMed
         startActivity(intent);
     }
     private ArrayList<Medication> fetchMedications(){
-        return Utils.medicationDAO.findMedicationsByUsedID(Utils.getStoredUserId(getApplicationContext()));
+        ArrayList<Medication> temp =  Utils.medicationDAO.findMedicationsByUsedID(user.getId());
+        Log.d("MED", temp.toString());
+        return temp;
     }
     @Override
     public void onItemClick(int position) {
@@ -121,6 +135,7 @@ public class AdminSetMedication extends AppCompatActivity implements AdminSetMed
             }
         }
     }
+    @SuppressLint("ScheduleExactAlarm")
     private void setRepeatingAlarm() {
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(this, UserMedicationAlarmReceiver.class);

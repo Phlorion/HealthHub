@@ -13,6 +13,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.bumptech.glide.Glide;
+
 public class AdminMain extends AppCompatActivity {
 
     Button logoutbtn;
@@ -33,6 +35,22 @@ public class AdminMain extends AppCompatActivity {
         setHome = (ImageButton) findViewById(R.id.set_Home_btn);
         setFavContact = (ImageButton) findViewById(R.id.set_Fav_Contacts_btn);
 
+        Glide.with(this)
+                .load(R.drawable.personal_info)
+                .into(setPersonalInfo);
+
+        Glide.with(this)
+                .load(R.drawable.medicine)
+                .into(setMedication);
+
+        Glide.with(this)
+                .load(R.drawable.home)
+                .into(setHome);
+
+        Glide.with(this)
+                .load(R.drawable.family)
+                .into(setFavContact);
+
         setPersonalInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -52,7 +70,7 @@ public class AdminMain extends AppCompatActivity {
 
                 Intent intent = new Intent(AdminMain.this,AdminSetHome.class);
                 Intent preIntent = getIntent();
-                int passId= preIntent.getIntExtra("userId",-1);
+                int passId = preIntent.getIntExtra("userId",-1);
                 intent.putExtra("userId",passId);
                 startActivity(intent);
             }

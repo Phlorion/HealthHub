@@ -44,16 +44,16 @@ public class EnterAdminUserActivity extends AppCompatActivity {
 //        Home AdminHome= new Home(AdminUSER.getId(),"Greece","Athens","Fokon","11",  "143 41");
 
 
-        User testUser = new User("George", "georgeavrabos@gmail.com", "george111");
+        User testUser = new User("George", "test@gmail.com", "george111", "I have arrhythmia and I take Trenbolone 100mg");
         Home testHome = new Home(testUser.getId(), "Greece", "Athens", "28is Oktovriou", "76", "10434");
         LocalDate fromDate = null; // Example start date: May 15, 2025
         LocalDate toDate = null; // Example start date: May 15, 2025
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             fromDate = LocalDate.parse(LocalDate.of(2025, 5, 15).format(formatter),formatter);
-            toDate = LocalDate.parse(LocalDate.of(2025, 5, 28).format(formatter),formatter);   // Example end date: May 22, 2025
+            toDate = LocalDate.parse(LocalDate.of(2025, 6, 28).format(formatter),formatter);   // Example end date: May 22, 2025
         }
-        List<String> days = Arrays.asList("Mon", "Wed", "Fri");
+        List<String> days = Arrays.asList("Mon", "Wed", "Fri", "Sat");
         List<String> time = Arrays.asList("02:00 am", "08:00 pm", "09:00 pm");
         Medication med2 = new Medication(testUser.getId(),"Name 2","Yes Quantity 2", fromDate, toDate, days, time);
         med2.saveMedicationToDAO();

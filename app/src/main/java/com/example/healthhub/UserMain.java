@@ -15,6 +15,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.bumptech.glide.Glide;
 import com.example.healthhub.DAO.User;
 import com.example.healthhub.Utils.Utils;
 
@@ -44,6 +45,22 @@ public class UserMain extends AppCompatActivity {
         vPersonalInfo = (TextView) findViewById(R.id.view_Personal_Info_btn);
         healthFacilitiesbtn = (ImageButton) findViewById(R.id.health_facilities_btn);
         vMedicationbtn = (ImageButton) findViewById(R.id.view_Medication_btn);
+
+        Glide.with(this)
+                .load(R.drawable.home)
+                .into(getMeHomebtn);
+
+        Glide.with(this)
+                .load(R.drawable.sos)
+                .into(sosbtn);
+
+        Glide.with(this)
+                .load(R.drawable.pharmacy)
+                .into(healthFacilitiesbtn);
+
+        Glide.with(this)
+                .load(R.drawable.medicine)
+                .into(vMedicationbtn);
 
         vPersonalInfo.setText(info);
 
