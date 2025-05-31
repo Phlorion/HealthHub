@@ -28,11 +28,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.healthhub.Adapters.UserMedicationReminder_RecyclerViewAdapter;
 import com.example.healthhub.DAO.Medication;
+import com.example.healthhub.DAO.User;
 import com.example.healthhub.Utils.Utils;
 import com.example.healthhub.AI.VoiceRecognitionListener;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Locale;
 
 public class UserMedicationReminder extends AppCompatActivity implements VoiceRecognitionListener.RecognitionCallback{
@@ -42,6 +44,7 @@ public class UserMedicationReminder extends AppCompatActivity implements VoiceRe
     RecyclerView recyclerView;
     TextView currentTime,currentTimeAMPM;
     UserMedicationReminder_RecyclerViewAdapter adapter;
+    User user;
     private SpeechRecognizer speechRecognizer;
     private Intent speechRecognizerIntent;
     private VoiceRecognitionListener voiceRecognitionListener; // Instance of our external listener
@@ -62,6 +65,12 @@ public class UserMedicationReminder extends AppCompatActivity implements VoiceRe
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        // get data from previous activity
+        Intent receivedIntent = getIntent();
+        if (receivedIntent != null) {
+            int userId = receivedIntent.getIntExtra("userId", -1);
+            user = Utils.userDAO.findUserByID(userId);
+        }
 
         medications = fetchTodaysMedications();
         if(medications!=null && !medications.isEmpty()){
@@ -177,12 +186,9 @@ public class UserMedicationReminder extends AppCompatActivity implements VoiceRe
             }
         }
     }
-    private ArrayList<Medication> fetchMedications(){
-        return Utils.medicationDAO.findMedicationsByUsedID(Utils.getStoredUserId(getApplicationContext()));
-    }
     private ArrayList<Medication> fetchTodaysMedications(){
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            return Utils.medicationDAO.findMedicationsByUserIDAndDate(Utils.getStoredUserId(getApplicationContext()),LocalDate.now());
+            return Utils.medicationDAO.findMedicationsByUserIDAndDate(user.getId(),LocalDate.now());
         }
         return null;
     }

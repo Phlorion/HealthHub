@@ -8,7 +8,9 @@ import com.example.healthhub.DAO.HomeDAO;
 import com.example.healthhub.DAO.MedicationDAO;
 import com.example.healthhub.DAO.UserDAO;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -71,5 +73,31 @@ public class Utils {
     public static String getCurrentTimeAMPM() {
         int hour = java.util.Calendar.getInstance().get(java.util.Calendar.HOUR_OF_DAY);
         return hour < 12 ? "AM" : "PM";
+    }
+    public static Calendar parseTimeToCalendar(String timeString) {
+        if (timeString == null || timeString.trim().isEmpty()) {
+            System.err.println("Input timeString for parseTimeToInts is null or empty.");
+            return null;
+        }
+
+        try {
+            // Define the format for "hh:mm a" (e.g., "02:00 am", "08:00 pm")
+            // 'hh' for 12-hour format, 'mm' for minutes, 'a' for AM/PM marker
+            SimpleDateFormat sdf = new SimpleDateFormat("hh:mm a", Locale.getDefault());
+
+            // Parse the string into a Date object
+            Date date = sdf.parse(timeString);
+
+            // Create a Calendar instance and set its time using the parsed Date
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(date);
+
+            return calendar;
+
+        } catch (ParseException e) {
+            System.err.println("Error parsing time string '" + timeString + "' to ints: " + e.getMessage());
+            e.printStackTrace();
+            return null; // Return null to indicate parsing failure
+        }
     }
 }

@@ -20,7 +20,7 @@ public class UserMedicationScheduler {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            if (alarmManager != null && alarmManager.canScheduleExactAlarms()) {
+            if (alarmManager != null && alarmManager.canScheduleExactAlarms() && triggerTimeMillis >= System.currentTimeMillis()) {
                 alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, triggerTimeMillis, pendingIntent);
             }
         }

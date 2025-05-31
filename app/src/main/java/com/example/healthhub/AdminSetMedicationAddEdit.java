@@ -35,6 +35,7 @@ import java.time.LocalTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
@@ -184,7 +185,9 @@ public class AdminSetMedicationAddEdit extends AppCompatActivity {
             currentMedication.setTime(getTimeSlots());
         }
         Objects.requireNonNull(currentMedication).saveMedicationToDAO();
-        System.out.println("Here here here n: "+currentMedication);
+        ArrayList<Calendar> medicationValidDatesAndTimes = Utils.medicationDAO.getMedicationValidDateAndTimes(currentMedication);
+        medicationValidDatesAndTimes.forEach(calendar -> UserMedicationScheduler.scheduleAlarm(this,calendar.getTimeInMillis()));
+        System.out.println("Here here here: "+currentMedication);
         return true;
     }
     private void showFromPicker() {

@@ -1,5 +1,6 @@
 package com.example.healthhub.Adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -27,6 +28,17 @@ public class AdminSetMedication_RecyclerViewAdapter extends RecyclerView.Adapter
         this.context = context;
         this.medications = medications;
         this.recyclerViewInterface = recyclerViewInterface;
+    }
+    @SuppressLint("NotifyDataSetChanged") // Use DiffUtil for more granular updates
+    public void updateMedications(ArrayList<Medication> newMedications) {
+        System.out.println("updateMedications in");
+        this.medications.clear(); // Clear existing data
+        if (newMedications != null) {
+            this.medications.addAll(newMedications); // Add new data
+            medications.forEach(System.out::println); //TODO: Remove
+        }
+        notifyDataSetChanged(); // Tell the adapter to redraw all its views
+        System.out.println("updateMedications out");
     }
     @NonNull
     @Override

@@ -7,6 +7,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -30,15 +32,19 @@ import com.example.healthhub.Utils.Utils;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class AdminSetMedication extends AppCompatActivity implements AdminSetMedication_RecyclerViewInterface {
     ArrayList<Medication> medications;
     Button backBtn, addBtn;
     RecyclerView recyclerView;
     AdminSetMedication_RecyclerViewAdapter adapter;
-
     User user;
     private static final int ALARM_PERMISSION_REQUEST_CODE = 2;
+    // Declare ExecutorService and Handler
+    private ExecutorService executorService; // This will handle background tasks
+    private Handler mainHandler; // This will post results back to the UI thread
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +56,10 @@ public class AdminSetMedication extends AppCompatActivity implements AdminSetMed
             return insets;
         });
 
+        executorService = Executors.newSingleThreadExecutor(); // A single thread for sequential background tasks
+        mainHandler = new Handler(Looper.getMainLooper()); // Handler for the main/UI thread
+
+
         // get data from previous activity
         Intent receivedIntent = getIntent();
         if (receivedIntent != null) {
@@ -58,8 +68,8 @@ public class AdminSetMedication extends AppCompatActivity implements AdminSetMed
         }
 
         recyclerView = findViewById(R.id.medications_slots_recycler_view);
-        medications = fetchMedications();
-        medications.forEach(System.out::println);//TODO: Remove
+        medications = new ArrayList<>();
+        loadMedicationsAsync();
         adapter = new AdminSetMedication_RecyclerViewAdapter(this,medications,this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -83,13 +93,19 @@ public class AdminSetMedication extends AppCompatActivity implements AdminSetMed
 
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     @Override
     protected void onResume() {
         super.onResume();
-        medications = fetchMedications();
-        adapter = new AdminSetMedication_RecyclerViewAdapter(this,medications,this);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        loadMedicationsAsync();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (executorService != null && !executorService.isShutdown()) {
+            executorService.shutdown();
+        }
     }
 
     private void gotoAddEdit(){
@@ -97,9 +113,9 @@ public class AdminSetMedication extends AppCompatActivity implements AdminSetMed
         startActivity(intent);
     }
     private ArrayList<Medication> fetchMedications(){
-        ArrayList<Medication> temp =  Utils.medicationDAO.findMedicationsByUsedID(user.getId());
-        Log.d("MED", temp.toString());
-        return temp;
+        System.out.println("fetchMedications user id: "+user.getId());
+        return Utils.medicationDAO.findMedicationsByUsedID(user.getId());
+//        return Utils.medicationDAO.findMedicationsByUsedID(Utils.getStoredUserId(getApplicationContext()));
     }
     @Override
     public void onItemClick(int position) {
@@ -176,5 +192,25 @@ public class AdminSetMedication extends AppCompatActivity implements AdminSetMed
 
         // To set a one-time alarm at a specific time:
         // alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private void loadMedicationsAsync() {
+        System.out.println("loadMedicationsAsync IN");
+        executorService.execute(() -> {
+            System.out.println("Executing fetchMedications on background thread for user ID: " + user.getId());
+            final ArrayList<Medication> fetchedList = Utils.medicationDAO.findMedicationsByUsedID(user.getId());
+
+            mainHandler.post(() -> {
+                System.out.println("Updating UI with fetched medications.");
+                // Optionally hide the loading spinner here
+
+                // Use the new updateMedications method on the existing adapter instance
+                adapter.updateMedications(fetchedList);
+
+                // No need to set adapter or layout manager again here, they were set in onCreate
+                System.out.println("loadMedicationsAsync OUT");
+            });
+        });
     }
 }

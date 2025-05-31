@@ -28,33 +28,6 @@ public class UserMedicationAlarmSoundService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        /*// Create Notification Channel for Foreground Service (required for Android 8.0+)
-        createNotificationChannel();
-
-        Intent fullScreenIntent = new Intent(this, UserMedicationAlarmActivity.class);
-        fullScreenIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        PendingIntent pendingIntent = PendingIntent.getActivity(
-                this,
-                0,
-                fullScreenIntent,
-                PendingIntent.FLAG_IMMUTABLE
-        );
-        NotificationCompat.Builder builder  = new NotificationCompat.Builder(this, CHANNEL_ID)
-                .setContentTitle("HealthHub")
-                .setContentText("Medication alarm is ringing")
-                .setSmallIcon(R.drawable.ic_launcher_foreground) // Replace with your app icon
-                .setPriority(NotificationCompat.PRIORITY_HIGH)
-                .setFullScreenIntent(pendingIntent, true)
-                .setAutoCancel(true);
-
-        startForeground(1, builder.build());
-
-        // Launch activity manually (in case fullScreenIntent doesn't do it reliably)
-        startActivity(fullScreenIntent);
-
-        // Stop service after a short delay (optional)
-        new Handler(Looper.getMainLooper()).postDelayed(this::stopSelf, 10_000);
-*/
     }
 
     @Override
@@ -80,7 +53,6 @@ public class UserMedicationAlarmSoundService extends Service {
         }, 10 * 1000); // 10 seconds
 
         return START_NOT_STICKY;
-//        return START_STICKY; // Service will be restarted if killed by the system
     }
 
     @Override
@@ -92,7 +64,6 @@ public class UserMedicationAlarmSoundService extends Service {
     @Override
     public IBinder onBind(Intent intent) {
         // TODO: Return the communication channel to the service.
-//        throw new UnsupportedOperationException("Not yet implemented");
         return null;
     }
 
