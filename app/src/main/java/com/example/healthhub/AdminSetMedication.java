@@ -70,7 +70,7 @@ public class AdminSetMedication extends AppCompatActivity implements AdminSetMed
         recyclerView = findViewById(R.id.medications_slots_recycler_view);
         medications = new ArrayList<>();
         loadMedicationsAsync();
-        adapter = new AdminSetMedication_RecyclerViewAdapter(this,medications,this);
+        adapter = new AdminSetMedication_RecyclerViewAdapter(this,medications,this,user);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -110,6 +110,7 @@ public class AdminSetMedication extends AppCompatActivity implements AdminSetMed
 
     private void gotoAddEdit(){
         Intent intent = new Intent(this, AdminSetMedicationAddEdit.class);
+        intent.putExtra("userId",user.getId());
         startActivity(intent);
     }
     private ArrayList<Medication> fetchMedications(){

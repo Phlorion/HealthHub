@@ -11,9 +11,10 @@ import com.example.healthhub.Utils.Utils;
 public class NearbyHealthFacilitiesIntentHandler implements IntentHandler {
     @Override
     public boolean canHandle(String intentName) {
-        return "locate_hospitals".equals(intentName) ||
-                "locate_clinics".equals(intentName) ||
-                "locate_pharmacies".equals(intentName);
+        return intentName.toLowerCase().contains(("hospitals")) ||
+                intentName.toLowerCase().contains(("clinics")) ||
+                intentName.toLowerCase().contains(("pharmacies")) ||
+                intentName.toLowerCase().contains(("locate"));
     }
 
     @Override

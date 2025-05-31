@@ -22,6 +22,7 @@ public class IntentDispatcher {
         // general/fallback handlers last (like UnknownIntentHandler).
         registerHandler(new HomeNavigationIntentHandler());
         registerHandler(new NearbyHealthFacilitiesIntentHandler());
+        registerHandler(new SOSIntentHandler());
         registerHandler(new UnknownIntentHandler()); // Always register this last as a fallback
     }
 

@@ -1,5 +1,6 @@
 package com.example.healthhub;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -21,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.healthhub.Adapters.AdminSetMedicationAddEdit_RecyclerViewAdapter;
 import com.example.healthhub.DAO.Medication;
+import com.example.healthhub.DAO.User;
 import com.example.healthhub.Models.MedicationDateValidator;
 import com.example.healthhub.Utils.Utils;
 import com.google.android.material.datepicker.CalendarConstraints;
@@ -54,6 +56,7 @@ public class AdminSetMedicationAddEdit extends AppCompatActivity {
     private Long fromEpoch = null;
     private Long toEpoch   = null;
     private final SimpleDateFormat fmt = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+    User user;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,6 +67,13 @@ public class AdminSetMedicationAddEdit extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        // get data from previous activity
+        Intent receivedIntent = getIntent();
+        if (receivedIntent != null) {
+            int userId = receivedIntent.getIntExtra("userId", -1);
+            user = Utils.userDAO.findUserByID(userId);
+        }
 
         backBtn = findViewById(R.id.back_button);
         saveBtn = findViewById(R.id.save_button);
@@ -175,7 +185,7 @@ public class AdminSetMedicationAddEdit extends AppCompatActivity {
         }
         // Now save the medication
         if(currentMedication == null){
-            currentMedication = new Medication(Utils.getStoredUserId(getApplicationContext()),name,quantity,transformStringToDate(from),transformStringToDate(to),getDaysList(),getTimeSlots());
+            currentMedication = new Medication(user.getId(),name,quantity,transformStringToDate(from),transformStringToDate(to),getDaysList(),getTimeSlots());
         }else{//Update medication
             currentMedication.setName(name);
             currentMedication.setQuantity(quantity);

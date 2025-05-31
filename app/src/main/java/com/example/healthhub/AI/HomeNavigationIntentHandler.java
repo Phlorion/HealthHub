@@ -15,7 +15,8 @@ import okhttp3.internal.Util;
 public class HomeNavigationIntentHandler implements IntentHandler{
     @Override
     public boolean canHandle(String intentName) {
-        return "navigate_home".equals(intentName);
+        return  intentName.toLowerCase().contains(("home")) ||
+                intentName.toLowerCase().contains(("house"));
     }
 
     @Override
@@ -36,9 +37,9 @@ public class HomeNavigationIntentHandler implements IntentHandler{
             navigationIntent.putExtra("userId", Utils.getStoredUserId(appContext));
             context.startActivity(navigationIntent);
         } else {
-            System.out.println("Speaker is not an Activity Context. Cannot start navigation activity directly.");
+            System.out.println("Speaker is not an Activity Context. Cannot start home navigation activity directly.");
             speaker.showToast("Cannot navigate. Speaker context is not an Activity.");
-            response = "I cannot start navigation from this context.";
+            response = "I cannot start home navigation from this context.";
         }
         return response; // Return the model's generated response (or a modified one)
     }

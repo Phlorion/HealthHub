@@ -37,10 +37,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
-public class UserMedicationReminder extends AppCompatActivity implements VoiceRecognitionListener.RecognitionCallback{
+public class UserMedicationReminder extends AppCompatActivity {
     ArrayList<Medication> medications;
     ArrayList<String> medicationsNames,medicationsTimes;
-    Button backBtn, voiceAssistantBtn;
+    Button backBtn;
     RecyclerView recyclerView;
     TextView currentTime,currentTimeAMPM;
     UserMedicationReminder_RecyclerViewAdapter adapter;
@@ -121,26 +121,8 @@ public class UserMedicationReminder extends AppCompatActivity implements VoiceRe
         };
         handler.post(runnable);
 
-//        UserMedicationAlarmPermissionAssistant.requestPermissionsIfNeeded(this);
-//        Calendar calendar = Calendar.getInstance();
-//        calendar.set(Calendar.YEAR, 2025);
-//        calendar.set(Calendar.MONTH, Calendar.MAY);      // 0-based: Jan = 0
-//        calendar.set(Calendar.DAY_OF_MONTH, 25);
-//        calendar.set(Calendar.HOUR_OF_DAY, 23);
-//        calendar.set(Calendar.MINUTE, 45);
-//        calendar.set(Calendar.SECOND, 0);
-//        calendar.set(Calendar.MILLISECOND, 0);
-//        UserMedicationScheduler.scheduleAlarm(this, calendar.getTimeInMillis());
-        voiceAssistantBtn = findViewById(R.id.voice_assistant_button);
-        voiceAssistantBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startListening();
-            }
-        });
-
     }
-    private void startListening(){
+    /*private void startListening(){
         requestAudioPermission();
         initializeSpeechRecognizer();
         if (speechRecognizer != null) {
@@ -185,7 +167,7 @@ public class UserMedicationReminder extends AppCompatActivity implements VoiceRe
                 Toast.makeText(this, "Audio recording permission denied. Speech recognition may not work.", Toast.LENGTH_LONG).show();
             }
         }
-    }
+    }*/
     private ArrayList<Medication> fetchTodaysMedications(){
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             return Utils.medicationDAO.findMedicationsByUserIDAndDate(user.getId(),LocalDate.now());
@@ -208,7 +190,7 @@ public class UserMedicationReminder extends AppCompatActivity implements VoiceRe
         }
         return times;
     }
-    @Override
+    /*@Override
     protected void onPause() {
         super.onPause();
         if (speechRecognizer != null) {
@@ -239,5 +221,5 @@ public class UserMedicationReminder extends AppCompatActivity implements VoiceRe
     @Override
     public void onListeningStatusChange(String status) {
         System.out.println("Reminder Activity: "+status);
-    }
+    }*/
 }

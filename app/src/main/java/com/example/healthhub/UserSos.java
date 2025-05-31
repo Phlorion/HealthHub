@@ -30,6 +30,8 @@ public class UserSos extends AppCompatActivity{
     private Button btnSendSms, btnCallFavorites, btnCallAmbulance,goBack;
 
     private static final int REQUEST_SMS_PERMISSION = 123;
+    String filter = null;
+    int passId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +39,10 @@ public class UserSos extends AppCompatActivity{
         setContentView(R.layout.activity_user_sos);
 
         Intent preIntent = getIntent();
-        int passId= preIntent.getIntExtra("userId",-1);
+        if(preIntent != null){
+            passId= preIntent.getIntExtra("userId",-1);
+            filter = preIntent.getStringExtra("filter");
+        }
 
         btnSendSms = findViewById(R.id.btnSendSms);
         btnCallFavorites = findViewById(R.id.btnCallFavorites);
@@ -61,6 +66,27 @@ public class UserSos extends AppCompatActivity{
             }
         });
 
+        if(filter != null){
+            switch (filter){
+                case "fav_contacts":
+                    System.out.println("Filter is fav_contacts");
+                    btnCallFavorites.performClick();
+                    break;
+                case "ambulance":
+                    System.out.println("Filter is ambulance");
+                    btnCallAmbulance.performClick();
+                    break;
+                case "sms":
+                    System.out.println("Filter is sms");
+                    btnCallAmbulance.performClick();
+                    break;
+                default:
+                    System.out.println("Filter is default");
+                    break;
+            }
+        }else{
+            System.out.println("Filter is null");
+        }
     }
 
 

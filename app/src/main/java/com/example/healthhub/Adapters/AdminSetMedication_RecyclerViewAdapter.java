@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.healthhub.AdminSetMedicationAddEdit;
 import com.example.healthhub.DAO.Medication;
+import com.example.healthhub.DAO.User;
 import com.example.healthhub.R;
 import com.example.healthhub.Utils.Utils;
 
@@ -24,10 +25,12 @@ public class AdminSetMedication_RecyclerViewAdapter extends RecyclerView.Adapter
     private final AdminSetMedication_RecyclerViewInterface recyclerViewInterface;
     Context context;
     ArrayList<Medication> medications;
-    public AdminSetMedication_RecyclerViewAdapter(Context context, ArrayList<Medication> medications, AdminSetMedication_RecyclerViewInterface recyclerViewInterface){
+    User user;
+    public AdminSetMedication_RecyclerViewAdapter(Context context, ArrayList<Medication> medications, AdminSetMedication_RecyclerViewInterface recyclerViewInterface, User user){
         this.context = context;
         this.medications = medications;
         this.recyclerViewInterface = recyclerViewInterface;
+        this.user = user;
     }
     @SuppressLint("NotifyDataSetChanged") // Use DiffUtil for more granular updates
     public void updateMedications(ArrayList<Medication> newMedications) {
@@ -62,6 +65,7 @@ public class AdminSetMedication_RecyclerViewAdapter extends RecyclerView.Adapter
                 System.out.println("edit button");
                 Context context = v.getContext();
                 Intent intent = new Intent(context, AdminSetMedicationAddEdit.class);
+                intent.putExtra("userId",user.getId());
                 intent.putExtra("medication",medication);
                 context.startActivity(intent);
             }

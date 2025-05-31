@@ -40,6 +40,14 @@
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:background="@drawable/baseline_chevron_left_24"/>
+        <Button
+        android:id="@+id/voice_assistant_button"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:background="@drawable/common_google_signin_btn_icon_dark"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
   </LinearLayout>-->
   <androidx.constraintlayout.widget.ConstraintLayout
       android:id="@+id/title"
@@ -75,14 +83,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
-    <Button
-        android:id="@+id/voice_assistant_button"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:background="@drawable/common_google_signin_btn_icon_dark"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
   </androidx.constraintlayout.widget.ConstraintLayout>
   <LinearLayout
       android:id="@+id/time_container"
