@@ -54,7 +54,7 @@
         <activity
             android:name=".UserMedicationAlarmActivity"
             android:excludeFromRecents="true"
-            android:exported="true"
+            android:exported="false"
             android:launchMode="singleInstance"
             android:showOnLockScreen="true"
             android:turnScreenOn="true" /> <!-- <receiver android:name=".UserMedicationAlarmActivity" /> -->

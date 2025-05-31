@@ -55,7 +55,7 @@ public class UserMain extends AppCompatActivity {
                 Intent intent = new Intent(UserMain.this,UserGetHome.class);
                 intent.putExtra("userId",passId);
                 startActivity(intent);
-                finish();
+//                finish();
             }
         });
 
@@ -67,7 +67,7 @@ public class UserMain extends AppCompatActivity {
                 Intent intent = new Intent(UserMain.this,UserMedicationReminder.class);
                 intent.putExtra("userId",passId);
                 startActivity(intent);
-                finish();
+//                finish();
             }
         });
 
@@ -92,7 +92,7 @@ public class UserMain extends AppCompatActivity {
                 Intent intent = new Intent(UserMain.this, UserGetNearHealthFacilities.class);
                 intent.putExtra("userId",passId);
                 startActivity(intent);
-                finish();
+//                finish();
             }
         });
 

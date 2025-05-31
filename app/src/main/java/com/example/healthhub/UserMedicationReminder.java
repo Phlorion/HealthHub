@@ -81,8 +81,8 @@ public class UserMedicationReminder extends AppCompatActivity implements VoiceRe
             noMedicationsTextView.setText(R.string.no_medications_today);
             noMedicationsTextView.setTextSize(20);
             noMedicationsTextView.setTextColor(getResources().getColor(R.color.black));
-            Typeface typeface = ResourcesCompat.getFont(this, R.font.inter_medium);
-            noMedicationsTextView.setTypeface(typeface);
+//            Typeface typeface = ResourcesCompat.getFont(this, R.font.inter_medium);
+//            noMedicationsTextView.setTypeface(typeface);
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.WRAP_CONTENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT
